@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { business } from "@/lib/business";
+
 const links = [
   ["/#home", "Startseite"],
-  ["/#unternehmen", "Unternehmen"],
   ["/#services", "Leistungen"],
-  ["/#preise", "Preise"],
+  ["/#unternehmen", "Über uns"],
   ["/#contact", "Kontakt"],
 ] as const;
 
@@ -65,7 +66,7 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
       <nav className="navbar" aria-label="Hauptnavigation">
         <div className="navbar__row">
           <Link className="navbar__brand" href="/#home">
-            <Image className="navbar__logo" src="/images/logo-white.png" alt="Helfer im Alltag" width={1254} height={1254} priority />
+            <Image className="navbar__logo" src="/images/logo-white.png" alt={business.name} width={1254} height={1254} priority />
           </Link>
 
           <button

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import { siteUrl } from "@/lib/business";
+import { business, siteUrl } from "@/lib/business";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,10 +21,10 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Haushaltshilfe in Bernau | Fensterreinigung Berlin-Brandenburg | Helfer im Alltag",
-    template: "%s | Helfer im Alltag",
+    default: "Waschmaschinen Reparatur Berlin – Haushaltsgeräte Service vor Ort",
+    template: `%s | ${business.name}`,
   },
-  description: "Haushaltshilfe in Bernau bei Berlin im Umkreis von 20 km sowie Fenster- und Glasreinigung in Berlin und Brandenburg.",
+  description: business.description,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.ico?v=2" },
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_DE",
     url: "/",
-    siteName: "Helfer im Alltag",
-    title: "Haushaltshilfe in Bernau | Fensterreinigung Berlin-Brandenburg",
-    description: "Haushaltshilfe in Bernau bei Berlin im Umkreis von 20 km sowie Fenster- und Glasreinigung in Berlin und Brandenburg.",
+    siteName: business.name,
+    title: "Waschmaschinen Reparatur Berlin – direkt bei Ihnen vor Ort",
+    description: business.description,
   },
 };
 

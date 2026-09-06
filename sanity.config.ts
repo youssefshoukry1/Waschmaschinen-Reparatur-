@@ -21,7 +21,7 @@ function documentActions(
 
 export default defineConfig({
   name: "default",
-  title: "Helfer im Alltag Barnim",
+  title: "Geräte-Service Berlin",
   projectId,
   dataset,
   apiVersion,

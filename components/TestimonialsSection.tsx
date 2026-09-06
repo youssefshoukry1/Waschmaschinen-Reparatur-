@@ -27,8 +27,8 @@ export default async function TestimonialsSection({
       <div className="testimonial-section__inner">
         <header className="testimonial-section__heading">
           <div>
-            <p>Erfahrungen unserer Kunden</p>
-            <AnimatedSectionTitle id="testimonials-heading" parts={[{ text: "Vertrauen, das " }, { text: "im Alltag", emphasized: true }, { text: " spürbar wird." }]} />
+            <p>Kundenmeinungen</p>
+            <AnimatedSectionTitle id="testimonials-heading" parts={[{ text: "Was unsere Kunden " }, { text: "über uns", emphasized: true }, { text: " sagen." }]} />
             {trustSettings.showRating ? (
               <span className="testimonial-section__trust-badge">
                 <Star aria-hidden="true" fill="currentColor" />

@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-const leadingText = "Haushaltshilfe & Alltagshilfe in ";
-const highlightedText = "Bernau und Umgebung";
+const leadingText = "Waschmaschinen Reparatur in Berlin ";
+const highlightedText = "Direkt bei Ihnen vor Ort";
 export type TitlePart = { text: string; emphasized?: boolean; desktopBreakAfter?: boolean };
 
 export function AnimatedCharacters({ text, emphasized = false, startIndex = 0 }: { text: string; emphasized?: boolean; startIndex?: number }) {
@@ -141,7 +141,7 @@ export function AnimatedSectionEyebrow({ text }: { text: string }) {
   }, []);
 
   return (
-    <p className={isVisible ? "section-45a__eyebrow hero-title hero-title--visible" : "section-45a__eyebrow hero-title"} ref={eyebrowRef}>
+    <p className={isVisible ? "defects-section__eyebrow hero-title hero-title--visible" : "defects-section__eyebrow hero-title"} ref={eyebrowRef}>
       <span aria-hidden="true">✓</span>
       <span className="sr-only">{text}</span>
       <AnimatedCharacters text={text} />

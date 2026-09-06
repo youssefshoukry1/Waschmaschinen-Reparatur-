@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import { business } from "@/lib/business";
+
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
@@ -102,11 +104,11 @@ export default function ScrollMovement() {
   }, []);
 
   return (
-    <section className="scroll-movement" id="movement" ref={sectionRef} aria-label="Alltagshilfe in Bewegung">
+    <section className="scroll-movement" id="movement" ref={sectionRef} aria-label="Über uns">
       <div className="scroll-movement__track">
         <div className="scroll-movement__message">
-          <p>Mit einem Lächeln an Ihrer Seite</p>
-          <h2>Wir bringen Leichtigkeit in Ihren Alltag.</h2>
+          <p>Über uns – seit {business.foundedYear} in Berlin</p>
+          <h2>Über {business.experienceYears} Jahre Erfahrung mit Haushaltsgeräten.</h2>
         </div>
         <div className="scroll-movement__fog" aria-hidden="true" />
         <div className="scroll-movement__figure" ref={imageRef} aria-hidden="true">

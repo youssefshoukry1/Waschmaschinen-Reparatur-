@@ -3,9 +3,13 @@
 import { ExternalLink, MapPin, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export const MAP_CONSENT_KEY = "helfer-im-alltag-google-maps-consent";
-export const COOKIE_CONSENT_KEY = "helfer-im-alltag-cookie-consent";
-const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Sch%C3%B6nfelder%20Weg%2071%2C%2016321%20Bernau%20bei%20Berlin";
+import { business } from "@/lib/business";
+
+const fullAddress = `${business.address.streetAddress}, ${business.address.postalCode} ${business.address.addressLocality}`;
+
+export const MAP_CONSENT_KEY = "geraete-service-google-maps-consent";
+export const COOKIE_CONSENT_KEY = "geraete-service-cookie-consent";
+const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
 
 export function MapConsent() {
   const [hasConsent, setHasConsent] = useState(false);
@@ -44,8 +48,8 @@ export function MapConsent() {
     <div className={`contact-map${hasConsent ? " is-loaded" : ""}`}>
       {hasConsent ? (
         <iframe
-          src="https://www.google.com/maps?q=Sch%C3%B6nfelder%20Weg%2071%2C%2016321%20Bernau%20bei%20Berlin&output=embed"
-          title="Standort von Helfer im Alltag in Bernau bei Berlin"
+          src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`}
+          title={`Standort von ${business.name} in ${business.address.addressLocality}`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
@@ -73,8 +77,8 @@ export function MapConsent() {
         <span className="contact-map__pin" aria-hidden="true"><MapPin /></span>
         <div>
           <p>Unser Standort</p>
-          <strong>Schönfelder Weg 71</strong>
-          <span>16321 Bernau bei Berlin</span>
+          <strong>{business.address.streetAddress}</strong>
+          <span>{business.address.postalCode} {business.address.addressLocality}</span>
         </div>
         <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label="Standort in Google Maps öffnen"><ExternalLink /></a>
       </div>

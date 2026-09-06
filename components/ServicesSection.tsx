@@ -1,15 +1,17 @@
 import Image from "next/image";
 import { AnimatedSectionTitle } from "./HeroTitle";
-import Section45a from "./Section45a";
+import DefectsSection from "./DefectsSection";
+
+import { business } from "@/lib/business";
 
 type ServiceIcon =
-  | "household"
-  | "cleaning"
-  | "windows"
-  | "garden"
-  | "companion"
-  | "shopping"
-  | "senior";
+  | "washer"
+  | "fridge"
+  | "dishwasher"
+  | "dryer"
+  | "oven"
+  | "coffee"
+  | "tv";
 
 type Service = {
   slug: string;
@@ -23,73 +25,73 @@ type Service = {
 
 const services: Service[] = [
   {
-    slug: "haushaltshilfe-45a",
-    title: "Haushaltshilfe nach § 45a SGB XI",
+    slug: "waschmaschinen-reparatur",
+    title: "Waschmaschinen Reparatur",
     description:
-      "Verlässliche Entlastung im Haushalt in Bernau bei Berlin und im Umkreis von 20 km.",
-    icon: "household",
+      "Pumpe, Trommel, Heizung oder Elektronik – wir reparieren vor Ort in ganz Berlin.",
+    icon: "washer",
     image: "/images/services/7.webp",
-    imageAlt: "Alltagshelferin unterstützt eine Seniorin bei der Haushaltshilfe",
+    imageAlt: "Techniker repariert eine Waschmaschine beim Kunden vor Ort",
     featured: true,
   },
   {
-    slug: "reinigungsdienste",
-    title: "Reinigungsdienste",
+    slug: "kuehlschrank-reparatur",
+    title: "Kühlschrank Reparatur",
     description:
-      "Gründliche Reinigung für ein gepflegtes Zuhause und spürbar mehr freie Zeit.",
-    icon: "cleaning",
+      "Gerät kühlt nicht mehr oder vereist? Wir prüfen Kompressor, Thermostat und Dichtung.",
+    icon: "fridge",
     image: "/images/services/4.webp",
-    imageAlt: "Alltagshelferin bei der gründlichen Reinigung",
+    imageAlt: "Kühlschrank wird vom Techniker geprüft",
   },
   {
-    slug: "glas-fensterreinigung",
-    title: "Glas- & Fensterreinigung",
+    slug: "spuelmaschinen-reparatur",
+    title: "Spülmaschinen Reparatur",
     description:
-      "Klare Sicht für Wohnungen, Häuser und Gewerbe – in ganz Berlin und Brandenburg.",
-    icon: "windows",
+      "Kein Wasserzulauf, schlechtes Spülergebnis oder Fehlercode – schnell behoben.",
+    icon: "dishwasher",
     image: "/images/services/2.webp",
-    imageAlt: "Fensterreinigerin mit Abzieher und Sprühflasche",
+    imageAlt: "Geschirrspüler wird instand gesetzt",
   },
   {
-    slug: "gartenarbeit",
-    title: "Gartenarbeit",
+    slug: "trockner-reparatur",
+    title: "Trockner Reparatur",
     description:
-      "Zuverlässige Pflege rund ums Haus – vom Rasenmähen bis zum Heckenschnitt.",
-    icon: "garden",
+      "Wäsche bleibt feucht oder das Gerät bleibt stehen? Wir bringen den Trockner wieder in Gang.",
+    icon: "dryer",
     image: "/images/services/5.webp",
-    imageAlt: "Alltagshelferin bei der Gartenarbeit",
+    imageAlt: "Wäschetrockner wird repariert",
   },
   {
-    slug: "begleit-fahrdienste",
-    title: "Begleit- & Fahrdienste",
+    slug: "herd-backofen-reparatur",
+    title: "Herd & Backofen Reparatur",
     description:
-      "Sicher und persönlich begleitet zu Terminen, Besorgungen oder wichtigen Wegen.",
-    icon: "companion",
+      "Cerankochfeld, Heizspirale oder Thermostat – Reparatur mit Original-Ersatzteilen.",
+    icon: "oven",
     image: "/images/services/6.webp",
-    imageAlt: "Alltagshelferin begleitet eine Seniorin beim Fahrdienst",
+    imageAlt: "Backofen wird vom Techniker instand gesetzt",
   },
   {
-    slug: "einkaufsservice",
-    title: "Einkaufsservice",
+    slug: "kaffeemaschinen-reparatur",
+    title: "Kaffeemaschinen Reparatur",
     description:
-      "Wir übernehmen Einkäufe oder erledigen sie gemeinsam mit Ihnen – unkompliziert und zuverlässig.",
-    icon: "shopping",
+      "Vollautomat entkalken, Brühgruppe tauschen oder Pumpe erneuern – schnell erledigt.",
+    icon: "coffee",
     image: "/images/services/3.webp",
-    imageAlt: "Alltagshelferin mit einem gefüllten Einkaufsbeutel",
+    imageAlt: "Kaffeevollautomat wird gewartet",
   },
   {
-    slug: "seniorenbetreuung",
-    title: "Seniorenbetreuung zu Hause",
+    slug: "tv-elektronik-reparatur",
+    title: "TV & Elektronik Reparatur",
     description:
-      "Zeit, Gesellschaft und praktische Unterstützung für einen selbstbestimmten Alltag.",
-    icon: "senior",
+      "Kein Bild, kein Ton oder Streifen im Display? Wir prüfen Netzteil, Panel und Platine.",
+    icon: "tv",
     image: "/images/services/1.webp",
-    imageAlt: "Alltagshelferin begleitet eine Seniorin zu Hause",
+    imageAlt: "Fernsehgerät wird repariert",
   },
 ];
 
 function ServiceArtwork({ icon }: { icon: ServiceIcon }) {
-  if (icon === "senior") {
+  if (icon === "tv") {
     return (
       <Image
         className="service-artwork service-artwork--ui-icon"
@@ -115,38 +117,38 @@ function ServiceArtwork({ icon }: { icon: ServiceIcon }) {
       <circle className="service-artwork__person" cx="145" cy="76" r="27" />
       <path className="service-artwork__person" d="M102 202v-53c0-32 19-49 43-49s43 17 43 49v53M112 143l-36 42M178 143l33 39" />
 
-      {icon === "household" && (
+      {icon === "washer" && (
         <>
           <path className="service-artwork__tool" d="M55 177h70l9 34H47l8-34Z" />
           <path className="service-artwork__detail" d="M65 177v-14h48v14M78 163v-12h26v12" />
         </>
       )}
-      {icon === "cleaning" && (
+      {icon === "dishwasher" && (
         <>
           <path className="service-artwork__tool" d="M201 119h28l7 82h-42l7-82ZM205 119v-20h20l8 12" />
           <path className="service-artwork__detail" d="m70 186 42-35M73 169l22 24" />
         </>
       )}
-      {icon === "windows" && (
+      {icon === "fridge" && (
         <>
           <rect className="service-artwork__tool" x="202" y="99" width="70" height="103" rx="5" />
           <path className="service-artwork__detail" d="M237 99v103M202 150h70M176 150h42M176 140v20" />
         </>
       )}
-      {icon === "garden" && (
+      {icon === "dryer" && (
         <>
           <path className="service-artwork__tool" d="M207 197c31-15 48-42 48-77-35 0-64 30-58 66" />
           <path className="service-artwork__detail" d="m193 208 45-65M69 183h57M78 172l39 22" />
         </>
       )}
-      {icon === "companion" && (
+      {icon === "oven" && (
         <>
           <circle className="service-artwork__tool" cx="229" cy="96" r="22" />
           <path className="service-artwork__tool" d="M198 202v-47c0-27 13-40 31-40s31 13 31 40v47M206 149l-26 31" />
           <path className="service-artwork__detail" d="m181 180 13 4M188 173l5 15" />
         </>
       )}
-      {icon === "shopping" && (
+      {icon === "coffee" && (
         <>
           <path className="service-artwork__tool" d="M198 138h67l-8 65h-51l-8-65Z" />
           <path className="service-artwork__detail" d="M213 138c0-15 7-25 19-25s19 10 19 25M218 119c-4-16 6-28 19-31M239 105c5-13 18-18 29-13-2 13-13 21-29 13Z" />
@@ -204,30 +206,30 @@ export default function ServicesSection() {
     <section className="service-showcase" id="services" aria-labelledby="services-heading">
       <div className="service-showcase__inner">
         <header className="service-showcase__heading">
-          <p>Unsere Leistungen</p>
-          <AnimatedSectionTitle id="services-heading" parts={[{ text: "Unterstützung, die " }, { text: "zu Ihrem Alltag", emphasized: true }, { text: " passt" }]} />
+          <p>Unsere Leistungen im Überblick</p>
+          <AnimatedSectionTitle id="services-heading" parts={[{ text: "Haushaltsgeräte " }, { text: "Reparatur & Verkauf", emphasized: true }, { text: " in Berlin" }]} />
           <div>
-            Von der Haushaltshilfe bis zur Begleitung im Alltag: Wir unterstützen
-            Sie zuverlässig, persönlich und genau dort, wo Sie Entlastung brauchen.
+            Von der Waschmaschine über den Kühlschrank bis zum Fernseher: Wir reparieren
+            Ihr Gerät direkt bei Ihnen zu Hause – zum Festpreis und mit {business.warrantyMonths} Monaten Garantie.
           </div>
         </header>
 
         <div className="service-showcase__featured">
           <ServiceCard service={featuredService} />
 
-          <aside className="care-fund" aria-labelledby="care-fund-heading">
-            <span>Anerkannter Dienstleister</span>
-            <h3 id="care-fund-heading">Entlastungsbetrag nutzen</h3>
+          <aside className="care-fund" aria-labelledby="financing-heading">
+            <span>{business.financing.interestRate} % Finanzierung</span>
+            <h3 id="financing-heading">Jetzt reparieren, bequem zahlen</h3>
             <p>
-              Wenn die persönlichen Voraussetzungen erfüllt sind, können Leistungen
-              über den Entlastungsbetrag der Pflegekasse abgerechnet werden. Wir
-              beraten Sie gern persönlich zu den nächsten Schritten.
+              Größere Reparaturen und Neugeräte können Sie über die {business.financing.partner}{" "}
+              in bis zu {business.financing.maxMonths} Monatsraten zahlen – zu {business.financing.interestRate} %
+              effektivem Jahreszins. Wir stellen den Antrag gemeinsam mit Ihnen vor Ort.
             </p>
-            <a className="split-hover-cta" href="#contact"><span>Persönlich beraten lassen</span></a>
+            <a className="split-hover-cta" href="#contact"><span>Finanzierung anfragen</span></a>
           </aside>
         </div>
 
-        <Section45a />
+        <DefectsSection />
 
         <div className="service-showcase__grid">
           {standardServices.map((service) => (

@@ -2,6 +2,8 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 
+import { business } from "@/lib/business";
+
 const RELAY_URL = process.env.NEXT_PUBLIC_RELAY_CONTACT_URL;
 const FORM_KEY = process.env.NEXT_PUBLIC_RELAY_FORM_KEY;
 const CONSENT_VERSION = process.env.NEXT_PUBLIC_RELAY_CONSENT_VERSION ?? "v1";
@@ -45,6 +47,7 @@ export default function ContactForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const service = String(formData.get("service") ?? "").trim();
+    const callbackTime = String(formData.get("callbackTime") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
     const name = String(formData.get("name") ?? "").trim();
     const idempotencyKey = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -61,7 +64,7 @@ export default function ContactForm() {
           name: formData.get("name"),
           email: formData.get("email"),
           phone: formData.get("phone") || null,
-          message: service ? `Gewünschte Leistung: ${service}\n\n${message}` : message,
+          message: [service ? `Gerät / Leistung: ${service}` : "", callbackTime ? `Rückruf gewünscht: ${callbackTime}` : "", message].filter(Boolean).join("\n\n"),
           consent: formData.get("consent") === "on",
           consent_text_version: CONSENT_VERSION,
           honeypot: formData.get("website") || "",
@@ -101,29 +104,30 @@ export default function ContactForm() {
         </section>
       ) : <>
       <div className="contact-form__heading">
-        <span className="contact-form__step">Unverbindliche Anfrage</span>
-        <p>Füllen Sie das Formular aus – wir melden uns in der Regel innerhalb eines Werktags bei Ihnen.</p>
+        <span className="contact-form__step">Rückruf anfordern</span>
+        <p>Sagen Sie uns, wann wir Sie erreichen dürfen – wir rufen Sie zur gewünschten Zeit zurück.</p>
       </div>
       <div className="contact-form__row">
         <label><span>Ihr Name</span><input type="text" name="name" placeholder="Vor- und Nachname" autoComplete="name" maxLength={120} required /></label>
         <label><span>Telefon</span><input type="tel" name="phone" placeholder="Ihre Telefonnummer" autoComplete="tel" maxLength={30} /></label>
       </div>
       <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
+      <label><span>Wunschzeit für den Rückruf</span><input type="text" name="callbackTime" placeholder="z. B. heute zwischen 14 und 16 Uhr" maxLength={120} /></label>
       <label>
-        <span>Wobei dürfen wir helfen?</span>
+        <span>Welches Gerät ist defekt?</span>
         <select name="service" defaultValue="">
-          <option value="" disabled>Leistung auswählen</option>
-          <option>Haushaltshilfe</option><option>Glas- und Fensterreinigung</option><option>Gartenarbeit</option><option>Begleitung und Fahrten</option><option>Sonstige Unterstützung</option>
+          <option value="" disabled>Gerät auswählen</option>
+          <option>Waschmaschine</option><option>Kühlschrank</option><option>Spülmaschine</option><option>Trockner</option><option>Herd oder Backofen</option><option>Kaffeemaschine</option><option>TV oder Elektronik</option><option>Anderes Gerät</option>
         </select>
       </label>
-      <label><span>Ihre Nachricht</span><textarea name="message" rows={4} placeholder="Erzählen Sie uns kurz von Ihrem Anliegen …" maxLength={5000} required /></label>
+      <label><span>Ihre Nachricht</span><textarea name="message" rows={4} placeholder="Welcher Fehler tritt auf? Marke und Modell helfen uns weiter …" maxLength={5000} required /></label>
       <input className="contact-form__honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <label className="contact-form__consent"><input type="checkbox" name="consent" required /><span>Ich willige in die Verarbeitung meiner Daten zur Kontaktaufnahme ein. Details finden Sie in der <a href="/datenschutz">Datenschutzerklärung</a>.</span></label>
       <div className="contact-form__footer">
         <button className="split-hover-cta" type="submit" disabled={status === "sending"}><span>{status === "sending" ? "Wird gesendet …" : "Anfrage senden"} <span aria-hidden="true">↗</span></span></button>
         <p className={`contact-form__status contact-form__status--${status}`} role={status === "error" ? "alert" : "status"} aria-live="polite">
           {status === "sending" ? "Ihre Nachricht wird sicher übermittelt." : null}
-          {status === "error" ? <>Das Senden ist fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href="tel:+4917646687719">0176 46687719</a>.</> : null}
+          {status === "error" ? <>Das Senden ist fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href={`tel:${business.telephone}`}>{business.telephoneDisplay}</a>.</> : null}
         </p>
       </div>
       </>}

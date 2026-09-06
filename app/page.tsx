@@ -3,7 +3,9 @@ import Navbar from "@/components/Navbar";
 import ScrollMovement from "@/components/ScrollMovement";
 import ServicesSection from "@/components/ServicesSection";
 import ServiceAreaSection from "@/components/ServiceAreaSection";
-import PriceCalculator from "@/components/PriceCalculator";
+import TrustSection from "@/components/TrustSection";
+import BrandsSection from "@/components/BrandsSection";
+import TroubleshootingSection from "@/components/TroubleshootingSection";
 import { MapConsent, MapConsentResetLink } from "@/components/MapConsent";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import FAQSection from "@/components/FAQSection";
@@ -13,41 +15,41 @@ import { AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import ContactForm from "@/components/ContactForm";
-import { CalendarCheck2, HandCoins, HeartHandshake, ShieldCheck, Star } from "lucide-react";
+import { BadgeCheck, Banknote, ShieldCheck, Star, Wrench } from "lucide-react";
 import { getTrustSettings } from "@/sanity-reference/lib/trustSettings";
-import { business, publicServices, siteUrl } from "@/lib/business";
+import { business, districts, publicServices, siteUrl } from "@/lib/business";
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
 
 const reasons = [
   {
-    icon: "heart",
-    title: "Persönlich & herzlich",
-    description: "Wir hören zu und richten unsere Unterstützung nach Ihrer persönlichen Situation aus.",
+    icon: "wrench",
+    title: `Über ${business.experienceYears} Jahre Erfahrung`,
+    description: `Seit ${business.foundedYear} reparieren wir Haushaltsgeräte in Berlin – vom Klassiker bis zum aktuellen Modell.`,
   },
   {
     icon: "shield",
-    title: "Verlässlich & vertrauensvoll",
-    description: "Feste Absprachen, sorgfältige Arbeit und ein respektvoller Umgang geben Ihnen Sicherheit.",
+    title: `${business.warrantyMonths} Monate Garantie`,
+    description: "Auf Arbeitsleistung und verbaute Ersatzteile – schriftlich auf Ihrer Rechnung festgehalten.",
   },
   {
-    icon: "calendar",
-    title: "Flexibel planbar",
-    description: "Einmalig oder regelmäßig – wir stimmen Termine und Umfang passend mit Ihnen ab.",
+    icon: "badge",
+    title: "Transparente Festpreise",
+    description: "Sie erfahren den Preis, bevor wir beginnen. Keine Stundenabrechnung, keine versteckten Zuschläge.",
   },
   {
-    icon: "care",
-    title: "Über Pflegekassen abrechenbar",
-    description: "Bei erfüllten Voraussetzungen ist eine Abrechnung über den Entlastungsbetrag möglich.",
+    icon: "money",
+    title: "Anfahrt + Kostenvoranschlag",
+    description: "Wir kommen in jeden Berliner Bezirk, prüfen das Gerät vor Ort und nennen Ihnen den Festpreis, bevor wir beginnen.",
   },
 ];
 
 function ReasonIcon({ name }: { name: string }) {
-  if (name === "heart") return <HeartHandshake aria-hidden="true" />;
+  if (name === "wrench") return <Wrench aria-hidden="true" />;
   if (name === "shield") return <ShieldCheck aria-hidden="true" />;
-  if (name === "calendar") return <CalendarCheck2 aria-hidden="true" />;
-  return <HandCoins aria-hidden="true" />;
+  if (name === "badge") return <BadgeCheck aria-hidden="true" />;
+  return <Banknote aria-hidden="true" />;
 }
 
 export default async function Home() {
@@ -62,11 +64,12 @@ export default async function Home() {
     telephone: business.telephone,
     image: `${siteUrl}/images/logo.png`,
     logo: `${siteUrl}/images/logo.png`,
+    foundingDate: String(business.foundedYear),
     address: { "@type": "PostalAddress", ...business.address },
-    areaServed: business.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
+    areaServed: districts.map((name) => ({ "@type": "AdministrativeArea", name })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Alltagshilfe und Haushaltshilfe",
+      name: "Haushaltsgeräte Reparatur & Verkauf",
       itemListElement: publicServices.map((name) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name } })),
     },
   };
@@ -96,24 +99,22 @@ export default async function Home() {
         </svg>
         <div className="hero-inner">
           <div className="hero-content">
-            <p className="hero-kicker">Mit Herz an Ihrer Seite</p>
+            <p className="hero-kicker">Anfahrt + Kostenvoranschlag in ganz Berlin</p>
             <HeroTitle />
             <p className="hero-description">
-              Verlässliche Unterstützung im Haushalt, beim Einkaufen und im täglichen Leben – persönlich, nah und mit Zeit für Sie.
+              Wir reparieren Ihre Waschmaschine direkt bei Ihnen zu Hause – zum Festpreis,
+              mit {business.warrantyMonths} Monaten Garantie und meist noch am selben Tag.
             </p>
             <p className="hero-service-area">
-              <strong>Haushaltshilfe:</strong> Bernau bei Berlin + 20 km <span aria-hidden="true">&nbsp;·&nbsp;</span>
-              <strong>Fenster- &amp; Glasreinigung:</strong>{" "}
-              Berlin &amp; Brandenburg
+              <a href={`tel:${business.telephone}`}>{business.telephoneDisplay}</a> <span aria-hidden="true">&nbsp;·&nbsp;</span>
+              <a href={`https://wa.me/${business.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a> <span aria-hidden="true">&nbsp;·&nbsp;</span>
+              <a href={`mailto:${business.email}`}>{business.email}</a>
             </p>
 
             <div className="hero-actions">
               <div className="hero-cta-buttons">
                 <a className="primary-cta split-hover-cta" href="#contact">
-                  <span>Erstgespräch vereinbaren</span>
-                </a>
-                <a className="hero-price-cta" href="#preise">
-                  Fensterreinigung berechnen
+                  <span>Termin heute vereinbaren</span>
                 </a>
               </div>
               {trustSettings.showRating ? (
@@ -132,7 +133,7 @@ export default async function Home() {
             <div className="hero-photo">
               <Image
                 src="/images/services/1.webp"
-                alt="Alltagshelferin mit Seniorin"
+                alt="Techniker repariert ein Haushaltsgerät beim Kunden vor Ort"
                 fill
                 priority
                 sizes="(max-width: 991px) calc(100vw - 36px), 48vw"
@@ -145,18 +146,14 @@ export default async function Home() {
 
       <ScrollMovement />
 
-      <PriceCalculator />
-
       <ServicesSection />
-
-      <ServiceAreaSection />
 
       <section className="why-choose" id="unternehmen" aria-labelledby="why-choose-heading">
         <div className="why-choose-inner">
           <div className="why-choose-heading">
-            <p>Warum wir</p>
-            <h2 id="why-choose-heading">Unterstützung, auf die Sie sich verlassen können.</h2>
-            <span>Persönliche Alltagshilfe bedeutet für uns: zuhören, mitdenken und zuverlässig da sein.</span>
+            <p>Warum unser Reparaturdienst</p>
+            <h2 id="why-choose-heading">Reparatur, auf die Sie sich verlassen können.</h2>
+            <span>Seit {business.foundedYear} stehen wir für saubere Arbeit, klare Preise und ehrliche Beratung.</span>
           </div>
           <div className="reason-grid">
             {reasons.map((reason) => (
@@ -172,17 +169,25 @@ export default async function Home() {
         </div>
       </section>
 
+      <TrustSection trustSettings={trustSettings} />
+
+      <TroubleshootingSection />
+
       <TestimonialsSection trustSettings={trustSettings} />
+
+      <BrandsSection />
+
+      <ServiceAreaSection />
 
       <FAQSection />
 
       <section className="contact-section" id="contact" aria-labelledby="contact-heading">
         <div className="contact-section__intro">
           <div>
-            <p className="contact-section__eyebrow">Persönlich für Sie da</p>
-            <AnimatedSectionTitle id="contact-heading" parts={[{ text: "Lassen Sie uns über Ihre Unterstützung sprechen." }]} />
+            <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
+            <AnimatedSectionTitle id="contact-heading" parts={[{ text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." }]} />
           </div>
-          <p>Schildern Sie uns kurz, wobei wir helfen können. Wir melden uns persönlich und unverbindlich bei Ihnen zurück.</p>
+          <p>Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur gewünschten Zeit und nennen Ihnen den Festpreis.</p>
         </div>
 
         <div className="contact-panel">
@@ -215,21 +220,21 @@ export default async function Home() {
         <Image
           className="booking-banner__cleaner booking-banner__cleaner--left"
           src="/images/services/3.webp"
-          alt="Einkaufsservice im Alltag"
+          alt="Kaffeevollautomat wird gewartet"
           width={2000}
           height={2000}
         />
         <Image
           className="booking-banner__cleaner booking-banner__cleaner--right"
           src="/images/services/4.webp"
-          alt="Reinigungsservice im Alltag"
+          alt="Kühlschrank wird vom Techniker geprüft"
           width={2000}
           height={2000}
         />
 
         <div className="booking-banner__content">
-          <AnimatedSectionTitle id="booking-banner-heading" parts={[{ text: "Bereit für mehr " }, { text: "Leichtigkeit", emphasized: true }, { text: " im Alltag?" }]} />
-          <p>Erzählen Sie uns, wobei wir Sie unterstützen dürfen. Gemeinsam finden wir eine Lösung, die zu Ihrem Alltag passt.</p>
+          <AnimatedSectionTitle id="booking-banner-heading" parts={[{ text: "Gerät defekt? " }, { text: "Wir kommen", emphasized: true }, { text: " zu Ihnen." }]} />
+          <p>Rufen Sie uns an oder schreiben Sie uns – bei Anruf bis 12 Uhr ist ein Termin am selben Tag meist möglich.</p>
           <a className="split-hover-cta" href="#contact"><span>Unverbindlich anfragen</span></a>
         </div>
       </section>
@@ -241,44 +246,44 @@ export default async function Home() {
         <div className="footer-container">
           <section className="footer-cta" aria-labelledby="footer-cta-heading">
             <div>
-              <p>Unverbindlich &amp; persönlich</p>
-              <AnimatedSectionTitle id="footer-cta-heading" parts={[{ text: "Wie können wir Ihren Alltag leichter machen?" }]} />
+              <p>Unverbindlich &amp; zum Festpreis</p>
+              <AnimatedSectionTitle id="footer-cta-heading" parts={[{ text: "Wann dürfen wir Ihr Gerät reparieren?" }]} />
             </div>
-            <a className="split-hover-cta" href="#contact"><span>Erstgespräch vereinbaren <span aria-hidden="true">↗</span></span></a>
+            <a className="split-hover-cta" href="#contact"><span>Termin vereinbaren <span aria-hidden="true">↗</span></span></a>
           </section>
 
           <div className="footer-main">
             <div className="footer-brand">
-              <a href="#home" aria-label="Helfer im Alltag – zur Startseite">
+              <a href="#home" aria-label={`${business.name} – zur Startseite`}>
                 <Image src="/images/logo-white.png" alt="" width={76} height={76} />
-                <span>Helfer im Alltag</span>
+                <span>{business.name}</span>
               </a>
-              <p>Haushaltshilfe rund um Bernau – Fenster- und Glasreinigung in Berlin und Brandenburg.</p>
-              <span className="footer-trust">Anerkannter Anbieter nach § 45a SGB XI</span>
+              <p>Waschmaschinen- und Haushaltsgeräte-Reparatur in ganz Berlin – direkt bei Ihnen vor Ort.</p>
+              <span className="footer-trust">Mitgliedsbetrieb der {business.chamber.name}</span>
             </div>
 
             <nav className="footer-links" aria-label="Navigation im Fußbereich">
               <p>Entdecken</p>
               <a href="#home">Startseite</a>
-              <a href="#unternehmen">Über uns</a>
               <a href="#services">Leistungen</a>
-              <a href="#preise">Preise</a>
+              <a href="#einsatzgebiet">Bezirke</a>
               <a href="#faq">Häufige Fragen</a>
             </nav>
 
             <address className="footer-contact">
               <p>Kontakt</p>
-              <span>Schönfelder Weg 71<br />16321 Bernau bei Berlin</span>
-              <a href="tel:+4917646687719">0176 46687719</a>
-              <a href="mailto:helferimalltag1@gmail.com">helferimalltag1@gmail.com</a>
-              <a href="https://wa.me/4917646687719" target="_blank" rel="noopener noreferrer">Nachricht über WhatsApp</a>
-              <span>Inhaber: Markus Wilken</span>
+              <span>{business.address.streetAddress}<br />{business.address.postalCode} {business.address.addressLocality}</span>
+              <a href={`tel:${business.telephone}`}>{business.telephoneDisplay}</a>
+              <a href={`mailto:${business.email}`}>{business.email}</a>
+              <a href={`https://wa.me/${business.whatsapp}`} target="_blank" rel="noopener noreferrer">Nachricht über WhatsApp</a>
+              <span>Inhaber: {business.owner}</span>
             </address>
           </div>
 
           <div className="footer-bottom">
-            <p>© 2026 Helfer im Alltag</p>
+            <p>© {business.foundedYear}–2026 {business.name}</p>
             <nav aria-label="Rechtliche Informationen">
+              <a href="/agb">AGB</a>
               <a href="/impressum">Impressum</a>
               <a href="/datenschutz">Datenschutz</a>
               <MapConsentResetLink />
