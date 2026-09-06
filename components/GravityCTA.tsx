@@ -45,7 +45,12 @@ type MouseWithHandlers = MatterNamespace.Mouse & {
   mouseup: EventListener;
 };
 
-function initPhysics(Matter: Matter, container: HTMLDivElement) {
+type PhysicsHandle = {
+  setActive: (active: boolean) => void;
+  destroy: () => void;
+};
+
+function initPhysics(Matter: Matter, container: HTMLDivElement): PhysicsHandle | null {
   const containerRect = container.getBoundingClientRect();
   const elements = Array.from(
     container.querySelectorAll<HTMLElement>(".gravity-cta__object"),
@@ -55,10 +60,14 @@ function initPhysics(Matter: Matter, container: HTMLDivElement) {
   const engine = Matter.Engine.create();
   engine.gravity.x = physics.gravity.x;
   engine.gravity.y = physics.gravity.y;
-  engine.constraintIterations = 10;
-  engine.positionIterations = 20;
-  engine.velocityIterations = 16;
+  // The source ran 20/16/10 iterations. That is far more solver work than a
+  // dozen boxes need, and it showed up as scroll jank; these still settle cleanly.
+  engine.constraintIterations = 4;
+  engine.positionIterations = 8;
+  engine.velocityIterations = 6;
   engine.timing.timeScale = 1;
+  // Once the pile settles, sleeping bodies drop out of the solver entirely.
+  engine.enableSleeping = true;
 
   const thickness = physics.wallThickness;
   Matter.World.add(engine.world, [
@@ -127,8 +136,14 @@ function initPhysics(Matter: Matter, container: HTMLDivElement) {
 
   if (draggable) {
     const mouse = Matter.Mouse.create(container) as MouseWithHandlers;
-    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+    // Matter binds 'wheel' as non-passive and calls preventDefault() on it, which
+    // blocks page scrolling anywhere over the container - the whole screen, now
+    // that the section is full-bleed. Its touch handlers do the same to touchmove.
+    // Dragging here is driven by mouse events only, so detach all four.
+    mouse.element.removeEventListener("wheel", mouse.mousewheel);
+    mouse.element.removeEventListener("touchmove", mouse.mousemove);
+    mouse.element.removeEventListener("touchstart", mouse.mousedown);
+    mouse.element.removeEventListener("touchend", mouse.mouseup);
 
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse,
@@ -183,9 +198,6 @@ function initPhysics(Matter: Matter, container: HTMLDivElement) {
       mouse.element.removeEventListener("mousemove", mouse.mousemove);
       mouse.element.removeEventListener("mousedown", mouse.mousedown);
       mouse.element.removeEventListener("mouseup", mouse.mouseup);
-      mouse.element.removeEventListener("touchmove", mouse.mousemove);
-      mouse.element.removeEventListener("touchstart", mouse.mousedown);
-      mouse.element.removeEventListener("touchend", mouse.mouseup);
     };
   }
 
@@ -195,33 +207,45 @@ function initPhysics(Matter: Matter, container: HTMLDivElement) {
   let frame = 0;
   const updatePositions = () => {
     bodies.forEach(({ body, element, width, height }) => {
-      element.style.left = `${clamp(body.position.x - width / 2, 0, containerRect.width - width)}px`;
-      element.style.top = `${clamp(body.position.y - height / 2, -height * 3, containerRect.height - height)}px`;
-      element.style.transform = `rotate(${body.angle}rad)`;
+      const x = clamp(body.position.x - width / 2, 0, containerRect.width - width);
+      const y = clamp(body.position.y - height / 2, -height * 3, containerRect.height - height);
+      // Transform only: animating left/top would force a layout every frame.
+      element.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${body.angle}rad)`;
     });
-    container.classList.add("is-ready");
     frame = window.requestAnimationFrame(updatePositions);
   };
   updatePositions();
+  container.classList.add("is-ready");
 
-  return () => {
-    window.clearTimeout(topWallTimer);
-    window.cancelAnimationFrame(frame);
-    if (releaseDrag) {
-      container.removeEventListener("mouseleave", releaseDrag);
-      container.removeEventListener("mouseup", releaseDrag);
-    }
-    detachMouse?.();
-    Matter.Runner.stop(runner);
-    Matter.Events.off(engine, "beforeUpdate");
-    Matter.World.clear(engine.world, false);
-    Matter.Engine.clear(engine);
-    container.classList.remove("is-ready");
-    elements.forEach((element) => {
-      element.style.left = "";
-      element.style.top = "";
-      element.style.transform = "";
-    });
+  return {
+    // Paused whenever the section is off-screen, so the physics and the render
+    // loop cost nothing while the rest of the page is being scrolled.
+    setActive(active: boolean) {
+      runner.enabled = active;
+      if (active && !frame) {
+        frame = window.requestAnimationFrame(updatePositions);
+      } else if (!active && frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    },
+    destroy() {
+      window.clearTimeout(topWallTimer);
+      window.cancelAnimationFrame(frame);
+      if (releaseDrag) {
+        container.removeEventListener("mouseleave", releaseDrag);
+        container.removeEventListener("mouseup", releaseDrag);
+      }
+      detachMouse?.();
+      Matter.Runner.stop(runner);
+      Matter.Events.off(engine, "beforeUpdate");
+      Matter.World.clear(engine.world, false);
+      Matter.Engine.clear(engine);
+      container.classList.remove("is-ready");
+      elements.forEach((element) => {
+        element.style.transform = "";
+      });
+    },
   };
 }
 
@@ -237,28 +261,29 @@ export default function GravityCTA() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let disposed = false;
-    let teardown: (() => void) | null = null;
+    let handle: PhysicsHandle | null = null;
     let matter: Matter | null = null;
     let resizeTimer = 0;
     let lastWidth = container.getBoundingClientRect().width;
 
     const stop = () => {
-      teardown?.();
-      teardown = null;
+      handle?.destroy();
+      handle = null;
     };
 
     const start = async () => {
-      if (disposed || teardown || reducedMotion.matches) return;
+      if (disposed || handle || reducedMotion.matches) return;
       matter ??= (await import("matter-js")).default;
-      if (disposed || teardown || reducedMotion.matches) return;
-      teardown = initPhysics(matter, container);
+      if (disposed || handle || reducedMotion.matches) return;
+      handle = initPhysics(matter, container);
     };
 
-    // Same trigger point as the source section: the moment it enters the viewport.
+    // Starts the physics the first time the section enters the viewport, then
+    // keeps watching so it can idle while the section is scrolled past.
     const observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
-      observer.disconnect();
-      void start();
+      const visible = entries.some((entry) => entry.isIntersecting);
+      if (visible && !handle) void start();
+      else handle?.setActive(visible);
     });
 
     const onResize = () => {
@@ -268,7 +293,7 @@ export default function GravityCTA() {
         // Ignore height-only resizes: mobile browsers fire those while scrolling.
         if (width === lastWidth) return;
         lastWidth = width;
-        if (!teardown) return;
+        if (!handle) return;
         stop();
         void start();
       }, 250);

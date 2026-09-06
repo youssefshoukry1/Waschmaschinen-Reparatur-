@@ -339,15 +339,16 @@ a { color: inherit; text-decoration: none; }
 .gravity-cta {
   position: relative;
   overflow: hidden;
-  margin-top: 24px;
-  border-radius: 20px;
+  /* Full-bleed: the negative inline margin cancels .page-shell's 24px padding. */
+  margin: 24px -24px 0;
   background: var(--primary);
   color: #fff;
 }
 
 .gravity-cta__wrap {
   position: relative;
-  padding: 132px 0 340px;
+  min-height: 100svh;
+  padding: clamp(96px, 15svh, 168px) 0 0;
 }
 
 .gravity-cta__objects {
@@ -367,6 +368,8 @@ a { color: inherit; text-decoration: none; }
   left: 0;
   cursor: grab;
   user-select: none;
+  /* Positioned purely by transform, so keep each one on its own layer. */
+  will-change: transform;
 }
 
 .gravity-cta__object:active { cursor: grabbing; }
@@ -1000,8 +1003,8 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 }
 
 @media (max-width: 991px) {
-  .gravity-cta { margin: 24px 16px 0; }
-  .gravity-cta__wrap { padding: 100px 0 270px; }
+  /* .page-shell drops its padding here, so no negative margin is needed. */
+  .gravity-cta { margin: 24px 0 0; }
   .gravity-cta__object--word p { font-size: 38px; }
   .gravity-cta__object--image { width: 108px; }
   .page-shell { padding: 0; }
@@ -1083,8 +1086,8 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 }
 
 @media (max-width: 575px) {
-  .gravity-cta { margin-top: 16px; border-radius: 16px; }
-  .gravity-cta__wrap { padding: 72px 0 210px; }
+  .gravity-cta { margin: 0; }
+  .gravity-cta__wrap { padding-top: 84px; }
   .gravity-cta__object--word p { font-size: 26px; }
   .gravity-cta__object--image { width: 76px; border-radius: 12px; }
   .whatsapp-fab { right: 16px; bottom: 16px; }
@@ -1225,7 +1228,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 
 @media (prefers-reduced-motion: reduce) {
   /* No physics: the objects sit in a static row under the heading. */
-  .gravity-cta__wrap { display: flex; flex-direction: column; padding-bottom: 64px; }
+  .gravity-cta__wrap { display: flex; flex-direction: column; min-height: auto; padding-bottom: 64px; }
   .gravity-cta__content { order: 1; }
   .gravity-cta__objects { order: 2; position: relative; inset: auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px 28px; margin-top: 56px; padding: 0 24px; opacity: 1; }
   .gravity-cta__object { position: relative; top: auto; left: auto; cursor: default; }
