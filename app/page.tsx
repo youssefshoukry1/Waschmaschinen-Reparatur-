@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import ScrollMovement from "@/components/ScrollMovement";
+import GravityCTA from "@/components/GravityCTA";
 import ServicesSection from "@/components/ServicesSection";
 import ServiceAreaSection from "@/components/ServiceAreaSection";
 import TrustSection from "@/components/TrustSection";
@@ -144,7 +144,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <ScrollMovement />
+      <GravityCTA />
 
       <ServicesSection />
 
