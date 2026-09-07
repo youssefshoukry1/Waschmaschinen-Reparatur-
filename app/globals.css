@@ -217,8 +217,11 @@ a { color: inherit; text-decoration: none; }
 .site-header.is-scrolled.is-scrolling-down .navbar { border-color: rgba(255,255,255,.08); background: rgba(10,10,10,.32); box-shadow: 0 10px 28px rgba(0,0,0,.1); }
 .navbar__row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .navbar__brand { display: inline-flex; min-width: 0; align-items: center; gap: 8px; color: white; }
-.navbar__logo { width: 64px; height: 64px; flex: none; object-fit: contain; transition: width 500ms var(--navbar-ease), height 500ms var(--navbar-ease); }
-.site-header.is-scrolled .navbar__logo, .site-header.is-menu-open .navbar__logo { width: 48px; height: 48px; }
+/* Das Logo ist ein breites Wortbild (2172x724 ~ 3:1). Deshalb wird es ueber die
+   Hoehe skaliert, die Breite folgt dem Seitenverhaeltnis - so bleibt es auf
+   jeder Bildschirmbreite gleich gross wahrgenommen. */
+.navbar__logo { width: auto; height: clamp(32px, 8.5vw, 44px); max-width: min(58vw, 280px); flex: none; object-fit: contain; transition: height 500ms var(--navbar-ease); }
+.site-header.is-scrolled .navbar__logo, .site-header.is-menu-open .navbar__logo { height: clamp(26px, 7vw, 36px); }
 .navbar__wordmark { font-size: 26px; font-weight: 850; line-height: 1; letter-spacing: .08em; text-transform: uppercase; transition: font-size 500ms var(--navbar-ease); }
 .navbar__wordmark-x { color: var(--navbar-accent); }
 .site-header.is-scrolled .navbar__wordmark, .site-header.is-menu-open .navbar__wordmark { font-size: 22px; }
@@ -938,7 +941,7 @@ a { color: inherit; text-decoration: none; }
 
 .footer-main { padding: 56px 0 48px; display: grid; grid-template-columns: minmax(280px, 1.5fr) minmax(150px, .6fr) minmax(240px, .8fr); gap: clamp(44px, 8vw, 110px); }
 .footer-brand > a { display: inline-flex; align-items: center; gap: 10px; color: #fff; }
-.footer-brand > a img { width: 62px; height: 62px; object-fit: contain; }
+.footer-brand > a img { width: auto; height: clamp(40px, 4.2vw, 62px); max-width: min(70vw, 300px); object-fit: contain; }
 .footer-brand > a span { max-width: 180px; font-size: 20px; font-weight: 850; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
 .footer-wordmark-x { color: var(--accent); }
 .footer-brand > p { max-width: 410px; margin: 20px 0; color: #aeb7c4; font-size: 14px; line-height: 1.75; }
@@ -999,8 +1002,8 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .site-header { padding-inline: 24px; }
   .navbar__desktop-links { display: flex; }
   .navbar__toggle, .navbar__mobile-menu { display: none; }
-  .navbar__logo { width: 72px; height: 72px; }
-  .site-header.is-scrolled .navbar__logo { width: 52px; height: 52px; }
+  .navbar__logo { height: clamp(38px, 3.6vw, 56px); max-width: min(34vw, 320px); }
+  .site-header.is-scrolled .navbar__logo { height: clamp(30px, 2.8vw, 42px); }
   .navbar__wordmark { font-size: 30px; }
   .site-header.is-scrolled .navbar__wordmark { font-size: 24px; }
 }
@@ -1207,7 +1210,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .footer-cta h2 { font-size: 28px; }
   .footer-cta > a { width: 100%; text-align: center; }
   .footer-main { padding: 40px 4px 34px; grid-template-columns: 1fr; gap: 34px; }
-  .footer-brand > a img { width: 54px; height: 54px; }
+  .footer-brand > a img { height: clamp(36px, 9vw, 50px); }
   .footer-brand > a span { font-size: 18px; }
   .footer-brand > p { margin-block: 16px; }
   .footer-trust { white-space: normal; line-height: 1.5; }
@@ -1250,9 +1253,9 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     background: var(--navbar-surface);
     box-shadow: 0 18px 50px rgba(0,0,0,.22);
   }
-  .site-header.is-compact:not(.is-menu-open) .navbar { width: 112px; max-width: 112px; margin-right: 0; padding-inline: 10px; border-radius: 999px; }
+  .site-header.is-compact:not(.is-menu-open) .navbar { width: 142px; max-width: 142px; margin-right: 0; padding-inline: 10px; border-radius: 999px; }
   .site-header.is-compact:not(.is-menu-open) .navbar__row { gap: 6px; }
-  .site-header.is-compact:not(.is-menu-open) .navbar__logo { width: 40px; height: 40px; }
+  .site-header.is-compact:not(.is-menu-open) .navbar__logo { height: 24px; max-width: 76px; }
   /* Die eingeklappte Pille ist nur 112px breit: dort passt nur das Logo. */
   .site-header.is-compact:not(.is-menu-open) .navbar__wordmark { display: none; }
   .site-header.is-compact:not(.is-menu-open) .navbar__toggle { width: 40px; height: 40px; border-radius: 999px; }

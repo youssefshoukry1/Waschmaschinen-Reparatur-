@@ -349,8 +349,9 @@ export default async function Home() {
                   <Image
                     src="/images/logo.png"
                     alt=""
-                    width={76}
-                    height={76}
+                    width={2172}
+                    height={724}
+                    sizes="(max-width: 575px) 160px, 200px"
                   />
                 </a>
                 <p>

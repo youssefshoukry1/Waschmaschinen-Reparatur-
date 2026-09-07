@@ -66,7 +66,7 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
       <nav className="navbar" aria-label="Hauptnavigation">
         <div className="navbar__row">
           <Link className="navbar__brand" href="/#home">
-            <Image className="navbar__logo" src="/images/logo.png" alt={'ALEX_LOGO'} width={1254} height={1254} priority />
+            <Image className="navbar__logo" src="/images/logo.png" alt={'ALEX_LOGO'} width={2172} height={724} sizes="(max-width: 767px) 160px, 220px" priority />
             
           </Link>
 
