@@ -608,22 +608,22 @@ a { color: inherit; text-decoration: none; }
 .service-card__image--kuehlschrank-reparatur { width: 92%; height: 94%; bottom: -1%; }
 .service-card__image--spuelmaschinen-reparatur { width: 84%; height: 96%; bottom: -1%; }
 .service-card__image--trockner-reparatur { width: 94%; height: 92%; bottom: 0; }
-.service-card__stage--herd-backofen-reparatur {
-  aspect-ratio: 3 / 2;
+.service-card .service-card__stage--herd-backofen-reparatur {
+  aspect-ratio: 1 / 1;
   background: #fff;
 }
-.service-card__image--herd-backofen-reparatur { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform: none; }
+.service-card__image--herd-backofen-reparatur { inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; transform: none; }
 .service-card__image--kaffeemaschinen-reparatur { width: 84%; height: 90%; bottom: 2%; }
 .service-card__image--tv-elektronik-reparatur { width: 90%; height: 92%; bottom: 0; }
 .service-card--featured .service-card__stage--waschmaschinen-reparatur {
   min-height: 0;
-  aspect-ratio: auto;
+  aspect-ratio: 1 / 1;
   align-self: stretch;
   background:
     linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.72)),
     #fff7f6;
 }
-.service-card__image--waschmaschinen-reparatur { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; transform: none; }
+.service-card__image--waschmaschinen-reparatur { inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; transform: none; }
 .service-card:hover .service-card__image--herd-backofen-reparatur,
 .service-card:hover .service-card__image--waschmaschinen-reparatur { transform: none; }
 .service-artwork path, .service-artwork circle, .service-artwork rect { vector-effect: non-scaling-stroke; }
@@ -1275,13 +1275,10 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 }
 
 
-/* Marken-Marquee: Herstellerlogos laufen endlos und lassen sich ziehen (siehe BrandLogoMarquee.tsx). */
+/* Marken-Marquee: Herstellerlogos laufen automatisch ohne Interaktion (siehe BrandLogoMarquee.tsx). */
 /* min-width: 0 haelt das Laufband davon ab, seine Rasterspalte auf Inhaltsbreite zu dehnen. */
 .brand-marquee { grid-column: 1 / -1; min-width: 0; margin-top: 4px; }
-.brand-marquee__viewport { overflow-x: auto; overscroll-behavior-inline: contain; cursor: grab; scrollbar-width: none; -ms-overflow-style: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); }
-.brand-marquee__viewport::-webkit-scrollbar { display: none; }
-.brand-marquee__viewport:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 12px; }
-.brand-marquee__viewport.is-dragging { cursor: grabbing; }
+.brand-marquee__viewport { overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); }
 .brand-marquee__track { display: flex; width: max-content; align-items: center; gap: clamp(28px, 4vw, 56px); margin: 0; padding: 8px 0; list-style: none; }
 .brand-marquee__item { width: 148px; height: 56px; flex: 0 0 auto; display: grid; place-items: center; }
 .brand-marquee__item img { width: auto; height: auto; max-width: 100%; max-height: calc(40px * var(--logo-scale, 1)); object-fit: contain; user-select: none; -webkit-user-drag: none; }
