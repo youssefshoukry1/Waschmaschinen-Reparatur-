@@ -1,16 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type MatterNamespace from "matter-js";
-import {
-  Coffee,
-  Microwave,
-  Refrigerator,
-  Tv,
-  UtensilsCrossed,
-  WashingMachine,
-  type LucideIcon,
-} from "lucide-react";
 
 import { business } from "@/lib/business";
 
@@ -25,23 +17,25 @@ const physics = {
 };
 
 // Alternating appliance icons and words, in the order they drop into the pile.
-// Each icon stands for one of the services and carries its own colour; the hues
-// are picked bright enough to hold up against the near-black section.
+// Each icon stands for one of the services. The artwork is full-colour SVG, so
+// unlike the previous glyphs these bring their own palette to the dark section.
+const iconDir = "/images/svg_section2";
+
 const objects: Array<
-  | { type: "icon"; name: string; Icon: LucideIcon; color: string }
+  | { type: "icon"; name: string; src: string }
   | { type: "word"; label: string }
 > = [
-  { type: "icon", name: "Waschmaschine", Icon: WashingMachine, color: "#ff5f52" },
+  { type: "icon", name: "Waschmaschine", src: `${iconDir}/washing-machine-svgrepo-com.svg` },
   { type: "word", label: "Festpreis" },
-  { type: "icon", name: "Kühlschrank", Icon: Refrigerator, color: "#56ccf2" },
+  { type: "icon", name: "Kühlschrank", src: `${iconDir}/refrigerator-svgrepo-com.svg` },
   { type: "word", label: "Garantie" },
-  { type: "icon", name: "Spülmaschine", Icon: UtensilsCrossed, color: "#6fcf97" },
+  { type: "icon", name: "Reparatur-Service", src: `${iconDir}/repair-svgrepo-com.svg` },
   { type: "word", label: "Vor Ort" },
-  { type: "icon", name: "Herd & Backofen", Icon: Microwave, color: "#ef7f2e" },
+  { type: "icon", name: "Herd & Backofen", src: `${iconDir}/stove-svgrepo-com.svg` },
   { type: "word", label: "Berlin" },
-  { type: "icon", name: "Kaffeemaschine", Icon: Coffee, color: "#f5cf5b" },
+  { type: "icon", name: "Kaffeemaschine", src: `${iconDir}/coffee-machine-svgrepo-com.svg` },
   { type: "word", label: "Termin" },
-  { type: "icon", name: "TV & Elektronik", Icon: Tv, color: "#bb9af7" },
+  { type: "icon", name: "TV & Elektronik", src: `${iconDir}/tv-series-svgrepo-com.svg` },
   { type: "word", label: "Reparatur" },
 ];
 
@@ -344,12 +338,15 @@ export default function GravityCTA() {
         <div className="gravity-cta__objects" ref={containerRef} aria-hidden="true">
           {objects.map((object) =>
             object.type === "icon" ? (
-              <div
-                className="gravity-cta__object gravity-cta__object--icon"
-                key={object.name}
-                style={{ color: object.color }}
-              >
-                <object.Icon aria-hidden="true" strokeWidth={2.25} />
+              <div className="gravity-cta__object gravity-cta__object--icon" key={object.name}>
+                <Image
+                  src={object.src}
+                  alt=""
+                  width={140}
+                  height={140}
+                  unoptimized
+                  aria-hidden="true"
+                />
               </div>
             ) : (
               <div className="gravity-cta__object gravity-cta__object--word" key={object.label}>

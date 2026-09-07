@@ -391,8 +391,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Bare glyphs, no tile: the box keeps the size the photo tiles had so the
-   physics bodies and the drop choreography are unchanged. Colour comes from
-   the inline style on each object and reaches the icon via currentColor. */
+   physics bodies and the drop choreography are unchanged. The artwork is
+   full-colour SVG, so each icon carries its own palette. */
 .gravity-cta__object--icon {
   display: flex;
   width: 140px;
@@ -402,9 +402,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* The shadow keeps a glyph readable where it lands on the white heading. */
-.gravity-cta__object--icon svg {
+.gravity-cta__object--icon img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   pointer-events: none;
   filter: drop-shadow(0 6px 18px rgba(0,0,0,.5));
 }
