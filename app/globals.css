@@ -385,14 +385,24 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 
-.gravity-cta__object--image {
+/* Bare glyphs, no tile: the box keeps the size the photo tiles had so the
+   physics bodies and the drop choreography are unchanged. Colour comes from
+   the inline style on each object and reaches the icon via currentColor. */
+.gravity-cta__object--icon {
+  display: flex;
   width: 140px;
   aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
 }
 
-.gravity-cta__object--image img { object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+/* The shadow keeps a glyph readable where it lands on the white heading. */
+.gravity-cta__object--icon svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,.5));
+}
 
 /* Only the button and heading catch the pointer; drags pass through the rest. */
 .gravity-cta__content {
@@ -1006,7 +1016,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   /* .page-shell drops its padding here, so no negative margin is needed. */
   .gravity-cta { margin: 24px 0 0; }
   .gravity-cta__object--word p { font-size: 38px; }
-  .gravity-cta__object--image { width: 108px; }
+  .gravity-cta__object--icon { width: 108px; }
   .page-shell { padding: 0; }
   .hero { min-height: clamp(660px, calc(100svh - 32px), 780px); margin: 16px; padding: 96px 24px 0; border-radius: 24px; }
   .hero-header { height: 80px; left: 24px; right: 24px; }
@@ -1089,7 +1099,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .gravity-cta { margin: 0; }
   .gravity-cta__wrap { padding-top: 84px; }
   .gravity-cta__object--word p { font-size: 26px; }
-  .gravity-cta__object--image { width: 76px; border-radius: 12px; }
+  .gravity-cta__object--icon { width: 76px; }
   .whatsapp-fab { right: 16px; bottom: 16px; }
   .brand { font-size: 17px; }
   .brand-icon { width: 27px; height: 27px; font-size: 18px; }
@@ -1246,3 +1256,28 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .chip-list li { padding: 8px 14px; font-size: 13px; }
 }
 
+
+/* Marken-Marquee: Herstellerlogos laufen endlos und lassen sich ziehen (siehe BrandLogoMarquee.tsx). */
+.brand-marquee { grid-column: 1 / -1; margin-top: 4px; }
+.brand-marquee__viewport { overflow-x: auto; overscroll-behavior-inline: contain; cursor: grab; scrollbar-width: none; -ms-overflow-style: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent); }
+.brand-marquee__viewport::-webkit-scrollbar { display: none; }
+.brand-marquee__viewport:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 12px; }
+.brand-marquee__viewport.is-dragging { cursor: grabbing; }
+.brand-marquee__track { display: flex; width: max-content; align-items: center; gap: clamp(28px, 4vw, 56px); margin: 0; padding: 8px 0; list-style: none; }
+.brand-marquee__item { width: 148px; height: 56px; flex: 0 0 auto; display: grid; place-items: center; opacity: .6; filter: grayscale(1); transition: filter 260ms ease, opacity 260ms ease, transform 260ms ease; }
+.brand-marquee__item:hover { opacity: 1; filter: none; transform: scale(1.05); }
+.brand-marquee__item img { width: auto; height: auto; max-width: 100%; max-height: calc(40px * var(--logo-scale, 1)); object-fit: contain; user-select: none; -webkit-user-drag: none; }
+.brand-marquee__wordmark { color: var(--primary); font-size: 20px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; user-select: none; }
+
+@media (max-width: 575px) {
+  .brand-marquee__viewport { -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent); mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent); }
+  .brand-marquee__track { gap: 24px; }
+  .brand-marquee__item { width: 112px; height: 44px; }
+  .brand-marquee__item img { max-height: calc(30px * var(--logo-scale, 1)); }
+  .brand-marquee__wordmark { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee__item { transition: none; }
+  .brand-marquee__item:hover { transform: none; }
+}

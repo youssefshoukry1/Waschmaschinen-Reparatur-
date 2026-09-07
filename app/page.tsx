@@ -132,7 +132,7 @@ export default async function Home() {
 
             <div className="hero-photo">
               <Image
-                src="/images/services/1.webp"
+                src="/images/repair/hero-washer-technician.png"
                 alt="Techniker repariert ein Haushaltsgerät beim Kunden vor Ort"
                 fill
                 priority
@@ -219,14 +219,14 @@ export default async function Home() {
 
         <Image
           className="booking-banner__cleaner booking-banner__cleaner--left"
-          src="/images/services/3.webp"
+          src="/images/repair/coffee-machine-repair-transparent.png"
           alt="Kaffeevollautomat wird gewartet"
           width={2000}
           height={2000}
         />
         <Image
           className="booking-banner__cleaner booking-banner__cleaner--right"
-          src="/images/services/4.webp"
+          src="/images/repair/refrigerator-repair-transparent.png"
           alt="Kühlschrank wird vom Techniker geprüft"
           width={2000}
           height={2000}

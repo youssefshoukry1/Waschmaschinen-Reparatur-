@@ -1,8 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type MatterNamespace from "matter-js";
+import {
+  Coffee,
+  Microwave,
+  Refrigerator,
+  Tv,
+  UtensilsCrossed,
+  WashingMachine,
+  type LucideIcon,
+} from "lucide-react";
 
 import { business } from "@/lib/business";
 
@@ -16,19 +24,24 @@ const physics = {
   mouseStiffness: 0.6,
 };
 
-// Alternating image tiles and words, in the order they drop into the pile.
-const objects: Array<{ type: "image"; src: string } | { type: "word"; label: string }> = [
-  { type: "image", src: "/images/services/1.webp" },
+// Alternating appliance icons and words, in the order they drop into the pile.
+// Each icon stands for one of the services and carries its own colour; the hues
+// are picked bright enough to hold up against the near-black section.
+const objects: Array<
+  | { type: "icon"; name: string; Icon: LucideIcon; color: string }
+  | { type: "word"; label: string }
+> = [
+  { type: "icon", name: "Waschmaschine", Icon: WashingMachine, color: "#ff5f52" },
   { type: "word", label: "Festpreis" },
-  { type: "image", src: "/images/services/2.webp" },
+  { type: "icon", name: "Kühlschrank", Icon: Refrigerator, color: "#56ccf2" },
   { type: "word", label: "Garantie" },
-  { type: "image", src: "/images/services/3.webp" },
+  { type: "icon", name: "Spülmaschine", Icon: UtensilsCrossed, color: "#6fcf97" },
   { type: "word", label: "Vor Ort" },
-  { type: "image", src: "/images/services/4.webp" },
+  { type: "icon", name: "Herd & Backofen", Icon: Microwave, color: "#ef7f2e" },
   { type: "word", label: "Berlin" },
-  { type: "image", src: "/images/services/5.webp" },
+  { type: "icon", name: "Kaffeemaschine", Icon: Coffee, color: "#f5cf5b" },
   { type: "word", label: "Termin" },
-  { type: "image", src: "/images/services/6.webp" },
+  { type: "icon", name: "TV & Elektronik", Icon: Tv, color: "#bb9af7" },
   { type: "word", label: "Reparatur" },
 ];
 
@@ -330,15 +343,13 @@ export default function GravityCTA() {
       <div className="gravity-cta__wrap">
         <div className="gravity-cta__objects" ref={containerRef} aria-hidden="true">
           {objects.map((object) =>
-            object.type === "image" ? (
-              <div className="gravity-cta__object gravity-cta__object--image" key={object.src}>
-                <Image
-                  src={object.src}
-                  alt=""
-                  fill
-                  draggable={false}
-                  sizes="(max-width: 767px) 72px, (max-width: 1199px) 118px, 140px"
-                />
+            object.type === "icon" ? (
+              <div
+                className="gravity-cta__object gravity-cta__object--icon"
+                key={object.name}
+                style={{ color: object.color }}
+              >
+                <object.Icon aria-hidden="true" strokeWidth={2.25} />
               </div>
             ) : (
               <div className="gravity-cta__object gravity-cta__object--word" key={object.label}>

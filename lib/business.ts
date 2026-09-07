@@ -84,21 +84,33 @@ export const commonDefects = [
   "Tür oder Bullauge lässt sich nicht öffnen",
 ] as const;
 
-/** Unterstützte Hersteller. */
-export const brands = [
-  "Miele",
-  "Bosch",
-  "Siemens",
-  "Samsung",
-  "LG",
-  "AEG",
-  "Bauknecht",
-  "Beko",
-  "Whirlpool",
-  "Zanussi",
-  "Gorenje",
-  "Privileg",
-] as const;
+/** Ein Herstellerlogo in der Marken-Marquee. */
+export type BrandLogo = {
+  name: string;
+  /** null -> wird als Text-Wortmarke gerendert (kein Logo vorhanden). */
+  src: string | null;
+  width: number;
+  height: number;
+};
+
+/** Unterstützte Hersteller mit Logo (Maße stammen aus der viewBox der SVG). */
+export const brandLogos: BrandLogo[] = [
+  { name: "Miele", src: "/images/companies_svg/miele.svg", width: 100, height: 38.3 },
+  { name: "Bosch", src: "/images/companies_svg/bosch.svg", width: 433, height: 97 },
+  { name: "Siemens", src: "/images/companies_svg/siemens.svg", width: 302.4, height: 50 },
+  { name: "Samsung", src: "/images/companies_svg/samsung.svg", width: 544.8, height: 83.4 },
+  { name: "LG", src: "/images/companies_svg/lg.svg", width: 225, height: 99 },
+  { name: "AEG", src: "/images/companies_svg/aeg.svg", width: 81, height: 30 },
+  { name: "Bauknecht", src: "/images/companies_svg/bauknecht.svg", width: 246.78, height: 60 },
+  { name: "Beko", src: "/images/companies_svg/beko.svg", width: 105, height: 60 },
+  { name: "Whirlpool", src: "/images/companies_svg/whirlpool.svg", width: 1680, height: 559.56 },
+  { name: "Zanussi", src: "/images/companies_svg/zanussi.svg", width: 148, height: 53 },
+  { name: "Gorenje", src: "/images/companies_svg/gorenje.svg", width: 1480.55, height: 409.3 },
+  { name: "Privileg", src: null, width: 0, height: 0 },
+];
+
+/** Nur die Markennamen - für Fließtext und strukturierte Daten. */
+export const brands = brandLogos.map((logo) => logo.name);
 
 /** Berliner Bezirke und Ortsteile im Einsatzgebiet. */
 export const districts = [

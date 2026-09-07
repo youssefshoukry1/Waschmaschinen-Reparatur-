@@ -30,7 +30,7 @@ const services: Service[] = [
     description:
       "Pumpe, Trommel, Heizung oder Elektronik – wir reparieren vor Ort in ganz Berlin.",
     icon: "washer",
-    image: "/images/services/7.webp",
+    image: "/images/repair/washing-machine-repair.png",
     imageAlt: "Techniker repariert eine Waschmaschine beim Kunden vor Ort",
     featured: true,
   },
@@ -40,7 +40,7 @@ const services: Service[] = [
     description:
       "Gerät kühlt nicht mehr oder vereist? Wir prüfen Kompressor, Thermostat und Dichtung.",
     icon: "fridge",
-    image: "/images/services/4.webp",
+    image: "/images/repair/refrigerator-repair-transparent.png",
     imageAlt: "Kühlschrank wird vom Techniker geprüft",
   },
   {
@@ -49,7 +49,7 @@ const services: Service[] = [
     description:
       "Kein Wasserzulauf, schlechtes Spülergebnis oder Fehlercode – schnell behoben.",
     icon: "dishwasher",
-    image: "/images/services/2.webp",
+    image: "/images/repair/dishwasher-repair-transparent.png",
     imageAlt: "Geschirrspüler wird instand gesetzt",
   },
   {
@@ -58,7 +58,7 @@ const services: Service[] = [
     description:
       "Wäsche bleibt feucht oder das Gerät bleibt stehen? Wir bringen den Trockner wieder in Gang.",
     icon: "dryer",
-    image: "/images/services/5.webp",
+    image: "/images/repair/dryer-repair-transparent.png",
     imageAlt: "Wäschetrockner wird repariert",
   },
   {
@@ -67,7 +67,7 @@ const services: Service[] = [
     description:
       "Cerankochfeld, Heizspirale oder Thermostat – Reparatur mit Original-Ersatzteilen.",
     icon: "oven",
-    image: "/images/services/6.webp",
+    image: "/images/repair/oven-repair.png",
     imageAlt: "Backofen wird vom Techniker instand gesetzt",
   },
   {
@@ -76,7 +76,7 @@ const services: Service[] = [
     description:
       "Vollautomat entkalken, Brühgruppe tauschen oder Pumpe erneuern – schnell erledigt.",
     icon: "coffee",
-    image: "/images/services/3.webp",
+    image: "/images/repair/coffee-machine-repair-transparent.png",
     imageAlt: "Kaffeevollautomat wird gewartet",
   },
   {
@@ -85,7 +85,7 @@ const services: Service[] = [
     description:
       "Kein Bild, kein Ton oder Streifen im Display? Wir prüfen Netzteil, Panel und Platine.",
     icon: "tv",
-    image: "/images/services/1.webp",
+    image: "/images/repair/tv-electronics-repair-v2.png",
     imageAlt: "Fernsehgerät wird repariert",
   },
 ];

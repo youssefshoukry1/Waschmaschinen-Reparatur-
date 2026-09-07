@@ -1,7 +1,7 @@
 import { Wrench } from "lucide-react";
 import { AnimatedSectionTitle } from "./HeroTitle";
 
-import { brands } from "@/lib/business";
+import BrandLogoMarquee from "./BrandLogoMarquee";
 
 export default function BrandsSection() {
   return (
@@ -11,9 +11,7 @@ export default function BrandsSection() {
         <AnimatedSectionTitle id="brands-heading" parts={[{ text: "Wir reparieren ", desktopBreakAfter: true }, { text: "alle gängigen Hersteller", emphasized: true }]} />
         <span>Original-Ersatzteile und passendes Werkzeug für jede Marke haben wir im Servicewagen dabei.</span>
       </div>
-      <ul className="chip-list">
-        {brands.map((brand) => <li key={brand}>{brand}</li>)}
-      </ul>
+      <BrandLogoMarquee />
       <p className="chip-list__note">Ihre Marke ist nicht dabei? Rufen Sie uns an – wir reparieren auch ältere und seltenere Modelle.</p>
     </section>
   );
