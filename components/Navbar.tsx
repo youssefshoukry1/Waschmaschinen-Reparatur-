@@ -60,7 +60,7 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
     scrollingDown && "is-scrolling-down",
     menuOpen && "is-menu-open",
   ].filter(Boolean).join(" ");
-
+ 
   return (
     <header className={`site-header ${variant === "dark" ? "site-header--dark" : ""} ${states}`}>
       <nav className="navbar" aria-label="Hauptnavigation">
