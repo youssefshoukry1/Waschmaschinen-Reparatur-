@@ -344,15 +344,15 @@ export default async function Home() {
               <div className="footer-brand">
                 <a
                   href="#home"
-                  aria-label={`${business.name} – zur Startseite`}
+                 
                 >
                   <Image
-                    src="/images/logo-white.png"
+                    src="/images/logo.png"
                     alt=""
                     width={76}
                     height={76}
                   />
-                  <span>{business.name}</span>
+                  <span className="footer-wordmark">ALE<span className="footer-wordmark-x">X</span></span>
                 </a>
                 <p>
                   Waschmaschinen- und Haushaltsgeräte-Reparatur in ganz Berlin –
