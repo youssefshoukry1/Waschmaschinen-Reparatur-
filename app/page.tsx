@@ -352,7 +352,6 @@ export default async function Home() {
                     width={76}
                     height={76}
                   />
-                  <span className="footer-wordmark">ALE<span className="footer-wordmark-x">X</span></span>
                 </a>
                 <p>
                   Waschmaschinen- und Haushaltsgeräte-Reparatur in ganz Berlin –

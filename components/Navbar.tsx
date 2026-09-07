@@ -67,7 +67,7 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
         <div className="navbar__row">
           <Link className="navbar__brand" href="/#home">
             <Image className="navbar__logo" src="/images/logo.png" alt={'ALEX_LOGO'} width={1254} height={1254} priority />
-            <span className="navbar__wordmark">ALE<span className="navbar__wordmark-x">X</span></span>
+            
           </Link>
 
           <button

@@ -17,7 +17,7 @@ export default function SiteFooter() {
         </section>
         <div className="footer-main">
           <div className="footer-brand">
-            <Link href="/#home" aria-label={`${business.name} – zur Startseite`}><Image src="/images/logo.png" alt="" width={76} height={76} /><span className="footer-wordmark">ALE<span className="footer-wordmark-x">X</span></span></Link>
+            <Link href="/#home" aria-label={`${business.name} – zur Startseite`}><Image src="/images/logo.png" alt="" width={76} height={76} /></Link>
             <p>Waschmaschinen- und Haushaltsgeräte-Reparatur in ganz Berlin – direkt bei Ihnen vor Ort.</p>
             <span className="footer-trust">Mitgliedsbetrieb der {business.chamber.name}</span>
           </div>
