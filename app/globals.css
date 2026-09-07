@@ -624,7 +624,6 @@ a { color: inherit; text-decoration: none; }
 .service-card__image--spuelmaschinen-reparatur { width: 84%; height: 96%; bottom: -1%; }
 .service-card__image--trockner-reparatur { width: 94%; height: 92%; bottom: 0; }
 .service-card .service-card__stage--herd-backofen-reparatur {
-  aspect-ratio: 1 / 1;
   background: #fff;
 }
 .service-card__image--herd-backofen-reparatur { inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; transform: none; }
