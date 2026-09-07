@@ -1283,8 +1283,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 .brand-marquee__viewport:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 12px; }
 .brand-marquee__viewport.is-dragging { cursor: grabbing; }
 .brand-marquee__track { display: flex; width: max-content; align-items: center; gap: clamp(28px, 4vw, 56px); margin: 0; padding: 8px 0; list-style: none; }
-.brand-marquee__item { width: 148px; height: 56px; flex: 0 0 auto; display: grid; place-items: center; opacity: .6; filter: grayscale(1); transition: filter 260ms ease, opacity 260ms ease, transform 260ms ease; }
-.brand-marquee__item:hover { opacity: 1; filter: none; transform: scale(1.05); }
+.brand-marquee__item { width: 148px; height: 56px; flex: 0 0 auto; display: grid; place-items: center; }
 .brand-marquee__item img { width: auto; height: auto; max-width: 100%; max-height: calc(40px * var(--logo-scale, 1)); object-fit: contain; user-select: none; -webkit-user-drag: none; }
 .brand-marquee__wordmark { color: var(--primary); font-size: 20px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; user-select: none; }
 
@@ -1294,9 +1293,4 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .brand-marquee__item { width: 112px; height: 44px; }
   .brand-marquee__item img { max-height: calc(30px * var(--logo-scale, 1)); }
   .brand-marquee__wordmark { font-size: 16px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-marquee__item { transition: none; }
-  .brand-marquee__item:hover { transform: none; }
 }
