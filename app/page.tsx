@@ -136,7 +136,7 @@ export default async function Home() {
                 alt="Techniker repariert ein Haushaltsgerät beim Kunden vor Ort"
                 fill
                 priority
-                sizes="(max-width: 991px) calc(100vw - 36px), 48vw"
+                sizes="(max-width: 575px) min(calc(100vw - 12px), 420px), (max-width: 991px) min(68vw, 560px), (max-width: 1024px) min(44vw, 470px), min(48vw, 680px)"
               />
             </div>
 
