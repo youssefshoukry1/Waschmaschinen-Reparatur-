@@ -1155,9 +1155,10 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section__aside h2 { font-size: 36px; }
   .faq-section__lead { margin-bottom: 30px; }
   .faq-item button { grid-template-columns: 28px minmax(0, 1fr) 38px; gap: 8px; padding: 22px 0; }
-  .appliance-list { grid-template-columns: minmax(0, 1fr); }
-  .appliance-item { grid-template-columns: 28px minmax(0, 1fr); gap: 8px; padding: 18px 0; }
-  .appliance-item__name { font-size: 18px; }
+  .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+  .appliance-item { grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 14px 0; }
+  .appliance-item__number { font-size: 10px; }
+  .appliance-item__name { font-size: 14px; letter-spacing: -.015em; }
   .faq-item__question { padding-right: 4px; font-size: 18px; }
   .faq-item__answer p { padding: 0 0 24px 36px; }
   .window-group { padding: 14px; }

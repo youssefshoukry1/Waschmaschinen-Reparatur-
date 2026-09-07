@@ -22,12 +22,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: "Waschmaschinen Reparatur Berlin – Haushaltsgeräte Service vor Ort",
-    template: `%s | ${business.name}`,
+    template: "%s | ALEX",
   },
   description: business.description,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
-  icons: { icon: "/logo.png" },
+  icons: { icon: "/images/logo.png" },
   openGraph: {
     type: "website",
     locale: "de_DE",
