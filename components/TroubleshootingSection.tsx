@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { AnimatedSectionTitle } from "./HeroTitle";
 
-import { business } from "@/lib/business";
-
 const problems = [
   {
     question: "Waschmaschine pumpt kein Wasser ab",
@@ -44,7 +42,7 @@ export default function TroubleshootingSection() {
         <div className="faq-section__contact">
           <span>Fehler bleibt bestehen?</span>
           <strong>Wir kommen vorbei und prüfen Ihr Gerät</strong>
-          <a className="split-hover-cta" href={`tel:${business.telephone}`}><span>Jetzt anrufen <span aria-hidden="true">↗</span></span></a>
+          <a className="split-hover-cta" href="#contact"><span>Jetzt anrufen <span aria-hidden="true">↗</span></span></a>
         </div>
       </div>
 

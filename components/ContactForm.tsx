@@ -111,8 +111,10 @@ export default function ContactForm() {
         <label><span>Ihr Name</span><input type="text" name="name" placeholder="Vor- und Nachname" autoComplete="name" maxLength={120} required /></label>
         <label><span>Telefon</span><input type="tel" name="phone" placeholder="Ihre Telefonnummer" autoComplete="tel" maxLength={30} /></label>
       </div>
-      <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
-      <label><span>Wunschzeit für den Rückruf</span><input type="text" name="callbackTime" placeholder="z. B. heute zwischen 14 und 16 Uhr" maxLength={120} /></label>
+      <div className="contact-form__row">
+        <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
+        <label><span>Wunschzeit für den Rückruf</span><input type="text" name="callbackTime" placeholder="z. B. 14 bis 16 Uhr" maxLength={120} /></label>
+      </div>
       <label>
         <span>Welches Gerät ist defekt?</span>
         <select name="service" defaultValue="">

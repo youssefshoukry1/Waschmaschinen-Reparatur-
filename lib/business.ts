@@ -112,24 +112,17 @@ export const brandLogos: BrandLogo[] = [
 /** Nur die Markennamen - für Fließtext und strukturierte Daten. */
 export const brands = brandLogos.map((logo) => logo.name);
 
-/** Berliner Bezirke und Ortsteile im Einsatzgebiet. */
-export const districts = [
-  "Mitte",
-  "Pankow",
-  "Prenzlauer Berg",
-  "Neukölln",
-  "Friedrichshain",
-  "Kreuzberg",
-  "Charlottenburg",
-  "Wilmersdorf",
-  "Schöneberg",
-  "Tempelhof",
-  "Steglitz",
-  "Zehlendorf",
-  "Spandau",
-  "Reinickendorf",
-  "Lichtenberg",
-  "Marzahn-Hellersdorf",
-  "Treptow-Köpenick",
-  "Wedding",
+/**
+ * Einsatzgebiet nach Himmelsrichtung gruppiert. Die Website zeigt dadurch
+ * immer nur eine handliche Gruppe statt aller 18 Chips auf einmal.
+ * `districts` wird daraus abgeleitet - es gibt also nur diese eine Liste.
+ */
+export const districtRegions = [
+  { id: "mitte", label: "Mitte & West", districts: ["Mitte", "Charlottenburg", "Wilmersdorf", "Spandau"] },
+  { id: "nord", label: "Nord", districts: ["Pankow", "Prenzlauer Berg", "Reinickendorf", "Wedding"] },
+  { id: "ost", label: "Ost", districts: ["Friedrichshain", "Lichtenberg", "Marzahn-Hellersdorf", "Treptow-Köpenick"] },
+  { id: "sued", label: "Süd", districts: ["Neukölln", "Kreuzberg", "Tempelhof", "Schöneberg", "Steglitz", "Zehlendorf"] },
 ] as const;
+
+/** Berliner Bezirke und Ortsteile im Einsatzgebiet. */
+export const districts = districtRegions.flatMap((region) => region.districts);

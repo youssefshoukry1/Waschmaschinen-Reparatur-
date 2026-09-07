@@ -1,15 +1,16 @@
-import { MapPin, Sparkles } from "lucide-react";
+import { Clock, MapPin, Wrench } from "lucide-react";
 import { AnimatedSectionTitle } from "./HeroTitle";
-
-import { districts } from "@/lib/business";
+import DistrictCloud from "./DistrictCloud";
 
 const areas = [
   {
+    icon: Wrench,
     title: "Reparatur vor Ort",
     text: "In allen zwölf Berliner Bezirken.",
     detail: "Wir kommen mit Werkzeug und gängigen Ersatzteilen direkt zu Ihnen nach Hause.",
   },
   {
+    icon: Clock,
     title: "Termin am selben Tag",
     text: "Bei Anruf bis 12 Uhr, je nach Auslastung.",
     detail: "Auch abends und samstags – damit Sie sich keinen Urlaubstag nehmen müssen.",
@@ -25,19 +26,16 @@ export default function ServiceAreaSection() {
         <span>Wir kommen zu Ihnen nach Hause – unabhängig davon, in welchem Bezirk Sie wohnen.</span>
       </div>
       <div className="service-area__cards">
-        {areas.map((area) => (
+        {areas.map(({ icon: Icon, ...area }) => (
           <article className="service-area__card" key={area.title}>
-            <Sparkles aria-hidden="true" />
+            <Icon aria-hidden="true" />
             <h3>{area.title}</h3>
             <strong>{area.text}</strong>
             <p>{area.detail}</p>
           </article>
         ))}
       </div>
-      <ul className="chip-list">
-        {districts.map((district) => <li key={district}>{district}</li>)}
-      </ul>
-      <p className="chip-list__note">Ihr Ortsteil ist nicht aufgeführt? Fragen Sie uns – wir fahren im gesamten Stadtgebiet.</p>
+      <DistrictCloud />
     </section>
   );
 }

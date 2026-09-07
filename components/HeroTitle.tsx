@@ -17,11 +17,9 @@ export function AnimatedCharacters({ text, emphasized = false, startIndex = 0 }:
     <span className={emphasized ? "hero-title__emphasis" : "hero-title__text"} aria-hidden="true">
       {segments.map(({ segment, segmentIndex, characterOffset }) => {
         if (/^\s+$/.test(segment)) {
-          return (
-            <span className="hero-title__space" style={{ width: `${segment.length * 0.28}em` }} key={`space-${segmentIndex}`}>
-              {segment}
-            </span>
-          );
+          // Ein echtes, umbruchfaehiges Leerzeichen statt einer festen em-Breite:
+          // am Zeilenende faellt es weg, statt die Folgezeile einzuruecken.
+          return <span className="hero-title__space" key={`space-${segmentIndex}`}> </span>;
         }
 
         return (
