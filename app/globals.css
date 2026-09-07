@@ -178,6 +178,10 @@ a { color: inherit; text-decoration: none; }
 .faq-item__answer p { max-width: 670px; margin: 0; padding: 0 54px 28px 50px; color: #667085; font-size: 15px; line-height: 1.8; }
 .faq-item.is-open .faq-item__answer { grid-template-rows: 1fr; opacity: 1; }
 .faq-item button:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; border-radius: 8px; }
+.appliance-list { align-self: start; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); border-top: 1px solid #dfe6ee; }
+.appliance-item { display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 12px; padding: 22px 0; border-bottom: 1px solid #dfe6ee; }
+.appliance-item__number { color: #98a2b3; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.appliance-item__name { color: var(--primary); font-size: clamp(18px, 1.8vw, 22px); font-weight: 650; line-height: 1.35; letter-spacing: -.025em; }
 
 .site-header {
   position: fixed;
@@ -1032,6 +1036,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .contact-panel { grid-template-columns: 1fr; }
   .contact-map { min-height: 480px; }
   .faq-section { width: calc(100% - 32px); margin-top: 64px; grid-template-columns: 1fr; gap: 32px; }
+  .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .faq-section__aside { position: relative; top: auto; }
   .why-choose { margin-top: 40px; padding: 40px 16px; border-radius: 20px; }
   .why-choose-inner { width: 100%; grid-template-columns: 5fr 7fr; gap: 24px; }
@@ -1144,6 +1149,9 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section__aside h2 { font-size: 36px; }
   .faq-section__lead { margin-bottom: 30px; }
   .faq-item button { grid-template-columns: 28px minmax(0, 1fr) 38px; gap: 8px; padding: 22px 0; }
+  .appliance-list { grid-template-columns: minmax(0, 1fr); }
+  .appliance-item { grid-template-columns: 28px minmax(0, 1fr); gap: 8px; padding: 18px 0; }
+  .appliance-item__name { font-size: 18px; }
   .faq-item__question { padding-right: 4px; font-size: 18px; }
   .faq-item__answer p { padding: 0 0 24px 36px; }
   .window-group { padding: 14px; }
