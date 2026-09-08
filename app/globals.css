@@ -1509,6 +1509,144 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .brand-rail__track { animation: none; will-change: auto; }
 }
 
+/* ==========================================================================
+   Rote Servicespalte der Geraeteseiten (ServiceRail.tsx)
+
+   Steht ab 1025px rechts neben Hero, Mittelteil und Kontakt - links von der
+   Markenleiste, die weiter am Bildschirmrand klebt. `position: sticky` haelt
+   sie beim Scrollen stehen; weil ihr Wrapper `.rail-layout` mit der
+   Kontaktsektion endet, laeuft sie beim Banner "Selbst geprueft und nichts
+   gefunden?" aus dem Bild.
+
+   Darunter loesen sich beide Wrapper per `display: contents` auf: die Sektionen
+   sind dann wieder direkte Kinder von `.page-shell` und jede bestehende Regel
+   fuer Telefon und Tablet greift unveraendert.
+   ========================================================================== */
+.rail-layout, .rail-layout__main { display: contents; }
+.service-rail { display: none; }
+
+@media (min-width: 1025px) {
+  :root {
+    --rail-width: clamp(280px, 24vw, 360px);
+    /* `--rail-top` ist zugleich die Ruhe- UND die Andockposition und muss
+       deshalb exakt dem oberen Innenabstand von `.page-shell` entsprechen:
+       `position: sticky` schiebt eine Box, die von Natur aus hoeher liegt als
+       ihr `top`, nach unten. Ein groesserer Wert wuerde die Spalte am
+       Seitenanfang unter die Oberkante des Heros druecken. */
+    --rail-top: 24px;
+    --rail-bottom: 20px;
+  }
+
+  /* Damit die Spalte oben buendig mit dem Hero stehen kann, ohne dass die
+     fixierte Navbar-Pille sie ueberlappt, haelt die Kopfzeile ihre Breite frei -
+     dasselbe Muster, mit dem die Markenleiste schon Platz reserviert. */
+  body:has(.service-rail) .site-header {
+    padding-right: calc(48px + var(--brand-rail-width) + var(--rail-width));
+  }
+
+  .rail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--rail-width);
+    gap: 24px;
+    align-items: start;
+  }
+  /* `min-width: 0` verhindert, dass der Hero die Spalte ueber ihre Breite
+     hinaus aufblaeht - Grid-Items haben sonst `min-width: auto`. */
+  .rail-layout__main { display: block; min-width: 0; }
+
+  .service-rail {
+    /* Genau eine Fensterhoehe hoch, damit sie komplett sichtbar bleibt und
+       keinen eigenen Scrollbalken braucht. Weil `--rail-top` dem Innenabstand
+       der Seite entspricht, verschiebt `sticky` sie am Seitenanfang nicht: Ihre
+       Oberkante liegt exakt auf der des Heros. Beim Scrollen rastet sie an
+       derselben Hoehe ein und steht still, bis der Wrapper mit der
+       Kontaktsektion endet.
+
+       Deshalb ist der Inhalt knapp gehalten: Alles unter `flex: none` ist
+       gesetzt, den Rest bekommt das Foto (siehe `.service-rail__figure`). Kommt
+       Text dazu, schrumpft zuerst das Foto. */
+    position: sticky;
+    top: var(--rail-top);
+    height: calc(100svh - var(--rail-top) - var(--rail-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.6svh, 18px);
+    padding: clamp(16px, 2svh, 22px);
+    /* Letzte Reissleine fuer sehr flache Fenster, in denen selbst der Text
+       allein nicht mehr passt. */
+    overflow: hidden;
+    /* Der Hero traegt dasselbe Rot. Radius, Hairline und Schatten trennen die
+       Spalte optisch von ihm - und heben sie zugleich vom weissen FAQ ab. */
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 20px;
+    background: var(--blue);
+    box-shadow: 0 18px 40px rgba(6,38,79,.16);
+    color: #fff;
+  }
+
+  /* `flex: 1 1 0` mit gleicher Basis: Die beiden Bilder teilen sich zu gleichen
+     Teilen den Platz, der nach den Textbloecken frei ist, und geben ihn auf
+     flachen Fenstern wieder her. Alles andere steht auf `flex: none` und
+     behaelt seine Hoehe. Die Bildhoehe haengt damit am Viewport, nicht an einer
+     festen Pixelzahl. */
+  .service-rail__figure { position: relative; flex: 1 1 0; min-height: 46px; overflow: hidden; border-radius: 14px; }
+  .service-rail__figure img { width: 100%; height: 100%; }
+  /* Die Zeichnung darf nicht beschnitten werden - sonst fehlen Bauteile. Sie
+     steht deshalb freigestellt auf dem Rot, ohne Kachelflaeche. */
+  /* Etwas mehr Anteil als das Foto: Die Zeichnung liegt auf quadratischer
+     Leinwand, `contain` bindet ihre Breite also an die Hoehe der Kachel. */
+  .service-rail__figure--diagram { flex-grow: 1.2; }
+  .service-rail__figure--diagram img { object-fit: contain; object-position: center; filter: drop-shadow(0 10px 18px rgba(6,38,79,.3)); }
+  /* Das Foto fuellt seine Kachel formatfuellend. */
+  .service-rail__figure--callcenter { background: rgba(255,255,255,.1); }
+  .service-rail__figure--callcenter img { object-fit: cover; object-position: center; }
+
+  /* Trennlinien zwischen den Bloecken statt Rahmen - ruhiger auf schmaler Spalte. */
+  .service-rail__block { flex: none; display: grid; gap: clamp(5px, .8svh, 8px); padding-top: clamp(10px, 1.7svh, 16px); border-top: 1px solid rgba(255,255,255,.2); }
+  /* Nicht `:first-of-type` - das zaehlt alle div-Geschwister und traefe die
+     Bildkachel. Der erste Block ist der direkt hinter dem Foto. */
+  .service-rail__figure + .service-rail__block { padding-top: 0; border-top: 0; }
+  .service-rail__block p { margin: 0; color: rgba(255,255,255,.86); font-size: clamp(11.5px, 1.4svh, 12.5px); line-height: 1.5; text-wrap: pretty; }
+  .service-rail__block p strong { color: #fff; font-weight: 750; }
+
+  .service-rail__label { margin: 0; color: var(--light-blue); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .service-rail__heading { margin: 0; font-size: clamp(14px, 1.9svh, 17px); font-weight: 700; letter-spacing: -.02em; }
+  .service-rail__phone { display: block; font-size: clamp(21px, 3svh, 28px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; transition: color .25s ease; }
+  .service-rail__phone:hover, .service-rail__phone:focus-visible { color: var(--cta); }
+
+  /* Gleiche gelbe Pille wie jeder andere Call-to-Action der Seite. */
+  .service-rail__link { width: fit-content; margin-top: 2px; padding: clamp(7px, 1.1svh, 9px) 16px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+
+  .service-rail a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  /* Die Zeichnung sitzt in der Servicespalte, der Hero ist hier reine
+     Textflaeche und bekommt die frei gewordene Breite. Ueberschreibt die
+     `.page-shell--brand-rail`-Regel weiter oben. */
+  .page-shell--brand-rail .hero.hero--diagram.hero--with-rail .hero-content,
+  .hero--with-rail .hero-content { width: 100%; }
+  .hero--with-rail .hero-photo { display: none; }
+
+  /* Die Ueberschrift der Kontaktsektion ist auf die volle Seitenbreite
+     ausgelegt (bis 64px). In der schmaleren Spalte eine Stufe kleiner. */
+  .rail-layout__main .contact-section__intro h2 { font-size: clamp(34px, 3.2vw, 52px); }
+}
+
+/* Hero, FAQ und Kontakt teilen sich die Restbreite mit der Servicespalte. FAQ
+   (320px Aside + bis zu 104px Gap) und Kontaktpanel (420px allein fuer die
+   Karte) verlangen zusammen rund 880px - so viel bleibt der Spalte erst ab
+   etwa 1500px Fensterbreite. Darunter stapeln beide einspaltig, genau wie auf
+   dem Tablet, statt Formular und FAQ-Liste zu zerquetschen. */
+@media (min-width: 1025px) and (max-width: 1499px) {
+  .rail-layout__main .faq-section { grid-template-columns: 1fr; gap: 28px; }
+  .rail-layout__main .faq-section__aside { position: relative; top: auto; padding: 30px 26px; }
+  .rail-layout__main .faq-section__aside h2 { font-size: clamp(30px, 2.8vw, 38px); }
+  .rail-layout__main .faq-section__lead { margin: 16px 0 26px; }
+
+  .rail-layout__main .contact-section__intro { grid-template-columns: 1fr; gap: 18px; }
+  .rail-layout__main .contact-panel { grid-template-columns: 1fr; min-height: 0; }
+  .rail-layout__main .contact-map { min-height: 420px; }
+}
+
 
 /* ==========================================================================
    Einsatzgebiet "Unsere Bezirke".

@@ -13,12 +13,20 @@ import JsonLd from "@/components/JsonLd";
 import { MapConsent } from "@/components/MapConsent";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
+import ServiceRail from "@/components/ServiceRail";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import { business, siteUrl } from "@/lib/business";
 import { tvFaqs } from "@/lib/tvFaq";
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
+
+/** Einmal definiert: Der Hero zeigt die Zeichnung auf Telefon und Tablet, ab
+ *  1025px uebernimmt sie die rote Servicespalte. */
+const heroImage = {
+  src: "/images/img17.png",
+  alt: "Explosionszeichnung eines Fernsehers: Panel, Backlight-Einheit, Diffusorfolien, T-Con-Platine, Mainboard und Netzteil",
+};
 
 const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
 const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${tvFaqs.length} häufige Fragen und Antworten rund um Fernseher und TV-Technik.`;
@@ -107,119 +115,134 @@ export default function LeistungenPage() {
       <JsonLd data={breadcrumbs} />
       <Navbar />
       <main className="page-shell page-shell--brand-rail">
-        <section
-          className="hero hero--diagram"
-          id="notdienst"
-          aria-labelledby="tv-heading"
-        >
-          <svg
-            className="hero-pattern"
-            aria-hidden="true"
-            width="571"
-            height="803"
-            viewBox="0 0 571 803"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              opacity="0.3"
-              d="M454.081 0V93.5533C454.081 100.619 448.355 106.347 441.29 106.347H350.954C343.889 106.347 338.163 112.075 338.163 119.141V209.496C338.163 216.561 332.436 222.289 325.372 222.289H235.035C227.971 222.289 222.244 228.017 222.244 235.083V325.438C222.244 332.503 216.517 338.231 209.453 338.231H119.116C112.052 338.231 106.325 343.959 106.325 351.025V441.38C106.325 448.446 100.599 454.173 93.5343 454.173H-1.62721e-05M570 0V93.5533C570 100.619 564.273 106.347 557.209 106.347H466.872C459.808 106.347 454.081 112.075 454.081 119.141V209.496C454.081 216.561 448.355 222.289 441.29 222.289H350.954C343.889 222.289 338.163 228.017 338.163 235.083V325.438C338.163 332.503 343.889 338.231 350.954 338.231H441.29C448.355 338.231 454.081 332.503 454.081 325.438V233.484L454.193 232.728C455.052 226.933 459.969 222.606 465.825 222.494L476.466 222.289H557.209C564.273 222.289 570 228.017 570 235.083V325.438C570 332.503 564.273 338.231 557.209 338.231H466.073L463.036 338.434C457.997 338.77 454.081 342.956 454.081 348.008V357.822M454.081 347.827V441.38C454.081 448.446 448.355 454.173 441.29 454.173H350.954C343.889 454.173 338.163 459.901 338.163 466.967V557.322C338.163 564.388 332.436 570.116 325.372 570.116H235.035C227.971 570.116 222.244 575.844 222.244 582.909V673.264C222.244 680.33 216.517 686.058 209.453 686.058H119.116C112.052 686.058 106.325 691.786 106.325 698.851V789.206C106.325 796.272 100.599 802 93.5343 802H-1.62721e-05"
-              stroke="#FFF1F0"
-              strokeWidth="0.431035"
-            />
-          </svg>
-
-          <div className="hero-inner">
-            <div className="hero-content">
-              <p className="hero-kicker">
-                Fernseher &amp; TV-Technik · Berlin &amp; Umland
-              </p>
-              <AnimatedPageTitle
-                id="tv-heading"
-                parts={[
-                  { text: "Fernseher Reparatur " },
-                  { text: "bei Ihnen zu Hause", emphasized: true },
-                ]}
-              />
-              <p className="hero-description">
-                Schwarzes Bild, Streifen im Panel, kein Ton oder das Gerät
-                bleibt im Standby? Wir prüfen Backlight, Netzteil, T-Con und
-                Mainboard – bei LED-, OLED- und QLED-Geräten aller Marken,
-                direkt bei Ihnen vor Ort.
-              </p>
-
-              <div className="hero-callout">
-                <p className="hero-callout__price">
-                  <span aria-hidden="true">nur</span>
-                  <strong>{business.calloutFee} €</strong>
-                </p>
-                <div className="hero-callout__text">
-                  <strong>Technikerbesuch inklusive Kostenvoranschlag</strong>
-                  <span>
-                    Keine Zuschläge an Wochenenden und Feiertagen – der Preis
-                    gilt rund um die Uhr.
-                  </span>
-                </div>
-              </div>
-
-              <div className="hero-actions">
-                <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
-                    <span>Rückruf anfragen</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="hero-photo">
-                <Image
-                  src="/images/img17.png"
-                  alt="Explosionszeichnung eines Fernsehers: Panel, Backlight-Einheit, Diffusorfolien, T-Con-Platine, Mainboard und Netzteil"
-                  fill
-                  priority
-                  sizes="(max-width: 575px) min(calc(100vw - 12px), 420px), (max-width: 991px) min(68vw, 560px), (max-width: 1024px) min(44vw, 470px), min(48vw, 680px)"
+        {/* Klammer fuer die rote Servicespalte: Sie bleibt per `position: sticky`
+            stehen, solange dieser Wrapper im Bild ist – also ueber Hero, FAQ und
+            Kontaktsektion – und laeuft erst mit dem Banner "Selbst geprueft und
+            nichts gefunden?" aus. Unter 1025px loest sich der Wrapper per
+            `display: contents` auf, das Layout bleibt unveraendert. */}
+        <div className="rail-layout">
+          <div className="rail-layout__main">
+            <section
+              className="hero hero--diagram hero--with-rail"
+              id="notdienst"
+              aria-labelledby="tv-heading"
+            >
+              <svg
+                className="hero-pattern"
+                aria-hidden="true"
+                width="571"
+                height="803"
+                viewBox="0 0 571 803"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  opacity="0.3"
+                  d="M454.081 0V93.5533C454.081 100.619 448.355 106.347 441.29 106.347H350.954C343.889 106.347 338.163 112.075 338.163 119.141V209.496C338.163 216.561 332.436 222.289 325.372 222.289H235.035C227.971 222.289 222.244 228.017 222.244 235.083V325.438C222.244 332.503 216.517 338.231 209.453 338.231H119.116C112.052 338.231 106.325 343.959 106.325 351.025V441.38C106.325 448.446 100.599 454.173 93.5343 454.173H-1.62721e-05M570 0V93.5533C570 100.619 564.273 106.347 557.209 106.347H466.872C459.808 106.347 454.081 112.075 454.081 119.141V209.496C454.081 216.561 448.355 222.289 441.29 222.289H350.954C343.889 222.289 338.163 228.017 338.163 235.083V325.438C338.163 332.503 343.889 338.231 350.954 338.231H441.29C448.355 338.231 454.081 332.503 454.081 325.438V233.484L454.193 232.728C455.052 226.933 459.969 222.606 465.825 222.494L476.466 222.289H557.209C564.273 222.289 570 228.017 570 235.083V325.438C570 332.503 564.273 338.231 557.209 338.231H466.073L463.036 338.434C457.997 338.77 454.081 342.956 454.081 348.008V357.822M454.081 347.827V441.38C454.081 448.446 448.355 454.173 441.29 454.173H350.954C343.889 454.173 338.163 459.901 338.163 466.967V557.322C338.163 564.388 332.436 570.116 325.372 570.116H235.035C227.971 570.116 222.244 575.844 222.244 582.909V673.264C222.244 680.33 216.517 686.058 209.453 686.058H119.116C112.052 686.058 106.325 691.786 106.325 698.851V789.206C106.325 796.272 100.599 802 93.5343 802H-1.62721e-05"
+                  stroke="#FFF1F0"
+                  strokeWidth="0.431035"
                 />
+              </svg>
+
+              <div className="hero-inner">
+                <div className="hero-content">
+                  <p className="hero-kicker">
+                    Fernseher &amp; TV-Technik · Berlin &amp; Umland
+                  </p>
+                  <AnimatedPageTitle
+                    id="tv-heading"
+                    parts={[
+                      { text: "Fernseher Reparatur " },
+                      { text: "bei Ihnen zu Hause", emphasized: true },
+                    ]}
+                  />
+                  <p className="hero-description">
+                    Schwarzes Bild, Streifen im Panel, kein Ton oder das Gerät
+                    bleibt im Standby? Wir prüfen Backlight, Netzteil, T-Con und
+                    Mainboard – bei LED-, OLED- und QLED-Geräten aller Marken,
+                    direkt bei Ihnen vor Ort.
+                  </p>
+
+                  <div className="hero-callout">
+                    <p className="hero-callout__price">
+                      <span aria-hidden="true">nur</span>
+                      <strong>{business.calloutFee} €</strong>
+                    </p>
+                    <div className="hero-callout__text">
+                      <strong>Technikerbesuch inklusive Kostenvoranschlag</strong>
+                      <span>
+                        Keine Zuschläge an Wochenenden und Feiertagen – der Preis
+                        gilt rund um die Uhr.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="hero-actions">
+                    <div className="hero-cta-buttons">
+                      <a className="primary-cta split-hover-cta" href="#contact">
+                        <span>Rückruf anfragen</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="hero-photo">
+                    <Image
+                      src={heroImage.src}
+                      alt={heroImage.alt}
+                      fill
+                      priority
+                      // Ab 1025px zeigt die rote Servicespalte die Zeichnung und
+                      // `.hero--with-rail .hero-photo` blendet diese Kopie aus.
+                      // Die 1px halten den Browser davon ab, sie dort trotzdem
+                      // gross zu laden. Die Zweige darunter bleiben unveraendert.
+                      sizes="(max-width: 575px) min(calc(100vw - 12px), 420px), (max-width: 991px) min(68vw, 560px), (max-width: 1024px) min(44vw, 470px), 1px"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
+
+            <DeviceFaqSection
+              id="haeufige-fragen"
+              eyebrow="Fernseher-Service"
+              heading="Häufige Fragen zu Ihrem Fernseher."
+              lead="Termine, Marken, Kosten und die wichtigsten Selbsthilfe-Schritte auf einen Blick."
+              items={tvFaqs}
+            />
+
+            <section
+              className="contact-section"
+              id="contact"
+              aria-labelledby="tv-contact-heading"
+            >
+              <div className="contact-section__intro">
+                <div>
+                  <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
+                  <AnimatedSectionTitle
+                    id="tv-contact-heading"
+                    parts={[
+                      { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
+                    ]}
+                  />
+                </div>
+                <p>
+                  Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur
+                  gewünschten Zeit und nennen Ihnen den Festpreis.
+                </p>
+              </div>
+
+              <div className="contact-panel">
+                <div className="contact-form-wrap">
+                  <ContactForm />
+                </div>
+
+                <MapConsent />
+              </div>
+            </section>
           </div>
-        </section>
 
-        <DeviceFaqSection
-          id="haeufige-fragen"
-          eyebrow="Fernseher-Service"
-          heading="Häufige Fragen zu Ihrem Fernseher."
-          lead="Termine, Marken, Kosten und die wichtigsten Selbsthilfe-Schritte auf einen Blick."
-          items={tvFaqs}
-        />
-
-        <section
-          className="contact-section"
-          id="contact"
-          aria-labelledby="tv-contact-heading"
-        >
-          <div className="contact-section__intro">
-            <div>
-              <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
-              <AnimatedSectionTitle
-                id="tv-contact-heading"
-                parts={[
-                  { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
-                ]}
-              />
-            </div>
-            <p>
-              Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur
-              gewünschten Zeit und nennen Ihnen den Festpreis.
-            </p>
-          </div>
-
-          <div className="contact-panel">
-            <div className="contact-form-wrap">
-              <ContactForm />
-            </div>
-
-            <MapConsent />
-          </div>
-        </section>
+          <ServiceRail image={heroImage} />
+        </div>
 
         <section
           className="booking-banner"

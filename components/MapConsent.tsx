@@ -3,13 +3,10 @@
 import { ExternalLink, MapPin, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { business } from "@/lib/business";
-
-const fullAddress = `${business.address.streetAddress}, ${business.address.postalCode} ${business.address.addressLocality}`;
+import { business, fullAddress, mapsUrl as MAPS_URL } from "@/lib/business";
 
 export const MAP_CONSENT_KEY = "geraete-service-google-maps-consent";
 export const COOKIE_CONSENT_KEY = "geraete-service-cookie-consent";
-const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
 
 export function MapConsent() {
   const [hasConsent, setHasConsent] = useState(false);

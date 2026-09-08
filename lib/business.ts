@@ -64,6 +64,12 @@ export const business = {
   serviceAreas: ["Berlin"],
 } as const;
 
+/** Einzeilige Anschrift für Karten, Routenplaner und strukturierte Daten. */
+export const fullAddress = `${business.address.streetAddress}, ${business.address.postalCode} ${business.address.addressLocality}`;
+
+/** Google-Maps-Suche auf den Firmensitz – Ziel jedes „Routenplaner"-Links. */
+export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+
 export const publicServices = [
   "Waschmaschinen Reparatur",
   "Kühlschrank Reparatur",
