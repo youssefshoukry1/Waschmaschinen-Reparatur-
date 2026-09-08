@@ -3,20 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import CookieConsentBanner from "@/components/CookieConsentBanner";
+import DeviceFaqSection from "@/components/DeviceFaqSection";
 import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
-import RepairGuidesSection from "@/components/RepairGuidesSection";
 import SiteFooter from "@/components/SiteFooter";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import { business, siteUrl } from "@/lib/business";
-import { guideToPlainText, repairGuides } from "@/lib/repairGuides";
+import { speakerFaqs } from "@/lib/lautsprecherFaq";
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
 
 const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
-const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${repairGuides.length} Hilfeanleitungen zum Selbstprüfen.`;
+const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${speakerFaqs.length} häufige Fragen und Antworten rund um Lautsprecher und Boxen.`;
 
 export const metadata: Metadata = {
   title,
@@ -61,10 +61,10 @@ export default function LeistungenPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: repairGuides.map((guide) => ({
+    mainEntity: speakerFaqs.map((faq) => ({
       "@type": "Question",
-      name: guide.question,
-      acceptedAnswer: { "@type": "Answer", text: guideToPlainText(guide) },
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
     })),
   };
 
@@ -150,7 +150,13 @@ export default function LeistungenPage() {
           </div>
         </section>
 
-        <RepairGuidesSection />
+        <DeviceFaqSection
+          id="haeufige-fragen"
+          eyebrow="Lautsprecher-Service"
+          heading="Häufige Fragen zu Ihren Lautsprechern."
+          lead="Typische Störungen und die Reparaturleistungen für Lautsprecher und Boxen auf einen Blick."
+          items={speakerFaqs}
+        />
 
         <section className="booking-banner" aria-labelledby="leistungen-banner-heading">
           <Image
