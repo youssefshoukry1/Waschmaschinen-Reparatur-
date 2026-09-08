@@ -1,0 +1,222 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+
+import CookieConsentBanner from "@/components/CookieConsentBanner";
+import DeviceFaqSection from "@/components/DeviceFaqSection";
+import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
+import JsonLd from "@/components/JsonLd";
+import Navbar from "@/components/Navbar";
+import SiteFooter from "@/components/SiteFooter";
+import WhatsAppFab from "@/components/WhatsAppFab";
+import { business, siteUrl } from "@/lib/business";
+import { coffeeBrands, coffeeFaqs } from "@/lib/kaffeeFaq";
+
+const ctaPatternLeft = "/images/qlinest/vector-4.svg";
+const ctaPatternRight = "/images/qlinest/vector-5.svg";
+
+const title = "Kaffeemaschinen Reparatur Berlin – Kaffeevollautomaten Service & Notdienst";
+const description = `Reparatur, Wartung, Inspektion und Reinigung von Kaffeevollautomaten, Espresso- und Gastronomiemaschinen aller Marken in Berlin. Anfahrt, Fehleranalyse und Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen.`;
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: "/Koffiezetapparaat" },
+  openGraph: { title, description, url: "/Koffiezetapparaat", locale: "de_DE", type: "website" },
+};
+
+export default function KaffeemaschinePage() {
+  const pageUrl = `${siteUrl}/Koffiezetapparaat`;
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Kaffeemaschinen Reparatur Berlin",
+    description,
+    url: pageUrl,
+    serviceType: "Kaffeemaschinen Reparatur",
+    provider: {
+      "@type": "LocalBusiness",
+      name: business.name,
+      url: siteUrl,
+      telephone: business.telephone,
+      email: business.email,
+    },
+    areaServed: business.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
+    hoursAvailable: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    brand: coffeeBrands.map((name) => ({ "@type": "Brand", name })),
+    offers: {
+      "@type": "Offer",
+      name: "Anfahrt, Fehleranalyse und Kostenvoranschlag",
+      price: String(business.calloutFee),
+      priceCurrency: "EUR",
+      description: "Anfahrt, Fehleranalyse vor Ort und Kostenvoranschlag – ohne Wochenend- oder Feiertagszuschlag.",
+    },
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: coffeeFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Kaffeemaschinen Reparatur", item: pageUrl },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbs} />
+      <Navbar />
+      <main className="page-shell">
+        <section className="hero hero--diagram" id="notdienst" aria-labelledby="kaffeemaschine-heading">
+          <svg
+            className="hero-pattern"
+            aria-hidden="true"
+            width="571"
+            height="803"
+            viewBox="0 0 571 803"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.3"
+              d="M454.081 0V93.5533C454.081 100.619 448.355 106.347 441.29 106.347H350.954C343.889 106.347 338.163 112.075 338.163 119.141V209.496C338.163 216.561 332.436 222.289 325.372 222.289H235.035C227.971 222.289 222.244 228.017 222.244 235.083V325.438C222.244 332.503 216.517 338.231 209.453 338.231H119.116C112.052 338.231 106.325 343.959 106.325 351.025V441.38C106.325 448.446 100.599 454.173 93.5343 454.173H-1.62721e-05M570 0V93.5533C570 100.619 564.273 106.347 557.209 106.347H466.872C459.808 106.347 454.081 112.075 454.081 119.141V209.496C454.081 216.561 448.355 222.289 441.29 222.289H350.954C343.889 222.289 338.163 228.017 338.163 235.083V325.438C338.163 332.503 343.889 338.231 350.954 338.231H441.29C448.355 338.231 454.081 332.503 454.081 325.438V233.484L454.193 232.728C455.052 226.933 459.969 222.606 465.825 222.494L476.466 222.289H557.209C564.273 222.289 570 228.017 570 235.083V325.438C570 332.503 564.273 338.231 557.209 338.231H466.073L463.036 338.434C457.997 338.77 454.081 342.956 454.081 348.008V357.822M454.081 347.827V441.38C454.081 448.446 448.355 454.173 441.29 454.173H350.954C343.889 454.173 338.163 459.901 338.163 466.967V557.322C338.163 564.388 332.436 570.116 325.372 570.116H235.035C227.971 570.116 222.244 575.844 222.244 582.909V673.264C222.244 680.33 216.517 686.058 209.453 686.058H119.116C112.052 686.058 106.325 691.786 106.325 698.851V789.206C106.325 796.272 100.599 802 93.5343 802H-1.62721e-05"
+              stroke="#FFF1F0"
+              strokeWidth="0.431035"
+            />
+          </svg>
+
+          <div className="hero-inner">
+            <div className="hero-content">
+              <p className="hero-kicker">Kaffeemaschinen-Service · Berlin &amp; Umland</p>
+              <AnimatedPageTitle
+                id="kaffeemaschine-heading"
+                parts={[
+                  { text: "Kaffeevollautomat Reparatur " },
+                  { text: "rund um die Uhr", emphasized: true },
+                ]}
+              />
+              <p className="hero-description">
+                Reparatur, Wartung, Inspektion und Reinigung für Haushalts-, Industrie- und
+                Gastronomie-Kaffeemaschinen, Kaffeevollautomaten und Espressomaschinen aller Marken.
+                Sie entscheiden: abgeben, abholen lassen, zusenden oder Kundenservice vor Ort.
+              </p>
+
+              <div className="hero-callout">
+                <p className="hero-callout__price">
+                  <span aria-hidden="true">nur</span>
+                  <strong>{business.calloutFee} €</strong>
+                </p>
+                <div className="hero-callout__text">
+                  <strong>Anfahrt, Fehleranalyse vor Ort und Kostenvoranschlag</strong>
+                  <span>Keine Zuschläge an Sonn-, Feiertagen und Wochenenden – der Preis gilt rund um die Uhr.</span>
+                </div>
+              </div>
+
+              <div className="hero-actions">
+                <div className="hero-cta-buttons">
+                  <Link className="primary-cta split-hover-cta" href="/#contact">
+                    <span>Rückruf anfragen</span>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="hero-photo">
+                <Image
+                  src="/images/img12.png"
+                  alt="Technische Darstellung der Bauteile eines Haushaltsgeräts"
+                  fill
+                  priority
+                  sizes="(max-width: 575px) min(calc(100vw - 12px), 420px), (max-width: 991px) min(68vw, 560px), (max-width: 1024px) min(44vw, 470px), min(48vw, 680px)"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <DeviceFaqSection
+          id="haeufige-fragen"
+          eyebrow="Kaffeemaschinen-Service"
+          heading="Häufige Fragen zu Ihrem Kaffeeautomaten."
+          lead="Leistungen, Marken, Kosten und Öffnungszeiten – die wichtigsten Antworten auf einen Blick."
+          items={coffeeFaqs}
+        />
+
+        <section className="booking-banner" aria-labelledby="kaffeemaschine-banner-heading">
+          <Image
+            className="booking-banner__pattern booking-banner__pattern--left"
+            src={ctaPatternLeft}
+            alt=""
+            aria-hidden="true"
+            width={320}
+            height={405}
+          />
+          <Image
+            className="booking-banner__pattern booking-banner__pattern--right"
+            src={ctaPatternRight}
+            alt=""
+            aria-hidden="true"
+            width={320}
+            height={405}
+          />
+
+          <Image
+            className="booking-banner__cleaner booking-banner__cleaner--left"
+            src="/images/repair/img9.png"
+            alt="Kaffeevollautomat wird gewartet"
+            width={2000}
+            height={2000}
+          />
+          <Image
+            className="booking-banner__cleaner booking-banner__cleaner--right"
+            src="/images/repair/img8.png"
+            alt="Kühlschrank wird vom Techniker geprüft"
+            width={2000}
+            height={2000}
+          />
+
+          <div className="booking-banner__content">
+            <AnimatedSectionTitle
+              id="kaffeemaschine-banner-heading"
+              parts={[
+                { text: "Ihre Kaffeemaschine " },
+                { text: "streikt", emphasized: true },
+                { text: "?" },
+              ]}
+            />
+            <p>
+              Rufen Sie uns an – wir kommen für {business.calloutFee} € vorbei, analysieren den Fehler und
+              nennen Ihnen den Preis, bevor wir beginnen. Lohnt sich die Reparatur nicht, zeigen wir Ihnen
+              vergleichbare Geräte, neu oder gebraucht mit 24 Monaten Garantie.
+            </p>
+            <a className="split-hover-cta" href={`tel:${business.telephone}`}>
+              <span>{business.telephoneDisplay}</span>
+            </a>
+          </div>
+        </section>
+
+        <SiteFooter />
+      </main>
+
+      <WhatsAppFab />
+      <CookieConsentBanner />
+    </>
+  );
+}
