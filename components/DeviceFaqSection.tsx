@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 import { AnimatedSectionTitle } from "./HeroTitle";
 import type { FaqItem } from "@/lib/kaffeeFaq";
@@ -34,11 +33,11 @@ export default function DeviceFaqSection({ id, eyebrow, heading, lead, items }: 
         <div className="faq-section__contact">
           <span>Ihre Frage ist nicht dabei?</span>
           <strong>Unser 24-Stunden-Notdienst ist für Sie da.</strong>
-          <Link className="split-hover-cta" href="/#contact">
+          <a className="split-hover-cta" href="#contact">
             <span>
               Kontakt aufnehmen <span aria-hidden="true">↗</span>
             </span>
-          </Link>
+          </a>
         </div>
       </div>
 

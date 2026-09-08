@@ -1403,6 +1403,112 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .brand-marquee__wordmark { font-size: 16px; }
 }
 
+/* ==========================================================================
+   Senkrechte Markenleiste (BrandRail.tsx)
+
+   Fest am rechten Bildschirmrand, eine volle Viewport-Hoehe hoch. Bewusst ohne
+   JavaScript: die Schleife ist eine reine CSS-Animation auf `transform`, laeuft
+   also im Compositor und laesst den Hauptthread auch auf schwacher Hardware in
+   Ruhe. Auf Telefonen und Tablets gibt es die Leiste nicht.
+   ========================================================================== */
+.brand-rail { display: none; }
+
+@media (min-width: 1025px) {
+  :root {
+    --brand-rail-width: clamp(120px, 9vw, 172px);
+    /* Zeilenhoehe x Logoanzahl = Weg einer Kopie. Muss zur Dauer passen,
+       damit das Tempo unabhaengig von der Fensterhoehe konstant bleibt. */
+    --brand-rail-row: 104px;
+    --brand-rail-duration: 36s;
+  }
+
+  /* z-index bleibt unter Navbar (50), WhatsApp-Button (70) und Cookie-Banner (80). */
+  .brand-rail {
+    width: var(--brand-rail-width);
+    height: 100vh;
+    height: 100svh;
+    position: fixed;
+    z-index: 30;
+    top: 0;
+    right: 0;
+    display: block;
+    border-left: 1px solid var(--gray-2);
+    background: #fff;
+  }
+
+  /* `overflow: clip` statt einer Maske: die weichen Kanten kommen unten aus
+     zwei Verlaufs-Overlays. Das ist billiger zu rastern als eine Maske ueber
+     einer laufenden Ebene und flackert auf schwachen GPUs nicht. */
+  .brand-rail__viewport { height: 100%; overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none; }
+
+  .brand-rail::before,
+  .brand-rail::after {
+    height: clamp(72px, 12vh, 132px);
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    content: "";
+    pointer-events: none;
+  }
+  .brand-rail::before { top: 0; background: linear-gradient(180deg, #fff 22%, rgba(255,255,255,0)); }
+  .brand-rail::after { bottom: 0; background: linear-gradient(0deg, #fff 22%, rgba(255,255,255,0)); }
+
+  /* Kein `gap`: der Abstand steckt in der festen Zeilenhoehe. Nur so ist der
+     Sprung um exakt ein Drittel der Spur luecken- und ruckelfrei. */
+  .brand-rail__track {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    will-change: transform;
+    animation: brand-rail-scroll var(--brand-rail-duration) linear infinite;
+  }
+  .brand-rail__item {
+    height: var(--brand-rail-row);
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    /* Das seitliche Polster haelt breite Logos von den Kanten weg. */
+    padding-inline: clamp(16px, 1.4vw, 24px);
+  }
+  /* Breite UND Hoehe begrenzen: breite Wortmarken (Samsung, Whirlpool) laufen
+     sonst aus der schmalen Spalte heraus und werden abgeschnitten. */
+  .brand-rail__item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(42px * var(--logo-scale, 1));
+    object-fit: contain;
+    -webkit-user-drag: none;
+  }
+  .brand-rail__wordmark { max-width: 100%; color: var(--primary); font-size: 17px; font-weight: 700; letter-spacing: -.01em; text-align: center; }
+
+  /* Platz freihalten, damit die Leiste nichts ueberdeckt: der Seiteninhalt
+     endet links davon, die fest positionierten Elemente ruecken mit. */
+  .page-shell--brand-rail { padding-right: calc(24px + var(--brand-rail-width)); }
+  body:has(.brand-rail) .site-header { padding-right: calc(24px + var(--brand-rail-width)); }
+  body:has(.brand-rail) .whatsapp-fab { right: calc(24px + var(--brand-rail-width)); }
+  body:has(.brand-rail) .cookie-banner { right: calc(24px + var(--brand-rail-width)); }
+
+  /* Der Hero rechnet in vw, schrumpft also nicht mit der schmaleren Spalte mit.
+     Zwischen 1025px und 1280px wird es dadurch eng - hier etwas zuruecknehmen. */
+  .page-shell--brand-rail .hero.hero--diagram { --hero-photo-width: min(43vw, 620px, 74svh); }
+  .page-shell--brand-rail .hero.hero--diagram .hero-content { width: min(45vw, 560px); }
+}
+
+/* Drei Kopien im Track - ein Drittel weiter ist wieder der Ausgangszustand. */
+@keyframes brand-rail-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, calc(-100% / 3), 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-rail__track { animation: none; will-change: auto; }
+}
+
 
 /* ==========================================================================
    Einsatzgebiet "Unsere Bezirke".

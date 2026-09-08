@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { AnimatedSectionTitle } from "./HeroTitle";
 
 import { repairGuides, type GuideBlock } from "@/lib/repairGuides";
@@ -91,11 +90,11 @@ export default function RepairGuidesSection() {
         <div className="faq-section__contact">
           <span>Kommen Sie nicht weiter?</span>
           <strong>Unser 24-Stunden-Notdienst ist für Sie da.</strong>
-          <Link className="split-hover-cta" href="/#contact">
+          <a className="split-hover-cta" href="#contact">
             <span>
               Kontakt aufnehmen <span aria-hidden="true">↗</span>
             </span>
-          </Link>
+          </a>
         </div>
       </div>
 

@@ -5,26 +5,35 @@ import BrandRail from "@/components/BrandRail";
 import ContactForm from "@/components/ContactForm";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DeviceFaqSection from "@/components/DeviceFaqSection";
-import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
+import {
+  AnimatedPageTitle,
+  AnimatedSectionTitle,
+} from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
 import { MapConsent } from "@/components/MapConsent";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import { business, siteUrl } from "@/lib/business";
-import { speakerFaqs } from "@/lib/lautsprecherFaq";
+import { tvFaqs } from "@/lib/tvFaq";
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
 
 const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
-const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${speakerFaqs.length} häufige Fragen und Antworten rund um Lautsprecher und Boxen.`;
+const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${tvFaqs.length} häufige Fragen und Antworten rund um Fernseher und TV-Technik.`;
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/leistungen" },
-  openGraph: { title, description, url: "/leistungen", locale: "de_DE", type: "website" },
+  openGraph: {
+    title,
+    description,
+    url: "/leistungen",
+    locale: "de_DE",
+    type: "website",
+  },
 };
 
 export default function LeistungenPage() {
@@ -44,10 +53,21 @@ export default function LeistungenPage() {
       telephone: business.telephone,
       email: business.email,
     },
-    areaServed: business.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
+    areaServed: business.serviceAreas.map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+    })),
     hoursAvailable: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -56,14 +76,15 @@ export default function LeistungenPage() {
       name: "Anfahrt inklusive Kostenvoranschlag",
       price: String(business.calloutFee),
       priceCurrency: "EUR",
-      description: "Technikerbesuch mit Kostenvoranschlag – ohne Wochenend- oder Feiertagszuschlag.",
+      description:
+        "Technikerbesuch mit Kostenvoranschlag – ohne Wochenend- oder Feiertagszuschlag.",
     },
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: speakerFaqs.map((faq) => ({
+    mainEntity: tvFaqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -86,7 +107,11 @@ export default function LeistungenPage() {
       <JsonLd data={breadcrumbs} />
       <Navbar />
       <main className="page-shell page-shell--brand-rail">
-        <section className="hero hero--diagram" id="notdienst" aria-labelledby="lautsprecher-heading">
+        <section
+          className="hero hero--diagram"
+          id="notdienst"
+          aria-labelledby="tv-heading"
+        >
           <svg
             className="hero-pattern"
             aria-hidden="true"
@@ -106,18 +131,21 @@ export default function LeistungenPage() {
 
           <div className="hero-inner">
             <div className="hero-content">
-              <p className="hero-kicker">Lautsprecher &amp; HiFi · Berlin &amp; Umland</p>
+              <p className="hero-kicker">
+                Fernseher &amp; TV-Technik · Berlin &amp; Umland
+              </p>
               <AnimatedPageTitle
-                id="lautsprecher-heading"
+                id="tv-heading"
                 parts={[
-                  { text: "Lautsprecher & HiFi " },
-                  { text: "Reparatur", emphasized: true },
+                  { text: "Fernseher Reparatur " },
+                  { text: "bei Ihnen zu Hause", emphasized: true },
                 ]}
               />
               <p className="hero-description">
-                Kratzen, Brummen oder ein stummer Kanal? Wir erneuern defekte Chassis und Sicken und
-                prüfen Frequenzweiche, Endstufe und Netzteil – bei Regal- und Standlautsprechern,
-                Studiomonitoren und Soundbars.
+                Schwarzes Bild, Streifen im Panel, kein Ton oder das Gerät
+                bleibt im Standby? Wir prüfen Backlight, Netzteil, T-Con und
+                Mainboard – bei LED-, OLED- und QLED-Geräten aller Marken,
+                direkt bei Ihnen vor Ort.
               </p>
 
               <div className="hero-callout">
@@ -127,7 +155,10 @@ export default function LeistungenPage() {
                 </p>
                 <div className="hero-callout__text">
                   <strong>Technikerbesuch inklusive Kostenvoranschlag</strong>
-                  <span>Keine Zuschläge an Wochenenden und Feiertagen – der Preis gilt rund um die Uhr.</span>
+                  <span>
+                    Keine Zuschläge an Wochenenden und Feiertagen – der Preis
+                    gilt rund um die Uhr.
+                  </span>
                 </div>
               </div>
 
@@ -141,8 +172,8 @@ export default function LeistungenPage() {
 
               <div className="hero-photo">
                 <Image
-                  src="/images/img16.png"
-                  alt="Explosionszeichnung einer Waschmaschine: Trommel, Bottich, Motor, Laugenpumpe, Heizstab, Türmanschette und Steuerelektronik"
+                  src="/images/img17.png"
+                  alt="Explosionszeichnung eines Fernsehers: Panel, Backlight-Einheit, Diffusorfolien, T-Con-Platine, Mainboard und Netzteil"
                   fill
                   priority
                   sizes="(max-width: 575px) min(calc(100vw - 12px), 420px), (max-width: 991px) min(68vw, 560px), (max-width: 1024px) min(44vw, 470px), min(48vw, 680px)"
@@ -154,22 +185,22 @@ export default function LeistungenPage() {
 
         <DeviceFaqSection
           id="haeufige-fragen"
-          eyebrow="Lautsprecher-Service"
-          heading="Häufige Fragen zu Ihren Lautsprechern."
-          lead="Typische Störungen und die Reparaturleistungen für Lautsprecher und Boxen auf einen Blick."
-          items={speakerFaqs}
+          eyebrow="Fernseher-Service"
+          heading="Häufige Fragen zu Ihrem Fernseher."
+          lead="Termine, Marken, Kosten und die wichtigsten Selbsthilfe-Schritte auf einen Blick."
+          items={tvFaqs}
         />
 
         <section
           className="contact-section"
           id="contact"
-          aria-labelledby="lautsprecher-contact-heading"
+          aria-labelledby="tv-contact-heading"
         >
           <div className="contact-section__intro">
             <div>
               <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
               <AnimatedSectionTitle
-                id="lautsprecher-contact-heading"
+                id="tv-contact-heading"
                 parts={[
                   { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
                 ]}
@@ -190,7 +221,10 @@ export default function LeistungenPage() {
           </div>
         </section>
 
-        <section className="booking-banner" aria-labelledby="leistungen-banner-heading">
+        <section
+          className="booking-banner"
+          aria-labelledby="leistungen-banner-heading"
+        >
           <Image
             className="booking-banner__pattern booking-banner__pattern--left"
             src={ctaPatternLeft}
@@ -233,8 +267,9 @@ export default function LeistungenPage() {
               ]}
             />
             <p>
-              Rufen Sie uns an – wir kommen für {business.calloutFee} € vorbei, stellen die Ursache fest
-              und nennen Ihnen den Festpreis, bevor wir beginnen.
+              Rufen Sie uns an – wir kommen für {business.calloutFee} € vorbei,
+              stellen die Ursache fest und nennen Ihnen den Festpreis, bevor wir
+              beginnen.
             </p>
             <a className="split-hover-cta" href={`tel:${business.telephone}`}>
               <span>{business.telephoneDisplay}</span>

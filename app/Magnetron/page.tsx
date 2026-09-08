@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
+import BrandRail from "@/components/BrandRail";
+import ContactForm from "@/components/ContactForm";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DeviceFaqSection from "@/components/DeviceFaqSection";
 import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
+import { MapConsent } from "@/components/MapConsent";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import WhatsAppFab from "@/components/WhatsAppFab";
@@ -83,7 +85,7 @@ export default function LeistungenPage() {
       <JsonLd data={faqSchema} />
       <JsonLd data={breadcrumbs} />
       <Navbar />
-      <main className="page-shell">
+      <main className="page-shell page-shell--brand-rail">
         <section className="hero hero--diagram" id="notdienst" aria-labelledby="mikrowelle-heading">
           <svg
             className="hero-pattern"
@@ -131,9 +133,9 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <Link className="primary-cta split-hover-cta" href="/#contact">
+                  <a className="primary-cta split-hover-cta" href="#contact">
                     <span>Rückruf anfragen</span>
-                  </Link>
+                  </a>
                 </div>
               </div>
 
@@ -157,6 +159,36 @@ export default function LeistungenPage() {
           lead="Kein Betrieb oder Speisen, die nicht mehr richtig warm werden – die wichtigsten Antworten auf einen Blick."
           items={microwaveFaqs}
         />
+
+        <section
+          className="contact-section"
+          id="contact"
+          aria-labelledby="mikrowelle-contact-heading"
+        >
+          <div className="contact-section__intro">
+            <div>
+              <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
+              <AnimatedSectionTitle
+                id="mikrowelle-contact-heading"
+                parts={[
+                  { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
+                ]}
+              />
+            </div>
+            <p>
+              Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur
+              gewünschten Zeit und nennen Ihnen den Festpreis.
+            </p>
+          </div>
+
+          <div className="contact-panel">
+            <div className="contact-form-wrap">
+              <ContactForm />
+            </div>
+
+            <MapConsent />
+          </div>
+        </section>
 
         <section className="booking-banner" aria-labelledby="leistungen-banner-heading">
           <Image
@@ -212,6 +244,8 @@ export default function LeistungenPage() {
 
         <SiteFooter />
       </main>
+
+      <BrandRail />
 
       <WhatsAppFab />
       <CookieConsentBanner />
