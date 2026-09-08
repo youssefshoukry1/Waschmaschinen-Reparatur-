@@ -369,7 +369,7 @@ export default async function Home() {
               >
                 <p>Entdecken</p>
                 <a href="#home">Startseite</a>
-                <a href="#services">Leistungen</a>
+                <a href="/leistungen">Leistungen</a>
                 <a href="#einsatzgebiet">Bezirke</a>
                 <a href="#faq">Häufige Fragen</a>
               </nav>

@@ -22,13 +22,13 @@ export const business = {
   owner: "TODO_INHABER",
   description:
     "Waschmaschinen Reparatur in Berlin – direkt bei Ihnen vor Ort. Kostenvoranschlag vor Ort, 36 Monate Garantie auf die Reparatur.",
-  email: "TODO@example.de",
+  email: "kontakt@waschmaschinen-reparaturdienst-berlin.de",
   /** E.164 für tel:-Links. */
-  telephone: "+4930000000",
+  telephone: "+493049854326",
   /** Menschenlesbare Schreibweise für die Anzeige. */
-  telephoneDisplay: "030 000000",
+  telephoneDisplay: "030 49854326",
   /** Nur Ziffern, ohne +, für wa.me-Links. */
-  whatsapp: "4930000000",
+  whatsapp: "493049854326",
   address: {
     streetAddress: "TODO Straße 1",
     postalCode: "10115",
@@ -54,6 +54,8 @@ export const business = {
   experienceYears: 33,
   /** Garantie auf die durchgeführte Reparatur, in Monaten. */
   warrantyMonths: 36,
+  /** Pauschale für Anfahrt + Kostenvoranschlag in Euro – ohne Wochenend- oder Feiertagszuschlag. */
+  calloutFee: 5,
   financing: {
     partner: "Santander Consumer Bank",
     interestRate: 0,

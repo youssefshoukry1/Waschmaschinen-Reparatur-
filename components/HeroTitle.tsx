@@ -68,6 +68,34 @@ export default function HeroTitle() {
   );
 }
 
+/**
+ * Wie AnimatedSectionTitle, rendert aber ein <h1> fuer Unterseiten mit
+ * eigener Hero (auf der Startseite uebernimmt das HeroTitle).
+ */
+export function AnimatedPageTitle({ id, parts }: { id: string; parts: TitlePart[] }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setIsVisible(true);
+  }, []);
+
+  return (
+    <h1 id={id} className={isVisible ? "hero-title hero-title--hero hero-title--visible" : "hero-title hero-title--hero"}>
+      <span className="sr-only">{parts.map((part) => part.text).join("")}</span>
+      {parts.map((part, index) => {
+        const startIndex = parts.slice(0, index).reduce((total, previousPart) => total + previousPart.text.length, 0);
+        return (
+          <span key={`${part.text}-${index}`}>
+            <AnimatedCharacters text={part.text} emphasized={part.emphasized} startIndex={startIndex} />
+            {part.desktopBreakAfter ? <br className="hero-title__desktop-break" aria-hidden="true" /> : null}
+          </span>
+        );
+      })}
+    </h1>
+  );
+}
+
 export function AnimatedSectionTitle({ id, parts }: { id: string; parts: TitlePart[] }) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [isVisible, setIsVisible] = useState(false);

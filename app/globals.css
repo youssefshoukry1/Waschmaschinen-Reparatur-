@@ -178,6 +178,31 @@ a { color: inherit; text-decoration: none; }
 .faq-item__answer p { max-width: 670px; margin: 0; padding: 0 54px 28px 50px; color: #667085; font-size: 15px; line-height: 1.8; }
 .faq-item.is-open .faq-item__answer { grid-template-rows: 1fr; opacity: 1; }
 .faq-item button:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; border-radius: 8px; }
+
+/* Aufgeklappte Hilfeanleitung: gleiche Einrueckung wie eine FAQ-Antwort,
+   aber mit Schritten, Listen, Kostentabelle und Sicherheitshinweis. */
+.guide-answer { max-width: 720px; display: grid; gap: 22px; padding: 2px 54px 30px 50px; color: #667085; font-size: 15px; line-height: 1.8; }
+.faq-item__answer .guide-answer p { max-width: none; padding: 0; }
+.guide-answer__lead { color: #4a5567; font-weight: 600; }
+.guide-answer__block-title { margin: 0 0 12px !important; color: var(--primary); font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.guide-answer__steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: guide-steps; }
+.guide-answer__steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: 14px; counter-increment: guide-steps; }
+.guide-answer__steps li::before { width: 26px; height: 26px; display: grid; grid-row: span 2; place-items: center; border-radius: 50%; background: var(--lightest-blue); color: var(--blue); content: counter(guide-steps); font-size: 12px; font-weight: 800; line-height: 1; }
+.guide-answer__steps strong { color: var(--primary); font-size: 15px; font-weight: 750; line-height: 1.5; }
+.guide-answer__steps strong + span { display: block; margin-top: 3px; }
+.guide-answer__steps span { font-size: 15px; line-height: 1.7; }
+.guide-answer__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.guide-answer__list li { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.7; }
+.guide-answer__list li::before { width: 7px; height: 7px; position: absolute; top: 11px; left: 8px; border-radius: 50%; background: var(--accent); content: ""; }
+.guide-answer__table-wrap { overflow-x: auto; border: 1px solid #dfe6ee; border-radius: 14px; }
+.guide-answer__table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 14px; text-align: left; }
+.guide-answer__table th, .guide-answer__table td { padding: 12px 16px; border-bottom: 1px solid #dfe6ee; vertical-align: top; }
+.guide-answer__table thead th { background: var(--lightest-blue); color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.guide-answer__table tbody th { color: var(--primary); font-weight: 750; }
+.guide-answer__table tbody td:first-of-type { color: var(--primary); font-weight: 700; white-space: nowrap; }
+.guide-answer__table tbody tr:last-child th, .guide-answer__table tbody tr:last-child td { border-bottom: 0; }
+.guide-answer__note { padding: 14px 16px !important; border-left: 3px solid var(--blue); border-radius: 0 10px 10px 0; background: #fff7f6; color: #4a5567; font-size: 14px; line-height: 1.65; }
+
 .appliance-list { align-self: start; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); border-top: 1px solid #dfe6ee; }
 .appliance-item { display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 12px; padding: 22px 0; border-bottom: 1px solid #dfe6ee; }
 .appliance-item__number { color: #98a2b3; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
@@ -344,8 +369,34 @@ a { color: inherit; text-decoration: none; }
 
 .hero-photo::before { width: 76%; aspect-ratio: 1; position: absolute; z-index: -1; right: 3%; bottom: 4%; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; content: ""; }
 .hero-photo img { object-fit: contain; object-position: center bottom; filter: drop-shadow(0 22px 22px rgba(6,38,79,.2)); transform: translateY(var(--hero-photo-offset, 0)); }
+
+/* Hero mit technischer Zeichnung statt Freisteller-Foto: Die Explosionsdarstellung
+   zeigt alle Bauteile bis zum Bildrand. Deshalb faellt der "sink" (Anschnitt
+   unten) weg und das Bild bleibt vollstaendig im Hero - sonst schneidet
+   overflow:hidden die aeusseren Teile ab. */
+.hero.hero--diagram { --hero-photo-sink: 0px; --hero-photo-right: 0px; }
+/* Auf grossen, aber flachen Fenstern begrenzt 66svh die Zeichnung, damit sie
+   oben nicht aus der Hero herauslaeuft und abgeschnitten wird. */
+@media (min-width: 1025px) {
+  .hero.hero--diagram { --hero-photo-width: min(48vw, 680px, 74svh); }
+  /* Der Text bleibt links neben der Zeichnung, statt wie auf der Startseite
+     unter dem Freisteller durchzulaufen. */
+  .hero.hero--diagram .hero-content { width: min(50vw, 600px); }
+  .hero.hero--diagram h1.hero-title--hero { max-width: 600px; font-size: clamp(40px, 3.4vw, 52px); }
+}
+.hero--diagram .hero-photo::before { display: none; }
+.hero--diagram .hero-photo img { object-position: center bottom; filter: drop-shadow(0 18px 30px rgba(6,38,79,.28)); }
 .hero-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 50px; }
-.hero-cta-buttons { display: flex; align-items: center; flex-wrap: nowrap; gap: 12px; }
+.hero-cta-buttons { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+/* 5-Euro-Callout im Hero der Leistungsseite. */
+.hero-callout { display: inline-flex; max-width: min(100%, 590px); align-items: center; gap: 16px; margin: 0 0 clamp(16px, 2vw, 24px); padding: 12px 18px 12px 14px; border: 1px solid rgba(255,255,255,.28); border-radius: 18px; background: rgba(255,255,255,.14); backdrop-filter: blur(6px); }
+.hero-callout__price { display: grid; flex: none; margin: 0; place-items: center; padding: 8px 14px; border-radius: 12px; background: var(--cta); color: var(--cta-text); line-height: 1; }
+.hero-callout__price span { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.hero-callout__price strong { font-size: 24px; font-weight: 800; letter-spacing: -.03em; }
+.hero-callout__text { display: grid; gap: 3px; }
+.hero-callout__text strong { font-size: clamp(14px, calc(13.2px + .22vw), 16px); font-weight: 700; line-height: 1.35; }
+.hero-callout__text span { color: rgba(255,255,255,.82); font-size: clamp(12.5px, calc(11.8px + .22vw), 14px); line-height: 1.5; }
 .primary-cta { display: inline-flex; min-height: 45px; align-items: center; justify-content: center; padding: 9px 20px; border-radius: 32px; background: var(--cta); color: var(--cta-text); font-size: 16px; font-weight: 600; white-space: nowrap; transition: background .25s ease, color .25s ease, transform .25s ease; }
 .customer-proof { display: inline-flex; flex: none; align-items: center; gap: 6px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.26); border-radius: 999px; background: rgba(255,255,255,.12); box-shadow: 0 8px 22px rgba(8,39,79,.14); white-space: nowrap; }
 .google-review__logo { width: 24px; height: 24px; flex: none; }
@@ -1031,6 +1082,27 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     --hero-photo-right: -34px;
   }
   .hero-actions { gap: 20px; margin-bottom: 0; padding-bottom: 4px; }
+  /* Gestapeltes Layout: Statt einer festen Bildgroesse plus passendem
+     Bottom-Padding (das den Hero zwangslaeufig ueber den Viewport hinaus
+     schiebt) wird der Hero hier zur Flex-Spalte. Der Text nimmt die Hoehe,
+     die er braucht - die Zeichnung bekommt exakt den Rest und skaliert per
+     object-fit mit. So endet der Hero immer auf Bildschirmhoehe und muss
+     nicht gescrollt werden. */
+  .hero.hero--diagram { display: flex; flex-direction: column; padding-bottom: 18px; }
+  .hero--diagram .hero-inner,
+  .hero--diagram .hero-content { display: flex; flex: 1 1 auto; min-height: 0; flex-direction: column; }
+  .hero--diagram .hero-photo {
+    width: min(100%, 560px);
+    position: relative;
+    inset: auto;
+    flex: 1 1 auto;
+    min-height: 190px;
+    aspect-ratio: auto;
+    margin: 16px auto 0;
+    transform: none;
+  }
+  .hero--diagram .hero-photo img { object-position: center; }
+  .hero--diagram .hero-actions { margin-bottom: 0; padding-bottom: 0; }
   .customer-proof { padding: 7px 10px; }
   .service-showcase { padding-top: 40px; }
   .service-showcase__heading { grid-template-columns: 1fr; row-gap: 18px; margin-bottom: 24px; }
@@ -1047,6 +1119,13 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section { width: calc(100% - 32px); margin-top: 64px; grid-template-columns: 1fr; gap: 32px; }
   .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .faq-section__aside { position: relative; top: auto; }
+  /* Gestapelt steht die Intro-Karte der Anleitungen nur noch ueber der Liste –
+     sie wird kompakter, damit die 15 Anleitungen frueher sichtbar sind. */
+  .faq-section--guides { gap: 22px; }
+  .faq-section--guides .faq-section__aside { padding: 26px 22px; }
+  .faq-section--guides .faq-section__aside h2 { font-size: clamp(28px, 4.4vw, 36px); }
+  .faq-section--guides .faq-section__lead { margin: 14px 0 22px; }
+  .faq-section--guides .faq-section__contact { padding-top: 18px; }
   .why-choose { margin-top: 40px; padding: 40px 16px; border-radius: 20px; }
   .why-choose-inner { width: 100%; grid-template-columns: 5fr 7fr; gap: 24px; }
   .why-choose-heading { grid-column: 1; }
@@ -1122,6 +1201,14 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     border-radius: 20px;
   }
   .hero-header { left: 18px; right: 18px; }
+  /* Auf dem Handy zaehlt jeder Pixel: engere Abstaende und eine etwas kleinere
+     Headline lassen genug Hoehe fuer die Zeichnung, damit der komplette Hero
+     ohne Scrollen sichtbar bleibt. */
+  .hero.hero--diagram { padding-top: 84px; }
+  .hero.hero--diagram h1.hero-title--hero { margin-bottom: 10px; font-size: clamp(26px, 7.2vw, 34px); }
+  .hero--diagram .hero-kicker { margin-bottom: 8px; }
+  .hero--diagram .hero-description { margin-bottom: 14px; }
+  .hero--diagram .hero-photo { min-height: 170px; margin-top: 12px; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; padding-bottom: 0; }
   .hero-cta-buttons { display: grid; grid-template-columns: 1fr; width: 100%; gap: 10px; }
   .primary-cta { width: 100%; }
@@ -1157,6 +1244,18 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section__aside { padding: 28px 24px; border-radius: 16px; }
   .faq-section__aside h2 { font-size: 36px; }
   .faq-section__lead { margin-bottom: 30px; }
+  /* Auf dem Handy ist die Karte reine Ueberleitung: Der erklaerende Absatz und
+     die Anrede entfallen, Ueberschrift und Notdienst-Button bleiben. So beginnt
+     die Anleitungsliste rund 250px frueher. */
+  .faq-section--guides { gap: 18px; }
+  .faq-section--guides .faq-section__aside { padding: 20px 18px; border-radius: 14px; }
+  .faq-section--guides .faq-section__eyebrow { margin-bottom: 8px; font-size: 10px; letter-spacing: .1em; }
+  .faq-section--guides .faq-section__aside h2 { font-size: 25px; line-height: 1.15; letter-spacing: -.035em; }
+  .faq-section--guides .faq-section__lead { display: none; }
+  .faq-section--guides .faq-section__contact { gap: 3px; margin-top: 16px; padding-top: 14px; }
+  .faq-section--guides .faq-section__contact > span { display: none; }
+  .faq-section--guides .faq-section__contact strong { font-size: 14px; }
+  .faq-section--guides .faq-section__contact a { margin-top: 12px; padding: 10px 15px; font-size: 13px; }
   .faq-item button { grid-template-columns: 28px minmax(0, 1fr) 38px; gap: 8px; padding: 22px 0; }
   .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .appliance-item { grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 14px 0; }
@@ -1164,6 +1263,11 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .appliance-item__name { font-size: 14px; letter-spacing: -.015em; }
   .faq-item__question { padding-right: 4px; font-size: 18px; }
   .faq-item__answer p { padding: 0 0 24px 36px; }
+  .guide-answer { gap: 18px; padding: 2px 0 26px 36px; }
+  .guide-answer__table { min-width: 440px; }
+  .hero-callout { gap: 12px; padding: 10px 14px 10px 10px; }
+  .hero-callout__price { padding: 7px 11px; }
+  .hero-callout__price strong { font-size: 21px; }
   .window-group { padding: 14px; }
   .area-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .service-area { width: calc(100% - 32px); margin-top: 48px; grid-template-columns: minmax(0, 1fr); gap: 28px; }

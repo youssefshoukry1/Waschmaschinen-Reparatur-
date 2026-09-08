@@ -17,6 +17,7 @@ export default function SeoPageFooter() {
       </address>
       <nav aria-label="Weiterführende Informationen">
         <Link href="/">Startseite</Link>
+        <Link href="/leistungen">Leistungen &amp; Hilfeanleitungen</Link>
         <Link href="/waschmaschinen-reparatur-berlin">Waschmaschinen Reparatur</Link>
         <Link href="/einsatzgebiet-berlin">Einsatzgebiet</Link>
         <Link href="/agb">AGB</Link>

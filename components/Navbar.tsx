@@ -8,7 +8,7 @@ import { business } from "@/lib/business";
 
 const links = [
   ["/#home", "Startseite"],
-  ["/#services", "Leistungen"],
+  ["/leistungen", "Leistungen"],
   ["/#unternehmen", "Über uns"],
   ["/#contact", "Kontakt"],
 ] as const;
