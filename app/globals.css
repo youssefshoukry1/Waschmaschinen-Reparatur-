@@ -1406,6 +1406,60 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 .device-faq__header h2 .hero-title__emphasis { color: var(--blue); }
 .device-faq__lead { max-width: 620px; margin: 14px 0 0; color: #667085; font-size: 15px; line-height: 1.75; text-wrap: pretty; }
 
+/* --------------------------------------------------------------------------
+   Die sitzende Figur auf der Zeile der Ueberschrift (device-faq--mascot)
+
+   Nur die Fernseherseite fuehrt sie mit, und sie betrifft ausschliesslich die
+   Ueberschrift. Vorspann und Fragenliste stehen von Anfang an vollstaendig da.
+
+     --faq-reveal: 0  Figur ganz links auf der Zeile, Ueberschrift abgedeckt.
+     --faq-reveal: 1  Figur rechts am Zeilenende, Ueberschrift komplett zu
+                      lesen - beide auf derselben Zeile.
+
+   Bewegt wird nur `left` an einem absolut positionierten Bild innerhalb der
+   Zeile; der Vorhang ist ein `clip-path` auf der H2. Der Text bleibt also im
+   Barrierefreiheitsbaum und fuer Suchmaschinen jederzeit vorhanden, auch
+   solange er optisch fehlt. Ohne JavaScript steht die Variable auf 1 - dann
+   zeigt die Seite sofort den Endzustand.
+   -------------------------------------------------------------------------- */
+
+.device-faq--mascot { --faq-reveal: 1; }
+.device-faq__headline { position: relative; }
+
+@media (min-width: 1025px) {
+  .device-faq--mascot .device-faq__headline {
+    /* Kantenlaenge der Figur. Sie ist quadratisch, also zugleich die Hoehe der
+       Zeile und das Polster, das die Ueberschrift rechts freihaelt. */
+    --faq-mascot-size: clamp(116px, 11vw, 152px);
+    min-height: var(--faq-mascot-size);
+  }
+
+  .device-faq--mascot .device-faq__headline h2 {
+    padding-right: calc(var(--faq-mascot-size) + 24px);
+    /* Gleiche Breite wie die Buehne, damit Vorhangkante und Weg der Figur
+       auf denselben 100% rechnen. */
+    max-width: 100%;
+    clip-path: inset(0 calc(100% - var(--faq-reveal) * 100%) 0 0);
+  }
+
+  .device-faq--mascot .device-faq__mascot {
+    position: absolute;
+    /* Sie sitzt auf der Grundlinie der Ueberschrift, nicht darueber. */
+    bottom: 0;
+    left: calc(var(--faq-reveal) * (100% - var(--faq-mascot-size)));
+    width: var(--faq-mascot-size);
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+/* Unter 1025px steht die Liste allein in der Spalte - dort waere die Figur nur
+   ein Platzfresser. Kein Vorhang, kein Scrollhandler. */
+@media (max-width: 1024px) {
+  .device-faq--mascot .device-faq__mascot { display: none; }
+}
+
 .brand-rail { display: none; }
 .service-rail { display: none; }
 
