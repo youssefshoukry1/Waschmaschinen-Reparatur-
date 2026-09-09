@@ -1412,18 +1412,25 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
    Nur die Fernseherseite fuehrt sie mit, und sie betrifft ausschliesslich die
    Ueberschrift. Vorspann und Fragenliste stehen von Anfang an vollstaendig da.
 
-     --faq-reveal: 0  Figur ganz links auf der Zeile, Ueberschrift abgedeckt.
-     --faq-reveal: 1  Figur rechts am Zeilenende, Ueberschrift komplett zu
-                      lesen - beide auf derselben Zeile.
+   Vier Variablen schreibt der Scrollhandler in DeviceFaqSection fort; hier
+   wird daraus die Bewegung zusammengesetzt:
 
-   Bewegt wird nur `left` an einem absolut positionierten Bild innerhalb der
-   Zeile; der Vorhang ist ein `clip-path` auf der H2. Der Text bleibt also im
-   Barrierefreiheitsbaum und fuer Suchmaschinen jederzeit vorhanden, auch
-   solange er optisch fehlt. Ohne JavaScript steht die Variable auf 1 - dann
-   zeigt die Seite sofort den Endzustand.
+     --faq-t       0 bis 1, der Weg von links nach rechts (weich ein/aus).
+                   Steuert zugleich die Kante des Vorhangs.
+     --faq-hop     0 bis 1, die Bogenhoehe. Zwei Saetze, der zweite flacher.
+     --faq-lean    Grad Neigung, in der Luft am staerksten.
+     --faq-squash  Stauchung beim Aufsetzen.
+
+   Der Vorhang ist eine weiche Maske statt einer harten Kante: Die Buchstaben
+   blenden ueber rund 70px auf, statt scharf abgeschnitten zu werden. Der Text
+   bleibt dabei im Barrierefreiheitsbaum und fuer Suchmaschinen jederzeit
+   vorhanden, auch solange er optisch fehlt.
+
+   Ohne JavaScript stehen alle Variablen auf ihrem Endzustand - die Seite zeigt
+   dann sofort das fertige Bild.
    -------------------------------------------------------------------------- */
 
-.device-faq--mascot { --faq-reveal: 1; }
+.device-faq--mascot { --faq-t: 1; --faq-hop: 0; --faq-lean: 0; --faq-squash: 0; }
 .device-faq__headline { position: relative; }
 
 @media (min-width: 1025px) {
@@ -1431,26 +1438,63 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     /* Kantenlaenge der Figur. Sie ist quadratisch, also zugleich die Hoehe der
        Zeile und das Polster, das die Ueberschrift rechts freihaelt. */
     --faq-mascot-size: clamp(116px, 11vw, 152px);
+    /* Die Kante des Vorhangs laeuft exakt auf der linken Bildkante mit. Am Ende
+       bleibt rechts genau das Polster stehen, in dem ohnehin kein Text steht. */
+    --faq-edge: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
     min-height: var(--faq-mascot-size);
   }
 
   .device-faq--mascot .device-faq__headline h2 {
-    padding-right: calc(var(--faq-mascot-size) + 24px);
-    /* Gleiche Breite wie die Buehne, damit Vorhangkante und Weg der Figur
-       auf denselben 100% rechnen. */
+    /* Gleiche Breite wie die Buehne, damit Vorhangkante und Weg der Figur auf
+       denselben 100% rechnen. */
     max-width: 100%;
-    clip-path: inset(0 calc(100% - var(--faq-reveal) * 100%) 0 0);
+    padding-right: calc(var(--faq-mascot-size) + 24px);
+    -webkit-mask-image: linear-gradient(to right,
+      #000 0, #000 var(--faq-edge),
+      rgba(0, 0, 0, .5) calc(var(--faq-edge) + 26px),
+      transparent calc(var(--faq-edge) + 74px));
+    mask-image: linear-gradient(to right,
+      #000 0, #000 var(--faq-edge),
+      rgba(0, 0, 0, .5) calc(var(--faq-edge) + 26px),
+      transparent calc(var(--faq-edge) + 74px));
   }
 
+  /* Die Huelle traegt nur den waagerechten Weg - und den Schatten, der beim
+     Huepfen am Boden liegen bleibt. */
   .device-faq--mascot .device-faq__mascot {
     position: absolute;
-    /* Sie sitzt auf der Grundlinie der Ueberschrift, nicht darueber. */
     bottom: 0;
-    left: calc(var(--faq-reveal) * (100% - var(--faq-mascot-size)));
+    left: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
     width: var(--faq-mascot-size);
-    height: auto;
+    line-height: 0;
     pointer-events: none;
     user-select: none;
+  }
+
+  .device-faq--mascot .device-faq__mascot::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 2px;
+    height: 9px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(16, 16, 16, .34), transparent);
+    /* Je hoeher der Sprung, desto kleiner und blasser der Schatten. */
+    transform: scaleX(calc(1 - var(--faq-hop) * .42));
+    opacity: calc(1 - var(--faq-hop) * .72);
+  }
+
+  .device-faq--mascot .device-faq__mascot img {
+    width: 100%;
+    height: auto;
+    /* Sprung, Neigung und die Stauchung beim Aufsetzen. Alles auf transform -
+       laeuft also im Compositor, ohne Umbruch im uebrigen Layout. */
+    transform:
+      translateY(calc(var(--faq-hop) * -26px))
+      rotate(calc(var(--faq-lean) * 1deg))
+      scale(calc(1 + var(--faq-squash)), calc(1 - var(--faq-squash)));
+    transform-origin: 50% 100%;
   }
 }
 

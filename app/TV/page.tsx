@@ -28,13 +28,6 @@ const heroImage = {
   alt: "Explosionszeichnung eines Fernsehers: Panel, Backlight-Einheit, Diffusorfolien, T-Con-Platine, Mainboard und Netzteil",
 };
 
-/** Die sitzende Figur, die beim Scrollen die Fragenliste aufdeckt. */
-const faqMascot = {
-  src: "/images/img18.png",
-  // Reine Dekoration: Die Ueberschrift daneben sagt bereits alles.
-  alt: "",
-};
-
 const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
 const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${tvFaqs.length} häufige Fragen und Antworten rund um Fernseher und TV-Technik.`;
 
@@ -218,7 +211,6 @@ export default function LeistungenPage() {
               heading="Häufige Fragen zu Ihrem Fernseher."
               lead="Termine, Marken, Kosten und die wichtigsten Selbsthilfe-Schritte auf einen Blick."
               items={tvFaqs}
-              mascot={faqMascot}
             />
           </div>
         </div>
