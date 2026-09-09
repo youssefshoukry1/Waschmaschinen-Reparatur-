@@ -1978,3 +1978,223 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .contact-form__status { min-height: 0; }
   .contact-form__success { min-height: clamp(300px, 42svh, 440px); }
 }
+
+/* ==========================================================================
+   Navigation: „Leistungen“-Flyout (Desktop) und Akkordeon (Mobil)
+   „Leistungen“ ist kein Link mehr, sondern ein Button - er oeffnet nur noch
+   das Untermenue mit den sieben Geraeteseiten.
+   ========================================================================== */
+
+/* Der Trigger erbt die Optik von .navbar__link, muss aber den Button-Reset
+   mitbringen (Buttons erben weder Schriftart noch Farbe). */
+.navbar__link--trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navbar-text);
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.navbar__link--trigger:hover,
+.navbar__link--trigger:focus-visible { color: var(--navbar-accent); }
+.navbar__link--trigger.is-active { color: #fff; }
+
+.navbar__chevron {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  opacity: .7;
+  transition: transform 280ms var(--navbar-ease), opacity 200ms ease;
+}
+.navbar__link--trigger[aria-expanded="true"] .navbar__chevron { transform: rotate(180deg); opacity: 1; }
+
+/* --- Desktop-Flyout ------------------------------------------------------ */
+.navbar__dropdown { position: relative; display: none; align-items: center; }
+
+.navbar__flyout {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 30;
+  /* Die Polsterung ist zugleich die Hover-Bruecke zwischen Trigger und Panel. */
+  padding-top: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity 240ms var(--navbar-ease), transform 240ms var(--navbar-ease), visibility 240ms linear;
+}
+.site-header.is-services-open .navbar__flyout {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.navbar__mega {
+  width: min(90vw, 640px);
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px;
+  background: rgba(12,12,12,.94);
+  box-shadow: 0 32px 72px rgba(0,0,0,.5);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+/* Kleiner Pfeil zum Trigger hoch. */
+.navbar__mega::before {
+  position: absolute;
+  top: 13px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  border-left: 1px solid rgba(255,255,255,.12);
+  border-radius: 3px 0 0 0;
+  background: rgba(12,12,12,.94);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+.navbar__mega-kicker {
+  margin: 0 0 12px;
+  padding-left: 8px;
+  color: rgba(255,255,255,.42);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.navbar__mega-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Sieben Eintraege auf zwei Spalten: der letzte fuellt die Zeile aus. */
+.navbar__mega-list > li:last-child { grid-column: 1 / -1; }
+
+.navbar__mega-link,
+.navbar__sublink {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  color: rgba(255,255,255,.94);
+  transition: background-color 220ms ease, transform 260ms var(--navbar-ease);
+}
+.navbar__mega-link:hover,
+.navbar__mega-link:focus-visible,
+.navbar__sublink:hover,
+.navbar__sublink:focus-visible { background: rgba(255,255,255,.08); transform: translateX(3px); }
+.navbar__mega-link.is-active,
+.navbar__sublink.is-active { background: rgba(227,54,41,.14); }
+
+.navbar__mega-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.72);
+  transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+.navbar__mega-icon svg { width: 20px; height: 20px; }
+.navbar__mega-link:hover .navbar__mega-icon,
+.navbar__mega-link:focus-visible .navbar__mega-icon,
+.navbar__mega-link.is-active .navbar__mega-icon,
+.navbar__sublink:hover .navbar__mega-icon,
+.navbar__sublink:focus-visible .navbar__mega-icon,
+.navbar__sublink.is-active .navbar__mega-icon {
+  border-color: rgba(227,54,41,.5);
+  background: rgba(227,54,41,.18);
+  color: #fff;
+}
+
+.navbar__mega-text { display: grid; min-width: 0; gap: 2px; }
+.navbar__mega-title { font-size: 13.5px; font-weight: 650; letter-spacing: -.01em; line-height: 1.25; }
+.navbar__mega-desc {
+  overflow: hidden;
+  color: rgba(255,255,255,.48);
+  font-size: 11px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Mobiles Akkordeon --------------------------------------------------- */
+.navbar__accordion { border-bottom: 1px solid rgba(255,255,255,.1); }
+/* Der Trigger traegt in der Mobilliste sonst eine doppelte Trennlinie. */
+.navbar__mobile-links .navbar__accordion .navbar__link--trigger {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-block: 12px;
+  border-bottom: 0;
+  font-size: 14px;
+  letter-spacing: .14em;
+}
+.navbar__accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  transition: grid-template-rows 340ms var(--navbar-ease), opacity 260ms ease;
+}
+.navbar__accordion.is-open .navbar__accordion-panel { grid-template-rows: 1fr; opacity: 1; }
+.navbar__accordion-inner { min-height: 0; overflow: hidden; }
+.navbar__accordion-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 4px 0 14px;
+  list-style: none;
+}
+.navbar__sublink {
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.035);
+}
+.navbar__sublink.is-active { border-color: rgba(227,54,41,.4); }
+
+@media (min-width: 768px) {
+  /* Das Flyout darf ueber den Rand der Navbar hinausragen. Die Pillen-
+     Animation mit overflow:hidden greift ohnehin nur unter 768px. */
+  .navbar { overflow: visible; }
+  .navbar__dropdown { display: inline-flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__flyout,
+  .navbar__accordion-panel,
+  .navbar__chevron,
+  .navbar__mega-link,
+  .navbar__sublink { transition-duration: 1ms; }
+  .navbar__mega-link:hover,
+  .navbar__sublink:hover { transform: none; }
+}
+
+/* Das geoeffnete Mobilmenue liegt direkt ueber dem Hero. Mit der normalen
+   Navbar-Flaeche (82% Deckkraft) schlaegt die Hero-Ueberschrift durch die
+   Eintraege - im offenen Zustand deshalb deutlich dichter und staerker
+   verwischt. Die drei Selektoren decken die Scroll-Zustaende mit ab, die sonst
+   per hoeherer Spezifitaet gewinnen wuerden. */
+.site-header.is-menu-open .navbar,
+.site-header.is-menu-open.is-scrolled .navbar,
+.site-header.is-menu-open.is-scrolled.is-scrolling-down .navbar {
+  border-color: rgba(255,255,255,.14);
+  background: rgba(8,8,8,.975);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  backdrop-filter: blur(30px) saturate(140%);
+  -webkit-backdrop-filter: blur(30px) saturate(140%);
+}
