@@ -4,6 +4,7 @@ import Image from "next/image";
 import BrandRail from "@/components/BrandRail";
 import ContactForm from "@/components/ContactForm";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
+import DeviceNav from "@/components/DeviceNav";
 import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
 import { MapConsent } from "@/components/MapConsent";
@@ -144,6 +145,7 @@ export default function LeistungenPage() {
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>
+                <DeviceNav />
               </div>
 
               <div className="hero-photo">

@@ -5,6 +5,7 @@ import BrandRail from "@/components/BrandRail";
 import ContactForm from "@/components/ContactForm";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DeviceFaqSection from "@/components/DeviceFaqSection";
+import DeviceNav from "@/components/DeviceNav";
 import {
   AnimatedPageTitle,
   AnimatedSectionTitle,
@@ -176,6 +177,7 @@ export default function LeistungenPage() {
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>
+                <DeviceNav />
               </div>
 
               <div className="hero-photo">
