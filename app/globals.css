@@ -1409,6 +1409,48 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 .brand-rail { display: none; }
 .service-rail { display: none; }
 
+/* --------------------------------------------------------------------------
+   Die vier Gruende ueber der Fragenliste (device-faq-layout--with-why)
+
+   Nur auf Seiten, die den Block mitfuehren. Der Wrapper .device-faq-column
+   uebernimmt das Rasterfeld "list" von der Fragenliste - sonst aendert sich am
+   Raster, an den beiden Leisten und an der Fragenliste selbst nichts.
+
+   Der Block traegt dieselben Klassen wie auf der Startseite und sieht deshalb
+   auch genauso aus. Ueberschrieben wird nur, was die schmalere Spalte
+   erzwingt: Aussenabstand, seitliches Polster und die Kopfzeile ueber statt
+   neben den Karten - derselbe Umbruch, den die Startseite bei dieser Breite
+   ebenfalls nimmt.
+   -------------------------------------------------------------------------- */
+
+.device-faq-layout--with-why .device-faq-column { min-width: 0; }
+
+@media (min-width: 1025px) {
+  .device-faq-layout--with-why .device-faq-column { grid-area: list; }
+}
+
+.why-choose--inline {
+  margin: 0 0 clamp(40px, 4vw, 64px);
+  padding: clamp(32px, 3.4vw, 48px) clamp(24px, 2.6vw, 40px);
+}
+.why-choose--inline .why-choose-inner { width: 100%; display: block; }
+.why-choose--inline .why-choose-heading { margin-bottom: clamp(26px, 2.8vw, 38px); }
+.why-choose--inline .why-choose-heading h2 { max-width: 620px; }
+.why-choose--inline .why-choose-heading > span { display: block; max-width: 560px; }
+.why-choose--inline .reason-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 2.8vw, 40px) clamp(24px, 2.4vw, 32px);
+}
+.why-choose--inline .reason-icon { margin-bottom: 18px; }
+
+@media (max-width: 575px) {
+  .why-choose--inline { margin-bottom: 34px; padding: 28px 16px; }
+  .why-choose--inline .reason-grid { grid-template-columns: 1fr; gap: 10px; }
+  /* Auf dem Telefon sitzt das Icon neben dem Text - die bestehende
+     Kartenregel erledigt das, nur der Abstand darueber muss weg. */
+  .why-choose--inline .reason-icon { margin: 0; }
+}
+
 @media (max-width: 1024px) {
   .device-faq-layout { width: calc(100% - 32px); margin-top: 64px; gap: 22px; }
 }
