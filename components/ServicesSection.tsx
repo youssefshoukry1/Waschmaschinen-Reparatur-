@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatedSectionTitle } from "./HeroTitle";
 import DefectsSection from "./DefectsSection";
 
@@ -15,6 +16,8 @@ type ServiceIcon =
 
 type Service = {
   slug: string;
+  /** Zielseite des „Anfragen“-Buttons auf der Karte. */
+  href: string;
   title: string;
   description: string;
   icon: ServiceIcon;
@@ -26,6 +29,7 @@ type Service = {
 const services: Service[] = [
   {
     slug: "waschmaschinen-reparatur",
+    href: "/leistungen",
     title: "Waschmaschinen Reparatur",
     description:
       "Pumpe, Trommel, Heizung oder Elektronik – wir reparieren vor Ort in ganz Berlin.",
@@ -36,6 +40,7 @@ const services: Service[] = [
   },
   {
     slug: "kuehlschrank-reparatur",
+    href: "/Koelkast",
     title: "Kühlschrank Reparatur",
     description:
       "Gerät kühlt nicht mehr oder vereist? Wir prüfen Kompressor, Thermostat und Dichtung.",
@@ -45,6 +50,7 @@ const services: Service[] = [
   },
   {
     slug: "spuelmaschinen-reparatur",
+    href: "/Afwasmachine",
     title: "Spülmaschinen Reparatur",
     description:
       "Kein Wasserzulauf, schlechtes Spülergebnis oder Fehlercode – schnell behoben.",
@@ -54,6 +60,7 @@ const services: Service[] = [
   },
   {
     slug: "trockner-reparatur",
+    href: "/leistungen",
     title: "Trockner Reparatur",
     description:
       "Wäsche bleibt feucht oder das Gerät bleibt stehen? Wir bringen den Trockner wieder in Gang.",
@@ -63,6 +70,7 @@ const services: Service[] = [
   },
   {
     slug: "herd-backofen-reparatur",
+    href: "/Magnetron",
     title: "Herd & Backofen Reparatur",
     description:
       "Cerankochfeld, Heizspirale oder Thermostat – Reparatur mit Original-Ersatzteilen.",
@@ -72,6 +80,7 @@ const services: Service[] = [
   },
   {
     slug: "kaffeemaschinen-reparatur",
+    href: "/Koffiezetapparaat",
     title: "Kaffeemaschinen Reparatur",
     description:
       "Vollautomat entkalken, Brühgruppe tauschen oder Pumpe erneuern – schnell erledigt.",
@@ -81,6 +90,7 @@ const services: Service[] = [
   },
   {
     slug: "tv-elektronik-reparatur",
+    href: "/TV",
     title: "TV & Elektronik Reparatur",
     description:
       "Kein Bild, kein Ton oder Streifen im Display? Wir prüfen Netzteil, Panel und Platine.",
@@ -187,12 +197,12 @@ function ServiceCard({ service }: { service: Service }) {
           <h3>{service.title}</h3>
           <p>{service.description}</p>
         </div>
-        <a href="#contact" aria-label={`${service.title} anfragen`}>
+        <Link href={service.href} aria-label={`${service.title} anfragen`}>
           <span>Anfragen</span>
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <path d="M4 10h12M11 5l5 5-5 5" />
           </svg>
-        </a>
+        </Link>
       </div>
     </article>
   );
