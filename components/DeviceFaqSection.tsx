@@ -69,7 +69,8 @@ function easeInOutCubic(t: number) {
  * `aria-labelledby`.
  *
  * Dazu kommt auf allen sechs Geraeteseiten dieselbe scrollgebundene
- * Enthuellung, die ausschliesslich die Ueberschrift betrifft: Die Figur startet
+ * Enthuellung - auf jeder Bildschirmbreite, auf dem Telefon nur mit kleinerer
+ * Figur -, die ausschliesslich die Ueberschrift betrifft: Die Figur startet
  * links auf deren Zeile und deckt sie dabei ab. Beim Weiterscrollen huepft sie
  * in zwei Saetzen nach rechts und zieht die Ueberschrift hinter sich her ans
  * Licht, bis am Zeilenende beide nebeneinander stehen. Vorspann und
@@ -93,9 +94,10 @@ export default function DeviceFaqSection({
     const section = sectionRef.current;
     if (!section) return;
 
-    // Unter 1025px steht die Liste allein und die Figur ist ausgeblendet; wer
-    // weniger Bewegung wuenscht, bekommt direkt den Endzustand.
-    const skip = window.matchMedia("(max-width: 1024px), (prefers-reduced-motion: reduce)");
+    // Die Figur laeuft auf jeder Breite mit - nur ihre Masse aendern sich, und
+    // die stehen komplett im CSS. Wer weniger Bewegung wuenscht, bekommt direkt
+    // den Endzustand.
+    const skip = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     let frame = 0;
     let running = false;
@@ -187,8 +189,9 @@ export default function DeviceFaqSection({
 
     const settle = () => {
       stop();
-      // Nicht nur zeichnen, auch den Nachlauf mitziehen: Wechselt die Breite
-      // spaeter zurueck, startet er vom Endzustand statt vom alten Wert.
+      // Nicht nur zeichnen, auch den Nachlauf mitziehen: Schaltet der Nutzer
+      // die Bewegung spaeter wieder frei, startet sie vom Endzustand statt vom
+      // alten Wert.
       current = 1;
       write(1, 0, 0, 0);
     };
@@ -235,12 +238,13 @@ export default function DeviceFaqSection({
           {/* Die Huelle traegt den waagerechten Weg und den Schatten, der am
               Boden bleibt; das Bild darin huepft, neigt und staucht sich. */}
           <span className="device-faq__mascot" aria-hidden="true">
+            {/* Die Stufen entsprechen --faq-mascot-size im CSS. */}
             <Image
               src={mascot.src}
               alt={mascot.alt ?? ""}
               width={1254}
               height={1254}
-              sizes="160px"
+              sizes="(max-width: 575px) 88px, (max-width: 1024px) 124px, 160px"
             />
           </span>
         </div>

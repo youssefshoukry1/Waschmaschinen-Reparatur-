@@ -1442,7 +1442,8 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
    volle Seitenbreite; die Zeichnung des Geraets sitzt deshalb wieder im Hero.
 
    Unter 1025px verschwinden beide Leisten (`display: none`) und die Fragenliste
-   steht allein - wie bisher auf Telefon und Tablet.
+   steht allein - wie bisher auf Telefon und Tablet. Die Figur auf der Zeile der
+   Ueberschrift bleibt dabei, nur kleiner (siehe unten).
    ========================================================================== */
 
 .device-faq-layout { width: min(1264px, calc(100% - 48px)); margin: 96px auto 0; display: grid; gap: 32px; }
@@ -1455,8 +1456,9 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 /* --------------------------------------------------------------------------
    Die sitzende Figur auf der Zeile der Ueberschrift (device-faq--mascot)
 
-   Nur die Fernseherseite fuehrt sie mit, und sie betrifft ausschliesslich die
-   Ueberschrift. Vorspann und Fragenliste stehen von Anfang an vollstaendig da.
+   Alle Geraeteseiten fuehren sie mit - vom Telefon bis zum Schreibtisch -, und
+   sie betrifft ausschliesslich die Ueberschrift. Vorspann und Fragenliste
+   stehen von Anfang an vollstaendig da.
 
    Vier Variablen schreibt der Scrollhandler in DeviceFaqSection fort; hier
    wird daraus die Bewegung zusammengesetzt:
@@ -1468,7 +1470,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
      --faq-squash  Stauchung beim Aufsetzen.
 
    Der Vorhang ist eine weiche Maske statt einer harten Kante: Die Buchstaben
-   blenden ueber rund 70px auf, statt scharf abgeschnitten zu werden. Der Text
+   blenden ueber --faq-fade auf, statt scharf abgeschnitten zu werden. Der Text
    bleibt dabei im Barrierefreiheitsbaum und fuer Suchmaschinen jederzeit
    vorhanden, auch solange er optisch fehlt.
 
@@ -1476,78 +1478,104 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
    dann sofort das fertige Bild.
    -------------------------------------------------------------------------- */
 
-.device-faq--mascot { --faq-t: 1; --faq-hop: 0; --faq-lean: 0; --faq-squash: 0; }
-.device-faq__headline { position: relative; }
+.device-faq--mascot {
+  --faq-t: 1; --faq-hop: 0; --faq-lean: 0; --faq-squash: 0;
 
-@media (min-width: 1025px) {
-  .device-faq--mascot .device-faq__headline {
-    /* Kantenlaenge der Figur. Sie ist quadratisch, also zugleich die Hoehe der
-       Zeile und das Polster, das die Ueberschrift rechts freihaelt. */
-    --faq-mascot-size: clamp(116px, 11vw, 152px);
-    /* Die Kante des Vorhangs laeuft exakt auf der linken Bildkante mit. Am Ende
-       bleibt rechts genau das Polster stehen, in dem ohnehin kein Text steht. */
-    --faq-edge: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
-    min-height: var(--faq-mascot-size);
-  }
+  /* Die vier Masse der Buehne. Sie sind die einzigen Werte, die sich mit der
+     Bildschirmbreite aendern - die Bewegung darunter rechnet ausschliesslich
+     mit ihnen und bleibt auf jedem Geraet dieselbe.
 
-  .device-faq--mascot .device-faq__headline h2 {
-    /* Gleiche Breite wie die Buehne, damit Vorhangkante und Weg der Figur auf
-       denselben 100% rechnen. */
-    max-width: 100%;
-    padding-right: calc(var(--faq-mascot-size) + 24px);
-    -webkit-mask-image: linear-gradient(to right,
-      #000 0, #000 var(--faq-edge),
-      rgba(0, 0, 0, .5) calc(var(--faq-edge) + 26px),
-      transparent calc(var(--faq-edge) + 74px));
-    mask-image: linear-gradient(to right,
-      #000 0, #000 var(--faq-edge),
-      rgba(0, 0, 0, .5) calc(var(--faq-edge) + 26px),
-      transparent calc(var(--faq-edge) + 74px));
-  }
+     Telefon zuerst: Die Figur wird klein genug, dass neben ihr weiterhin eine
+     lesbare Ueberschrift steht. */
+  --faq-mascot-size: clamp(60px, 19vw, 88px);
+  /* Polster zwischen Ueberschrift und Figur. */
+  --faq-gap: 12px;
+  /* Breite des weichen Vorhangrands und Sprunghoehe - beide wachsen mit der
+     Figur, sonst wirkt der Effekt auf dem Telefon uebertrieben. */
+  --faq-fade: 42px;
+  --faq-hop-height: 15px;
+}
 
-  /* Die Huelle traegt nur den waagerechten Weg - und den Schatten, der beim
-     Huepfen am Boden liegen bleibt. */
-  .device-faq--mascot .device-faq__mascot {
-    position: absolute;
-    bottom: 0;
-    left: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
-    width: var(--faq-mascot-size);
-    line-height: 0;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .device-faq--mascot .device-faq__mascot::after {
-    content: "";
-    position: absolute;
-    left: 12%;
-    right: 12%;
-    bottom: 2px;
-    height: 9px;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(16, 16, 16, .34), transparent);
-    /* Je hoeher der Sprung, desto kleiner und blasser der Schatten. */
-    transform: scaleX(calc(1 - var(--faq-hop) * .42));
-    opacity: calc(1 - var(--faq-hop) * .72);
-  }
-
-  .device-faq--mascot .device-faq__mascot img {
-    width: 100%;
-    height: auto;
-    /* Sprung, Neigung und die Stauchung beim Aufsetzen. Alles auf transform -
-       laeuft also im Compositor, ohne Umbruch im uebrigen Layout. */
-    transform:
-      translateY(calc(var(--faq-hop) * -26px))
-      rotate(calc(var(--faq-lean) * 1deg))
-      scale(calc(1 + var(--faq-squash)), calc(1 - var(--faq-squash)));
-    transform-origin: 50% 100%;
+@media (min-width: 576px) {
+  .device-faq--mascot {
+    --faq-mascot-size: clamp(88px, 13vw, 124px);
+    --faq-gap: 18px;
+    --faq-fade: 58px;
+    --faq-hop-height: 20px;
   }
 }
 
-/* Unter 1025px steht die Liste allein in der Spalte - dort waere die Figur nur
-   ein Platzfresser. Kein Vorhang, kein Scrollhandler. */
-@media (max-width: 1024px) {
-  .device-faq--mascot .device-faq__mascot { display: none; }
+@media (min-width: 1025px) {
+  .device-faq--mascot {
+    /* Kantenlaenge der Figur. Sie ist quadratisch, also zugleich die Hoehe der
+       Zeile und das Polster, das die Ueberschrift rechts freihaelt. */
+    --faq-mascot-size: clamp(116px, 11vw, 152px);
+    --faq-gap: 24px;
+    --faq-fade: 74px;
+    --faq-hop-height: 26px;
+  }
+}
+
+.device-faq__headline { position: relative; }
+
+.device-faq--mascot .device-faq__headline {
+  /* Die Kante des Vorhangs laeuft exakt auf der linken Bildkante mit. Am Ende
+     bleibt rechts genau das Polster stehen, in dem ohnehin kein Text steht. */
+  --faq-edge: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
+  min-height: var(--faq-mascot-size);
+}
+
+.device-faq--mascot .device-faq__headline h2 {
+  /* Gleiche Breite wie die Buehne, damit Vorhangkante und Weg der Figur auf
+     denselben 100% rechnen. */
+  max-width: 100%;
+  padding-right: calc(var(--faq-mascot-size) + var(--faq-gap));
+  -webkit-mask-image: linear-gradient(to right,
+    #000 0, #000 var(--faq-edge),
+    rgba(0, 0, 0, .5) calc(var(--faq-edge) + var(--faq-fade) * .35),
+    transparent calc(var(--faq-edge) + var(--faq-fade)));
+  mask-image: linear-gradient(to right,
+    #000 0, #000 var(--faq-edge),
+    rgba(0, 0, 0, .5) calc(var(--faq-edge) + var(--faq-fade) * .35),
+    transparent calc(var(--faq-edge) + var(--faq-fade)));
+}
+
+/* Die Huelle traegt nur den waagerechten Weg - und den Schatten, der beim
+   Huepfen am Boden liegen bleibt. */
+.device-faq--mascot .device-faq__mascot {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--faq-t) * (100% - var(--faq-mascot-size)));
+  width: var(--faq-mascot-size);
+  line-height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.device-faq--mascot .device-faq__mascot::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 2px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(16, 16, 16, .34), transparent);
+  /* Je hoeher der Sprung, desto kleiner und blasser der Schatten. */
+  transform: scaleX(calc(1 - var(--faq-hop) * .42));
+  opacity: calc(1 - var(--faq-hop) * .72);
+}
+
+.device-faq--mascot .device-faq__mascot img {
+  width: 100%;
+  height: auto;
+  /* Sprung, Neigung und die Stauchung beim Aufsetzen. Alles auf transform -
+     laeuft also im Compositor, ohne Umbruch im uebrigen Layout. */
+  transform:
+    translateY(calc(var(--faq-hop) * var(--faq-hop-height) * -1))
+    rotate(calc(var(--faq-lean) * 1deg))
+    scale(calc(1 + var(--faq-squash)), calc(1 - var(--faq-squash)));
+  transform-origin: 50% 100%;
 }
 
 .brand-rail { display: none; }
@@ -1614,7 +1642,10 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 
 @media (max-width: 575px) {
   .device-faq__header { margin-bottom: 18px; }
-  .device-faq__header h2 { font-size: 25px; line-height: 1.15; letter-spacing: -.035em; }
+  /* Neben der Figur bleibt auf dem Telefon nur noch die halbe Zeilenbreite -
+     die Ueberschrift wird deshalb deutlich kleiner gesetzt, damit sie nicht in
+     fuenf Zeilen zerfaellt. */
+  .device-faq__header h2 { font-size: 19px; line-height: 1.2; letter-spacing: -.03em; }
   /* Auf dem Telefon zaehlen die Fragen, nicht der Vorspann - genau wie vorher
      in der roten Intro-Karte. */
   .device-faq__lead { display: none; }
