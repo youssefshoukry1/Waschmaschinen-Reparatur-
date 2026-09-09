@@ -79,23 +79,13 @@ export default function RepairGuidesSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="faq-section faq-section--guides" id="hilfeanleitungen" aria-labelledby="guides-heading">
-      <div className="faq-section__aside">
-        <p className="faq-section__eyebrow">Hilfeanleitungen Waschmaschine</p>
+    <section className="device-faq" id="hilfeanleitungen" aria-labelledby="guides-heading">
+      <div className="device-faq__header">
         <AnimatedSectionTitle id="guides-heading" parts={[{ text: "Anleitungen, die Ihnen sofort weiterhelfen." }]} />
-        <p className="faq-section__lead">
+        <p className="device-faq__lead">
           Schritt für Schritt erklärt: die häufigsten Störungen an Ihrer Waschmaschine – und was Sie selbst
           gefahrlos prüfen und beheben können.
         </p>
-        <div className="faq-section__contact">
-          <span>Kommen Sie nicht weiter?</span>
-          <strong>Unser 24-Stunden-Notdienst ist für Sie da.</strong>
-          <a className="split-hover-cta" href="#contact">
-            <span>
-              Kontakt aufnehmen <span aria-hidden="true">↗</span>
-            </span>
-          </a>
-        </div>
       </div>
 
       <div className="faq-list">

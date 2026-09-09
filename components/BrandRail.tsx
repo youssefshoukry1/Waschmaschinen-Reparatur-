@@ -9,15 +9,20 @@ import { brandLogos } from "@/lib/business";
 const LOGO_SCALE: Record<string, number> = { Miele: .82, Beko: 1.1, LG: 1.05 };
 
 /**
- * Drei Kopien: die Schleife verschiebt sich um genau ein Drittel der Spurhoehe,
+ * Drei Kopien: die Schleife verschiebt sich um genau ein Drittel der Spurlaenge,
  * dadurch springt sie nahtlos zurueck, ohne dass etwas gemessen werden muss.
- * Zwei Kopien wuerden auf hohen Bildschirmen eine Luecke zeigen.
+ * Zwei Kopien wuerden auf hohen bzw. breiten Bildschirmen eine Luecke zeigen.
  */
 const COPIES = [0, 1, 2];
 
 /**
- * Senkrechte Markenleiste am rechten Bildschirmrand: fest positioniert, ueber
- * die volle Viewport-Hoehe sichtbar, waehrend die Seite darunter scrollt.
+ * Markenleiste der Geraetseiten: die linke Spalte im Raster
+ * `.device-faq-layout`, direkt neben der roten Servicekarte.
+ *
+ * Sie laeuft im normalen Textfluss mit, ist also genau so hoch wie die Sektion
+ * und scrollt mit ihr aus dem Bild. Ab 1200px steht sie senkrecht ganz links,
+ * darunter kippt sie per CSS in eine waagerechte Leiste ueber die volle Breite
+ * der Sektion – dasselbe Markup, nur eine andere Laufrichtung.
  *
  * Bewusst ohne JavaScript – die Schleife laeuft als reine CSS-Animation auf
  * `transform`. Das laeuft im Compositor und belastet auch auf schwacher

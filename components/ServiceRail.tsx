@@ -2,64 +2,35 @@ import Image from "next/image";
 
 import { business, mapsUrl } from "@/lib/business";
 
-type Props = {
-  /**
-   * Explosionszeichnung des Geraets, um das es auf der jeweiligen Seite geht.
-   * Sie sitzt oben in der Spalte und ersetzt dort die Zeichnung, die der Hero
-   * ab 1025px ausblendet.
-   */
-  image: { src: string; alt: string };
-};
-
 /**
- * Rote Servicespalte rechts neben dem Hero der Geraeteseiten.
+ * Rote Servicespalte in der Fragen-Sektion der Geraetseiten.
  *
- * Sie traegt die Explosionszeichnung, das Callcenter-Foto, die Notrufnummer und
- * drei Service-Bloecke. Ueber `position: sticky` steht sie beim Scrollen still
- * und laeuft erst mit dem Banner "Selbst geprueft und nichts gefunden?" aus dem
- * Bild – die Sticky-Grenze ist der Wrapper `.rail-layout` auf der Seite, der
- * Hero, Mittelteil und Kontaktsektion umschliesst, den Banner aber nicht mehr.
+ * Sie steht ab 1025px als zweite Spalte von links im Raster
+ * `.device-faq-layout` - zwischen der Markenleiste und der Fragenliste - und
+ * laeuft ganz normal im Textfluss mit. Kein `sticky`, kein `fixed`: Die Karte
+ * ist so hoch wie ihr Inhalt und scrollt mit der Sektion aus dem Bild.
  *
- * Bis auf das Bild ist der Inhalt auf allen Seiten derselbe: Die Texte gelten
- * geraeteuebergreifend, Rufnummer und Adresse kommen aus lib/business.ts.
- *
- * Der Inhalt ist bewusst knapp gehalten: Die Spalte ist genau eine Fensterhoehe
- * hoch und soll ohne eigenen Scrollbalken vollstaendig sichtbar bleiben. Wer
- * hier etwas ergaenzt, nimmt den Bildern Platz weg - siehe `.service-rail` in
- * app/globals.css.
+ * Die Explosionszeichnung des Geraets sitzt wieder im Hero, deshalb traegt die
+ * Karte nur noch das Callcenter-Foto. Der uebrige Inhalt ist auf allen Seiten
+ * derselbe: Die Texte gelten geraeteuebergreifend, Rufnummer und Adresse kommen
+ * aus lib/business.ts.
  *
  * Nur ab 1025px sichtbar: darunter blendet `.service-rail` komplett aus, damit
  * Telefon und Tablet unveraendert bleiben.
  */
-export default function ServiceRail({ image }: Props) {
+export default function ServiceRail() {
   return (
     <aside
       className="service-rail"
       aria-label="Notdienst und Service auf einen Blick"
     >
-      {/* Die beiden einzigen flexiblen Elemente der Spalte: Sie teilen sich zu
-          gleichen Teilen den Platz, der nach den Textbloecken uebrig bleibt, und
-          schrumpfen auf flachen Fenstern mit, statt den Text unten
-          abzuschneiden. */}
-      <div className="service-rail__figure service-rail__figure--diagram">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          width={1200}
-          height={1200}
-          priority
-          sizes="360px"
-        />
-      </div>
-
       <div className="service-rail__figure service-rail__figure--callcenter">
         <Image
           src="/images/call_center.webp"
           alt="Mitarbeiterin unseres Notdienstes nimmt Ihren Anruf entgegen"
           width={1672}
           height={941}
-          priority
-          sizes="360px"
+          sizes="(max-width: 1024px) 1px, (max-width: 1439px) 280px, 340px"
         />
       </div>
 

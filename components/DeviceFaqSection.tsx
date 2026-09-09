@@ -8,8 +8,6 @@ import type { FaqItem } from "@/lib/kaffeeFaq";
 type Props = {
   /** Anker der Sektion, z. B. "haeufige-fragen". */
   id: string;
-  /** Kleine Zeile über der Überschrift. */
-  eyebrow: string;
   heading: string;
   lead: string;
   items: FaqItem[];
@@ -17,28 +15,23 @@ type Props = {
 
 /**
  * Akkordeon für gerätespezifische Fragen und Antworten.
- * Gleiches Markup wie FAQSection und RepairGuidesSection – nur die Inhalte
- * kommen von außen.
+ *
+ * Anders als FAQSection und RepairGuidesSection trägt diese Variante keine rote
+ * Intro-Karte mehr: Auf den Gerätseiten steht direkt links daneben schon die
+ * rote Servicekarte, zwei rote Flächen nebeneinander wären eine Dopplung.
+ * Überschrift und Vorspann laufen deshalb als schlichter Kopf über der Liste –
+ * die H2 bleibt erhalten und benennt die Sektion weiterhin per
+ * `aria-labelledby`.
  */
-export default function DeviceFaqSection({ id, eyebrow, heading, lead, items }: Props) {
+export default function DeviceFaqSection({ id, heading, lead, items }: Props) {
   const [openIndex, setOpenIndex] = useState(0);
   const headingId = `${id}-heading`;
 
   return (
-    <section className="faq-section faq-section--guides" id={id} aria-labelledby={headingId}>
-      <div className="faq-section__aside">
-        <p className="faq-section__eyebrow">{eyebrow}</p>
+    <section className="device-faq" id={id} aria-labelledby={headingId}>
+      <div className="device-faq__header">
         <AnimatedSectionTitle id={headingId} parts={[{ text: heading }]} />
-        <p className="faq-section__lead">{lead}</p>
-        <div className="faq-section__contact">
-          <span>Ihre Frage ist nicht dabei?</span>
-          <strong>Unser 24-Stunden-Notdienst ist für Sie da.</strong>
-          <a className="split-hover-cta" href="#contact">
-            <span>
-              Kontakt aufnehmen <span aria-hidden="true">↗</span>
-            </span>
-          </a>
-        </div>
+        <p className="device-faq__lead">{lead}</p>
       </div>
 
       <div className="faq-list">

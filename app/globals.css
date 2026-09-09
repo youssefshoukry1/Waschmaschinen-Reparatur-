@@ -1119,13 +1119,6 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section { width: calc(100% - 32px); margin-top: 64px; grid-template-columns: 1fr; gap: 32px; }
   .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .faq-section__aside { position: relative; top: auto; }
-  /* Gestapelt steht die Intro-Karte der Anleitungen nur noch ueber der Liste –
-     sie wird kompakter, damit die 15 Anleitungen frueher sichtbar sind. */
-  .faq-section--guides { gap: 22px; }
-  .faq-section--guides .faq-section__aside { padding: 26px 22px; }
-  .faq-section--guides .faq-section__aside h2 { font-size: clamp(28px, 4.4vw, 36px); }
-  .faq-section--guides .faq-section__lead { margin: 14px 0 22px; }
-  .faq-section--guides .faq-section__contact { padding-top: 18px; }
   .why-choose { margin-top: 40px; padding: 40px 16px; border-radius: 20px; }
   .why-choose-inner { width: 100%; grid-template-columns: 5fr 7fr; gap: 24px; }
   .why-choose-heading { grid-column: 1; }
@@ -1244,18 +1237,6 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .faq-section__aside { padding: 28px 24px; border-radius: 16px; }
   .faq-section__aside h2 { font-size: 36px; }
   .faq-section__lead { margin-bottom: 30px; }
-  /* Auf dem Handy ist die Karte reine Ueberleitung: Der erklaerende Absatz und
-     die Anrede entfallen, Ueberschrift und Notdienst-Button bleiben. So beginnt
-     die Anleitungsliste rund 250px frueher. */
-  .faq-section--guides { gap: 18px; }
-  .faq-section--guides .faq-section__aside { padding: 20px 18px; border-radius: 14px; }
-  .faq-section--guides .faq-section__eyebrow { margin-bottom: 8px; font-size: 10px; letter-spacing: .1em; }
-  .faq-section--guides .faq-section__aside h2 { font-size: 25px; line-height: 1.15; letter-spacing: -.035em; }
-  .faq-section--guides .faq-section__lead { display: none; }
-  .faq-section--guides .faq-section__contact { gap: 3px; margin-top: 16px; padding-top: 14px; }
-  .faq-section--guides .faq-section__contact > span { display: none; }
-  .faq-section--guides .faq-section__contact strong { font-size: 14px; }
-  .faq-section--guides .faq-section__contact a { margin-top: 12px; padding: 10px 15px; font-size: 13px; }
   .faq-item button { grid-template-columns: 28px minmax(0, 1fr) 38px; gap: 8px; padding: 22px 0; }
   .appliance-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .appliance-item { grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 14px 0; }
@@ -1404,75 +1385,132 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 }
 
 /* ==========================================================================
-   Senkrechte Markenleiste (BrandRail.tsx)
+   Fragen-Sektion der Geraetseiten (DeviceFaqSection + BrandRail + ServiceRail)
 
-   Fest am rechten Bildschirmrand, eine volle Viewport-Hoehe hoch. Bewusst ohne
-   JavaScript: die Schleife ist eine reine CSS-Animation auf `transform`, laeuft
-   also im Compositor und laesst den Hauptthread auch auf schwacher Hardware in
-   Ruhe. Auf Telefonen und Tablets gibt es die Leiste nicht.
+   Drei Spalten, alle im normalen Textfluss: ganz links die Markenleiste,
+   daneben die rote Servicekarte mit der Notrufnummer, rechts die Fragenliste.
+   Nichts davon ist `fixed` oder `sticky` - der Block ist eine gewoehnliche
+   Sektion und scrollt am Stueck vorbei.
+
+   Der Hero darueber und die Kontaktsektion darunter stehen wieder ueber die
+   volle Seitenbreite; die Zeichnung des Geraets sitzt deshalb wieder im Hero.
+
+   Unter 1025px verschwinden beide Leisten (`display: none`) und die Fragenliste
+   steht allein - wie bisher auf Telefon und Tablet.
    ========================================================================== */
+
+.device-faq-layout { width: min(1264px, calc(100% - 48px)); margin: 96px auto 0; display: grid; gap: 32px; }
+.device-faq { min-width: 0; scroll-margin-top: 110px; }
+.device-faq__header { margin-bottom: clamp(20px, 2.4vw, 30px); }
+.device-faq__header h2 { max-width: 720px; margin: 0; color: var(--primary); font-size: clamp(30px, 3.4vw, 44px); font-weight: 650; line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
+.device-faq__header h2 .hero-title__emphasis { color: var(--blue); }
+.device-faq__lead { max-width: 620px; margin: 14px 0 0; color: #667085; font-size: 15px; line-height: 1.75; text-wrap: pretty; }
+
 .brand-rail { display: none; }
+.service-rail { display: none; }
+
+@media (max-width: 1024px) {
+  .device-faq-layout { width: calc(100% - 32px); margin-top: 64px; gap: 22px; }
+}
+
+@media (max-width: 575px) {
+  .device-faq__header { margin-bottom: 18px; }
+  .device-faq__header h2 { font-size: 25px; line-height: 1.15; letter-spacing: -.035em; }
+  /* Auf dem Telefon zaehlen die Fragen, nicht der Vorspann - genau wie vorher
+     in der roten Intro-Karte. */
+  .device-faq__lead { display: none; }
+}
 
 @media (min-width: 1025px) {
   :root {
-    --brand-rail-width: clamp(120px, 9vw, 172px);
+    --brand-rail-width: clamp(112px, 8vw, 160px);
     /* Zeilenhoehe x Logoanzahl = Weg einer Kopie. Muss zur Dauer passen,
-       damit das Tempo unabhaengig von der Fensterhoehe konstant bleibt. */
+       damit das Tempo unabhaengig von der Sektionshoehe konstant bleibt. */
     --brand-rail-row: 104px;
+    --brand-rail-column: 148px;
     --brand-rail-duration: 36s;
+    --rail-width: clamp(280px, 24vw, 340px);
   }
 
-  /* z-index bleibt unter Navbar (50), WhatsApp-Button (70) und Cookie-Banner (80). */
+  /* Zwischen 1025 und 1199px ist fuer drei Spalten kein Platz: Die Fragenliste
+     faellt sonst unter die Breite, ab der die Fragen sauber umbrechen. Die
+     Markenleiste legt sich deshalb als waagerechtes Band ueber die beiden
+     anderen Spalten - dasselbe Markup, nur gekippt (siehe unten). */
+  .device-faq-layout {
+    grid-template-columns: var(--rail-width) minmax(0, 1fr);
+    grid-template-areas:
+      "brands brands"
+      "rail   list";
+    gap: clamp(24px, 2.2vw, 32px);
+    align-items: start;
+  }
+  .brand-rail { grid-area: brands; display: block; }
+  .service-rail { grid-area: rail; }
+  .device-faq { grid-area: list; }
+}
+
+@media (min-width: 1200px) {
+  .device-faq-layout {
+    grid-template-columns: var(--brand-rail-width) var(--rail-width) minmax(0, 1fr);
+    grid-template-areas: "brands rail list";
+  }
+}
+
+/* ==========================================================================
+   Markenleiste (BrandRail.tsx)
+
+   Bewusst ohne JavaScript: die Schleife ist eine reine CSS-Animation auf
+   `transform`, laeuft also im Compositor und laesst den Hauptthread auch auf
+   schwacher Hardware in Ruhe.
+
+   Die Spur ist dreimal so lang wie noetig und springt um genau ein Drittel
+   zurueck. Ihre Laenge haengt nur an Zeilenhoehe und Logoanzahl, nicht an der
+   Groesse der Leiste - das Tempo bleibt darum auf jeder Sektionshoehe gleich.
+   ========================================================================== */
+
+@media (min-width: 1025px) {
   .brand-rail {
-    width: var(--brand-rail-width);
-    height: 100vh;
-    height: 100svh;
-    position: fixed;
-    z-index: 30;
-    top: 0;
-    right: 0;
-    display: block;
-    border-left: 1px solid var(--gray-2);
+    position: relative;
+    /* Als einziges Rasterfeld auf volle Zeilenhoehe gezogen: So ist die Leiste
+       exakt so hoch wie Servicekarte und Fragenliste daneben. */
+    align-self: stretch;
+    overflow: clip;
+    border: 1px solid var(--gray-2);
+    border-radius: 20px;
     background: #fff;
   }
 
-  /* `overflow: clip` statt einer Maske: die weichen Kanten kommen unten aus
-     zwei Verlaufs-Overlays. Das ist billiger zu rastern als eine Maske ueber
-     einer laufenden Ebene und flackert auf schwachen GPUs nicht. */
-  .brand-rail__viewport { height: 100%; overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none; }
+  /* `position: absolute` haelt die sehr lange Spur aus der Hoehenrechnung des
+     Rasters heraus - sonst wuerde sie die Zeile aufblaehen, statt sich von ihr
+     die Hoehe geben zu lassen. */
+  .brand-rail__viewport { position: absolute; inset: 0; overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none; }
 
+  /* `overflow: clip` statt einer Maske: die weichen Kanten kommen aus zwei
+     Verlaufs-Overlays. Das ist billiger zu rastern als eine Maske ueber einer
+     laufenden Ebene und flackert auf schwachen GPUs nicht. */
   .brand-rail::before,
   .brand-rail::after {
-    height: clamp(72px, 12vh, 132px);
     position: absolute;
     z-index: 1;
-    left: 0;
-    right: 0;
     content: "";
     pointer-events: none;
   }
-  .brand-rail::before { top: 0; background: linear-gradient(180deg, #fff 22%, rgba(255,255,255,0)); }
-  .brand-rail::after { bottom: 0; background: linear-gradient(0deg, #fff 22%, rgba(255,255,255,0)); }
 
   /* Kein `gap`: der Abstand steckt in der festen Zeilenhoehe. Nur so ist der
      Sprung um exakt ein Drittel der Spur luecken- und ruckelfrei. */
   .brand-rail__track {
-    width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
     list-style: none;
     will-change: transform;
-    animation: brand-rail-scroll var(--brand-rail-duration) linear infinite;
   }
   .brand-rail__item {
-    height: var(--brand-rail-row);
     flex: 0 0 auto;
     display: grid;
     place-items: center;
     /* Das seitliche Polster haelt breite Logos von den Kanten weg. */
-    padding-inline: clamp(16px, 1.4vw, 24px);
+    padding-inline: clamp(14px, 1.2vw, 22px);
   }
   /* Breite UND Hoehe begrenzen: breite Wortmarken (Samsung, Whirlpool) laufen
      sonst aus der schmalen Spalte heraus und werden abgeschnitten. */
@@ -1480,23 +1518,47 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: calc(42px * var(--logo-scale, 1));
+    max-height: calc(40px * var(--logo-scale, 1));
     object-fit: contain;
     -webkit-user-drag: none;
   }
   .brand-rail__wordmark { max-width: 100%; color: var(--primary); font-size: 17px; font-weight: 700; letter-spacing: -.01em; text-align: center; }
+}
 
-  /* Platz freihalten, damit die Leiste nichts ueberdeckt: der Seiteninhalt
-     endet links davon, die fest positionierten Elemente ruecken mit. */
-  .page-shell--brand-rail { padding-right: calc(24px + var(--brand-rail-width)); }
-  body:has(.brand-rail) .site-header { padding-right: calc(24px + var(--brand-rail-width)); }
-  body:has(.brand-rail) .whatsapp-fab { right: calc(24px + var(--brand-rail-width)); }
-  body:has(.brand-rail) .cookie-banner { right: calc(24px + var(--brand-rail-width)); }
+/* Waagerechtes Band ueber der Sektion (1025-1199px). */
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .brand-rail { height: var(--brand-rail-row); }
+  .brand-rail::before,
+  .brand-rail::after { width: clamp(48px, 6vw, 96px); top: 0; bottom: 0; }
+  .brand-rail::before { left: 0; background: linear-gradient(90deg, #fff 30%, rgba(255,255,255,0)); }
+  .brand-rail::after { right: 0; background: linear-gradient(270deg, #fff 30%, rgba(255,255,255,0)); }
 
-  /* Der Hero rechnet in vw, schrumpft also nicht mit der schmaleren Spalte mit.
-     Zwischen 1025px und 1280px wird es dadurch eng - hier etwas zuruecknehmen. */
-  .page-shell--brand-rail .hero.hero--diagram { --hero-photo-width: min(43vw, 620px, 74svh); }
-  .page-shell--brand-rail .hero.hero--diagram .hero-content { width: min(45vw, 560px); }
+  .brand-rail__track {
+    /* `max-content` ist Pflicht: Die Animation verschiebt um ein Drittel der
+       eigenen Breite. Ohne sie waere das ein Drittel der Leiste statt der Spur
+       und die Schleife saesse bei jedem Durchlauf sichtbar um. */
+    width: max-content;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    animation: brand-rail-scroll-x 44s linear infinite;
+  }
+  .brand-rail__item { width: var(--brand-rail-column); height: 100%; }
+}
+
+/* Senkrechte Spalte ganz links (ab 1200px). */
+@media (min-width: 1200px) {
+  .brand-rail::before,
+  .brand-rail::after { height: clamp(64px, 9vh, 120px); left: 0; right: 0; }
+  .brand-rail::before { top: 0; background: linear-gradient(180deg, #fff 22%, rgba(255,255,255,0)); }
+  .brand-rail::after { bottom: 0; background: linear-gradient(0deg, #fff 22%, rgba(255,255,255,0)); }
+
+  .brand-rail__track {
+    width: 100%;
+    flex-direction: column;
+    animation: brand-rail-scroll var(--brand-rail-duration) linear infinite;
+  }
+  .brand-rail__item { height: var(--brand-rail-row); }
 }
 
 /* Drei Kopien im Track - ein Drittel weiter ist wieder der Ausgangszustand. */
@@ -1505,78 +1567,32 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   to { transform: translate3d(0, calc(-100% / 3), 0); }
 }
 
+@keyframes brand-rail-scroll-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-100% / 3), 0, 0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .brand-rail__track { animation: none; will-change: auto; }
 }
 
 /* ==========================================================================
-   Rote Servicespalte der Geraeteseiten (ServiceRail.tsx)
+   Rote Servicekarte der Geraetseiten (ServiceRail.tsx)
 
-   Steht ab 1025px rechts neben Hero, Mittelteil und Kontakt - links von der
-   Markenleiste, die weiter am Bildschirmrand klebt. `position: sticky` haelt
-   sie beim Scrollen stehen; weil ihr Wrapper `.rail-layout` mit der
-   Kontaktsektion endet, laeuft sie beim Banner "Selbst geprueft und nichts
-   gefunden?" aus dem Bild.
-
-   Darunter loesen sich beide Wrapper per `display: contents` auf: die Sektionen
-   sind dann wieder direkte Kinder von `.page-shell` und jede bestehende Regel
-   fuer Telefon und Tablet greift unveraendert.
+   Zweite Spalte von links, ab 1025px sichtbar. Sie ist so hoch wie ihr Inhalt
+   und laeuft ganz normal mit der Sektion mit - kein `sticky`, keine an die
+   Fensterhoehe gebundenen Groessen. Deshalb darf hier auch Text dazukommen,
+   ohne dass etwas anderes dafuer schrumpfen muss.
    ========================================================================== */
-.rail-layout, .rail-layout__main { display: contents; }
-.service-rail { display: none; }
 
 @media (min-width: 1025px) {
-  :root {
-    --rail-width: clamp(280px, 24vw, 360px);
-    /* `--rail-top` ist zugleich die Ruhe- UND die Andockposition und muss
-       deshalb exakt dem oberen Innenabstand von `.page-shell` entsprechen:
-       `position: sticky` schiebt eine Box, die von Natur aus hoeher liegt als
-       ihr `top`, nach unten. Ein groesserer Wert wuerde die Spalte am
-       Seitenanfang unter die Oberkante des Heros druecken. */
-    --rail-top: 24px;
-    --rail-bottom: 20px;
-  }
-
-  /* Damit die Spalte oben buendig mit dem Hero stehen kann, ohne dass die
-     fixierte Navbar-Pille sie ueberlappt, haelt die Kopfzeile ihre Breite frei -
-     dasselbe Muster, mit dem die Markenleiste schon Platz reserviert. */
-  body:has(.service-rail) .site-header {
-    padding-right: calc(48px + var(--brand-rail-width) + var(--rail-width));
-  }
-
-  .rail-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) var(--rail-width);
-    gap: 24px;
-    align-items: start;
-  }
-  /* `min-width: 0` verhindert, dass der Hero die Spalte ueber ihre Breite
-     hinaus aufblaeht - Grid-Items haben sonst `min-width: auto`. */
-  .rail-layout__main { display: block; min-width: 0; }
-
   .service-rail {
-    /* Genau eine Fensterhoehe hoch, damit sie komplett sichtbar bleibt und
-       keinen eigenen Scrollbalken braucht. Weil `--rail-top` dem Innenabstand
-       der Seite entspricht, verschiebt `sticky` sie am Seitenanfang nicht: Ihre
-       Oberkante liegt exakt auf der des Heros. Beim Scrollen rastet sie an
-       derselben Hoehe ein und steht still, bis der Wrapper mit der
-       Kontaktsektion endet.
-
-       Deshalb ist der Inhalt knapp gehalten: Alles unter `flex: none` ist
-       gesetzt, den Rest bekommt das Foto (siehe `.service-rail__figure`). Kommt
-       Text dazu, schrumpft zuerst das Foto. */
-    position: sticky;
-    top: var(--rail-top);
-    height: calc(100svh - var(--rail-top) - var(--rail-bottom));
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 1.6svh, 18px);
-    padding: clamp(16px, 2svh, 22px);
-    /* Letzte Reissleine fuer sehr flache Fenster, in denen selbst der Text
-       allein nicht mehr passt. */
-    overflow: hidden;
-    /* Der Hero traegt dasselbe Rot. Radius, Hairline und Schatten trennen die
-       Spalte optisch von ihm - und heben sie zugleich vom weissen FAQ ab. */
+    gap: 16px;
+    padding: clamp(18px, 1.5vw, 24px);
+    /* Radius, Hairline und Schatten heben die Karte vom weissen Grund der
+       Fragenliste ab. */
     border: 1px solid rgba(255,255,255,.18);
     border-radius: 20px;
     background: var(--blue);
@@ -1584,67 +1600,28 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     color: #fff;
   }
 
-  /* `flex: 1 1 0` mit gleicher Basis: Die beiden Bilder teilen sich zu gleichen
-     Teilen den Platz, der nach den Textbloecken frei ist, und geben ihn auf
-     flachen Fenstern wieder her. Alles andere steht auf `flex: none` und
-     behaelt seine Hoehe. Die Bildhoehe haengt damit am Viewport, nicht an einer
-     festen Pixelzahl. */
-  .service-rail__figure { position: relative; flex: 1 1 0; min-height: 46px; overflow: hidden; border-radius: 14px; }
-  .service-rail__figure img { width: 100%; height: 100%; }
-  /* Die Zeichnung darf nicht beschnitten werden - sonst fehlen Bauteile. Sie
-     steht deshalb freigestellt auf dem Rot, ohne Kachelflaeche. */
-  /* Etwas mehr Anteil als das Foto: Die Zeichnung liegt auf quadratischer
-     Leinwand, `contain` bindet ihre Breite also an die Hoehe der Kachel. */
-  .service-rail__figure--diagram { flex-grow: 1.2; }
-  .service-rail__figure--diagram img { object-fit: contain; object-position: center; filter: drop-shadow(0 10px 18px rgba(6,38,79,.3)); }
-  /* Das Foto fuellt seine Kachel formatfuellend. */
-  .service-rail__figure--callcenter { background: rgba(255,255,255,.1); }
-  .service-rail__figure--callcenter img { object-fit: cover; object-position: center; }
+  /* Feste Proportion statt geteilter Restflaeche: Ohne Fensterhoehe als Bezug
+     gibt es keinen Rest mehr zu verteilen. */
+  .service-rail__figure { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 14px; background: rgba(255,255,255,.1); }
+  .service-rail__figure img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
   /* Trennlinien zwischen den Bloecken statt Rahmen - ruhiger auf schmaler Spalte. */
-  .service-rail__block { flex: none; display: grid; gap: clamp(5px, .8svh, 8px); padding-top: clamp(10px, 1.7svh, 16px); border-top: 1px solid rgba(255,255,255,.2); }
+  .service-rail__block { display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.2); }
   /* Nicht `:first-of-type` - das zaehlt alle div-Geschwister und traefe die
      Bildkachel. Der erste Block ist der direkt hinter dem Foto. */
   .service-rail__figure + .service-rail__block { padding-top: 0; border-top: 0; }
-  .service-rail__block p { margin: 0; color: rgba(255,255,255,.86); font-size: clamp(11.5px, 1.4svh, 12.5px); line-height: 1.5; text-wrap: pretty; }
+  .service-rail__block p { margin: 0; color: rgba(255,255,255,.86); font-size: 13px; line-height: 1.6; text-wrap: pretty; }
   .service-rail__block p strong { color: #fff; font-weight: 750; }
 
   .service-rail__label { margin: 0; color: var(--light-blue); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-  .service-rail__heading { margin: 0; font-size: clamp(14px, 1.9svh, 17px); font-weight: 700; letter-spacing: -.02em; }
-  .service-rail__phone { display: block; font-size: clamp(21px, 3svh, 28px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; transition: color .25s ease; }
+  .service-rail__heading { margin: 0; font-size: clamp(15px, 1.3vw, 17px); font-weight: 700; letter-spacing: -.02em; }
+  .service-rail__phone { display: block; font-size: clamp(22px, 2vw, 28px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; transition: color .25s ease; }
   .service-rail__phone:hover, .service-rail__phone:focus-visible { color: var(--cta); }
 
   /* Gleiche gelbe Pille wie jeder andere Call-to-Action der Seite. */
-  .service-rail__link { width: fit-content; margin-top: 2px; padding: clamp(7px, 1.1svh, 9px) 16px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+  .service-rail__link { width: fit-content; margin-top: 4px; padding: 9px 16px; border-radius: 999px; font-size: 12px; font-weight: 800; }
 
   .service-rail a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-
-  /* Die Zeichnung sitzt in der Servicespalte, der Hero ist hier reine
-     Textflaeche und bekommt die frei gewordene Breite. Ueberschreibt die
-     `.page-shell--brand-rail`-Regel weiter oben. */
-  .page-shell--brand-rail .hero.hero--diagram.hero--with-rail .hero-content,
-  .hero--with-rail .hero-content { width: 100%; }
-  .hero--with-rail .hero-photo { display: none; }
-
-  /* Die Ueberschrift der Kontaktsektion ist auf die volle Seitenbreite
-     ausgelegt (bis 64px). In der schmaleren Spalte eine Stufe kleiner. */
-  .rail-layout__main .contact-section__intro h2 { font-size: clamp(34px, 3.2vw, 52px); }
-}
-
-/* Hero, FAQ und Kontakt teilen sich die Restbreite mit der Servicespalte. FAQ
-   (320px Aside + bis zu 104px Gap) und Kontaktpanel (420px allein fuer die
-   Karte) verlangen zusammen rund 880px - so viel bleibt der Spalte erst ab
-   etwa 1500px Fensterbreite. Darunter stapeln beide einspaltig, genau wie auf
-   dem Tablet, statt Formular und FAQ-Liste zu zerquetschen. */
-@media (min-width: 1025px) and (max-width: 1499px) {
-  .rail-layout__main .faq-section { grid-template-columns: 1fr; gap: 28px; }
-  .rail-layout__main .faq-section__aside { position: relative; top: auto; padding: 30px 26px; }
-  .rail-layout__main .faq-section__aside h2 { font-size: clamp(30px, 2.8vw, 38px); }
-  .rail-layout__main .faq-section__lead { margin: 16px 0 26px; }
-
-  .rail-layout__main .contact-section__intro { grid-template-columns: 1fr; gap: 18px; }
-  .rail-layout__main .contact-panel { grid-template-columns: 1fr; min-height: 0; }
-  .rail-layout__main .contact-map { min-height: 420px; }
 }
 
 
