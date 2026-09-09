@@ -1429,6 +1429,19 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   .device-faq-layout--with-why .device-faq-column { grid-area: list; }
 }
 
+/* Die rote Servicekarte laeuft beim Scrollen mit. Ihr Anker ist das Rasterfeld
+   in dieser Sektion - sie loest sich also von selbst wieder, sobald die Sektion
+   endet, und wandert nicht in die Kontaktsektion darunter. */
+@media (min-width: 1025px) {
+  .device-faq-layout--with-why .service-rail {
+    position: sticky;
+    /* Abstand zur festen Kopfzeile - derselbe, den auch die Sektionen mit
+       ihrem scroll-margin-top einhalten. */
+    top: 100px;
+    align-self: start;
+  }
+}
+
 .why-choose--inline {
   margin: 0 0 clamp(40px, 4vw, 64px);
   padding: clamp(32px, 3.4vw, 48px) clamp(24px, 2.6vw, 40px);
