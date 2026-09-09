@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceRail from "@/components/ServiceRail";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import WhyChooseInline from "@/components/WhyChooseSection";
 import { business, siteUrl } from "@/lib/business";
 import { fridgeBrands, fridgeFaqs } from "@/lib/kuehlschrankFaq";
 
@@ -163,16 +164,24 @@ export default function KuehlschrankPage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout">
+        <div className="device-faq-layout device-faq-layout--with-why">
           <BrandRail />
           <ServiceRail />
 
-          <DeviceFaqSection
-            id="haeufige-fragen"
-            heading="Häufige Fragen zu Ihrem Kühlschrank."
-            lead="Kosten, Marken, Leihgerät und Wirtschaftlichkeit – die wichtigsten Antworten auf einen Blick."
-            items={fridgeFaqs}
-          />
+          {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
+              die vier Gruende darueber stehen koennen. Er ist ein schlichter
+              Block ohne eigene Groessen - an der Fragenliste aendert sich
+              dadurch nichts. */}
+          <div className="device-faq-column">
+            <WhyChooseInline idPrefix="koelkast" />
+
+            <DeviceFaqSection
+              id="haeufige-fragen"
+              heading="Häufige Fragen zu Ihrem Kühlschrank."
+              lead="Kosten, Marken, Leihgerät und Wirtschaftlichkeit – die wichtigsten Antworten auf einen Blick."
+              items={fridgeFaqs}
+            />
+          </div>
         </div>
 
         <section

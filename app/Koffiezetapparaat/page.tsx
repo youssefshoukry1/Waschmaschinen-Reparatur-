@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceRail from "@/components/ServiceRail";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import WhyChooseInline from "@/components/WhyChooseSection";
 import { business, siteUrl } from "@/lib/business";
 import { coffeeBrands, coffeeFaqs } from "@/lib/kaffeeFaq";
 
@@ -164,16 +165,24 @@ export default function KaffeemaschinePage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout">
+        <div className="device-faq-layout device-faq-layout--with-why">
           <BrandRail />
           <ServiceRail />
 
-          <DeviceFaqSection
-            id="haeufige-fragen"
-            heading="Häufige Fragen zu Ihrem Kaffeeautomaten."
-            lead="Leistungen, Marken, Kosten und Öffnungszeiten – die wichtigsten Antworten auf einen Blick."
-            items={coffeeFaqs}
-          />
+          {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
+              die vier Gruende darueber stehen koennen. Er ist ein schlichter
+              Block ohne eigene Groessen - an der Fragenliste aendert sich
+              dadurch nichts. */}
+          <div className="device-faq-column">
+            <WhyChooseInline idPrefix="koffiezetapparaat" />
+
+            <DeviceFaqSection
+              id="haeufige-fragen"
+              heading="Häufige Fragen zu Ihrem Kaffeeautomaten."
+              lead="Leistungen, Marken, Kosten und Öffnungszeiten – die wichtigsten Antworten auf einen Blick."
+              items={coffeeFaqs}
+            />
+          </div>
         </div>
 
         <section

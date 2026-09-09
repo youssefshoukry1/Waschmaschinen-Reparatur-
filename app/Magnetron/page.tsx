@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import ServiceRail from "@/components/ServiceRail";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import WhyChooseInline from "@/components/WhyChooseSection";
 import { business, siteUrl } from "@/lib/business";
 import { microwaveFaqs } from "@/lib/mikrowelleFaq";
 
@@ -163,16 +164,24 @@ export default function LeistungenPage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout">
+        <div className="device-faq-layout device-faq-layout--with-why">
           <BrandRail />
           <ServiceRail />
 
-          <DeviceFaqSection
-            id="haeufige-fragen"
-            heading="Häufige Fragen zu Ihrer Mikrowelle."
-            lead="Kein Betrieb oder Speisen, die nicht mehr richtig warm werden – die wichtigsten Antworten auf einen Blick."
-            items={microwaveFaqs}
-          />
+          {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
+              die vier Gruende darueber stehen koennen. Er ist ein schlichter
+              Block ohne eigene Groessen - an der Fragenliste aendert sich
+              dadurch nichts. */}
+          <div className="device-faq-column">
+            <WhyChooseInline idPrefix="magnetron" />
+
+            <DeviceFaqSection
+              id="haeufige-fragen"
+              heading="Häufige Fragen zu Ihrer Mikrowelle."
+              lead="Kein Betrieb oder Speisen, die nicht mehr richtig warm werden – die wichtigsten Antworten auf einen Blick."
+              items={microwaveFaqs}
+            />
+          </div>
         </div>
 
         <section
