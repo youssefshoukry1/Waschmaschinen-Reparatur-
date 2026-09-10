@@ -435,6 +435,57 @@ a { color: inherit; text-decoration: none; }
   .device-nav__pill:hover { transform: none; }
 }
 
+/* --- Bezirksseiten (/berlin-*) -------------------------------------------- */
+
+/* Standortadresse im dunklen Hero, direkt unter der Einleitung. */
+.district-address {
+  display: grid;
+  max-width: min(100%, 590px);
+  gap: 2px;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+  padding: 14px 18px;
+  border-left: 3px solid var(--cta);
+  border-radius: 4px 14px 14px 4px;
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.86);
+  font-size: clamp(13px, calc(12.2px + .22vw), 15px);
+  font-style: normal;
+  line-height: 1.55;
+}
+.district-address strong { color: #fff; font-size: clamp(15px, calc(14px + .3vw), 18px); font-weight: 750; }
+.district-address em { margin-top: 6px; color: var(--cta); font-style: normal; font-weight: 700; }
+
+/* .why-choose--inline ist fuer die schmale Spalte der Geraeteseiten gebaut und
+   hat deshalb keine eigene Maximalbreite. Als eigenstaendige Sektion braucht es
+   den Container der Startseite, sonst laeuft das Raster ueber die volle Breite. */
+.district-why { width: min(1264px, calc(100% - 48px)); margin: clamp(48px, 5vw, 80px) auto 0; }
+
+/* Textsektionen unterhalb der vier Gruende. .seo-page__section bringt selbst
+   keine Breite mit - auf den Bezirksseiten uebernimmt das dieser Container. */
+.district-sections { width: min(1264px, calc(100% - 48px)); margin: 0 auto; }
+.district-sections .seo-page__section:last-child { border-bottom: 0; }
+.district-nav-wrap { margin: 24px 0 28px; }
+.district-nav-wrap .device-nav { max-width: 100%; }
+
+/* Die Pillen sind fuer den dunklen Hero gebaut - hier stehen sie auf Weiss. */
+.district-nav-wrap .device-nav__pill {
+  border-color: #dfe6ee;
+  background: #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: var(--primary);
+}
+.district-nav-wrap .device-nav__pill:focus-visible { outline-color: var(--blue); }
+@media (hover: hover) and (pointer: fine) {
+  .district-nav-wrap .device-nav__pill:hover { border-color: var(--blue); background: var(--lightest-blue); color: var(--blue); }
+  .district-nav-wrap .device-nav__pill.is-active:hover { background: var(--cta-hover); color: var(--cta-hover-text); }
+}
+@media (max-width: 767px) {
+  .district-why,
+  .district-sections { width: calc(100% - 32px); }
+  .district-address { padding: 12px 14px; }
+}
+
 /* 5-Euro-Callout im Hero der Leistungsseite. */
 .hero-callout { display: inline-flex; max-width: min(100%, 590px); align-items: center; gap: 16px; margin: 0 0 clamp(16px, 2vw, 24px); padding: 12px 18px 12px 14px; border: 1px solid rgba(255,255,255,.28); border-radius: 18px; background: rgba(255,255,255,.14); backdrop-filter: blur(6px); }
 .hero-callout__price { display: grid; flex: none; margin: 0; place-items: center; padding: 8px 14px; border-radius: 12px; background: var(--cta); color: var(--cta-text); line-height: 1; }
@@ -1927,6 +1978,16 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 @keyframes district-chip-in {
   from { opacity: 0; transform: translate3d(0, 8px, 0) scale(.94); }
   to { opacity: 1; transform: none; }
+}
+
+/* Chips mit eigener Bezirksseite: das Padding wandert auf den Link, damit die
+   ganze Pille klickbar ist und nicht nur die Schrift. */
+.district-chip:has(> a) { padding: 0; }
+.district-chip > a { display: block; padding: 8px 15px; border-radius: inherit; }
+.district-chip > a:hover { background: var(--blue); color: #fff; }
+.district-chip > a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (max-width: 575px) {
+  .district-chip > a { padding: 7px 12px; }
 }
 
 @media (max-width: 575px) {

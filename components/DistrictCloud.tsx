@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 import { districtRegions, districts } from "@/lib/business";
+import { districtPathByName } from "@/lib/districtLocations";
 
 /**
  * Einsatzgebiet kompakt: Statt einer 18 Chips langen Wolke - auf dem Handy
@@ -40,11 +42,16 @@ export default function DistrictCloud() {
 
       {/* key erzwingt ein Remount, damit die Chips bei jedem Gruppenwechsel neu einlaufen. */}
       <ul className="district-map__list" key={activeRegion.id} aria-live="polite">
-        {activeRegion.districts.map((district, index) => (
-          <li className="district-chip" style={{ "--chip-index": index } as CSSProperties} key={district}>
-            {district}
-          </li>
-        ))}
+        {activeRegion.districts.map((district, index) => {
+          // Bezirke mit eigener Landingpage werden zum Link, die uebrigen
+          // bleiben ein reiner Chip.
+          const href = districtPathByName.get(district);
+          return (
+            <li className="district-chip" style={{ "--chip-index": index } as CSSProperties} key={district}>
+              {href ? <Link href={href}>{district}</Link> : district}
+            </li>
+          );
+        })}
       </ul>
 
       {/* Die uebrigen Gruppen bleiben fuer Suchmaschinen und Screenreader im Markup. */}

@@ -22,7 +22,7 @@ export default function SiteFooter() {
             <span className="footer-trust">Mitgliedsbetrieb der {business.chamber.name}</span>
           </div>
           <nav className="footer-links" aria-label="Navigation im Fußbereich">
-            <p>Entdecken</p><Link href="/#home">Startseite</Link><Link href="/leistungen">Leistungen</Link><Link href="/#einsatzgebiet">Bezirke</Link><Link href="/#faq">Häufige Fragen</Link>
+            <p>Entdecken</p><Link href="/#home">Startseite</Link><Link href="/leistungen">Leistungen</Link><Link href="/einsatzgebiet-berlin">Bezirke &amp; Standorte</Link><Link href="/#faq">Häufige Fragen</Link>
           </nav>
           <address className="footer-contact">
             <p>Kontakt</p><span>{business.address.streetAddress}<br />{business.address.postalCode} {business.address.addressLocality}</span><a href={`tel:${business.telephone}`}>{business.telephoneDisplay}</a><a href={`mailto:${business.email}`}>{business.email}</a><a href={`https://wa.me/${business.whatsapp}`} target="_blank" rel="noopener noreferrer">Nachricht über WhatsApp</a><span>Inhaber: {business.owner}</span>

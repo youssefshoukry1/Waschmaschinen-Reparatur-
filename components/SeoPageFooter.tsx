@@ -19,7 +19,7 @@ export default function SeoPageFooter() {
         <Link href="/">Startseite</Link>
         <Link href="/leistungen">Leistungen &amp; Hilfeanleitungen</Link>
         <Link href="/waschmaschinen-reparatur-berlin">Waschmaschinen Reparatur</Link>
-        <Link href="/einsatzgebiet-berlin">Einsatzgebiet</Link>
+        <Link href="/einsatzgebiet-berlin">Einsatzgebiet &amp; Standorte</Link>
         <Link href="/agb">AGB</Link>
       </nav>
     </footer>

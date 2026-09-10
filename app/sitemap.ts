@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { siteUrl } from "@/lib/business";
+import { districtLocations, districtPath } from "@/lib/districtLocations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -8,6 +9,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/leistungen`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/waschmaschinen-reparatur-berlin`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/einsatzgebiet-berlin`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    // Die elf Bezirksseiten kommen aus derselben Liste wie die Seiten selbst.
+    ...districtLocations.map((district) => ({
+      url: `${siteUrl}${districtPath(district)}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     { url: `${siteUrl}/agb`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteUrl}/impressum`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteUrl}/datenschutz`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },

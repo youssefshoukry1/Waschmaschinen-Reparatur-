@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatedSectionTitle } from "./HeroTitle";
+
+import FaqMascotHeadline, { useFaqMascotReveal } from "./FaqMascotHeadline";
 
 import { repairGuides, type GuideBlock } from "@/lib/repairGuides";
 
@@ -77,11 +78,23 @@ function GuideBlocks({ blocks }: { blocks: GuideBlock[] }) {
 
 export default function RepairGuidesSection() {
   const [openIndex, setOpenIndex] = useState(0);
+  const sectionRef = useFaqMascotReveal<HTMLElement>();
 
   return (
-    <section className="device-faq" id="hilfeanleitungen" aria-labelledby="guides-heading">
+    <section
+      className="device-faq device-faq--mascot"
+      id="hilfeanleitungen"
+      aria-labelledby="guides-heading"
+      ref={sectionRef}
+    >
       <div className="device-faq__header">
-        <AnimatedSectionTitle id="guides-heading" parts={[{ text: "Anleitungen, die Ihnen sofort weiterhelfen." }]} />
+        {/* Dieselbe scrollgebundene Enthuellung wie auf den Geraeteseiten. Nur
+            die Ueberschrift steckt in der Buehne - Vorspann und Liste darunter
+            bleiben unangetastet. */}
+        <FaqMascotHeadline
+          headingId="guides-heading"
+          heading="Anleitungen, die Ihnen sofort weiterhelfen."
+        />
         <p className="device-faq__lead">
           Schritt für Schritt erklärt: die häufigsten Störungen an Ihrer Waschmaschine – und was Sie selbst
           gefahrlos prüfen und beheben können.

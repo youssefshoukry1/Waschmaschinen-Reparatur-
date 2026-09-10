@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
 import SeoPageFooter from "@/components/SeoPageFooter";
 import { districts, siteUrl } from "@/lib/business";
+import { districtLocations, districtPath, districtPathByName } from "@/lib/districtLocations";
 
 const title = "Einsatzgebiet: Geräte-Reparatur in allen Berliner Bezirken";
 const description = "Wir reparieren Haushaltsgeräte in ganz Berlin – von Mitte über Pankow bis Spandau. Anfahrt und Kostenvoranschlag zur festen Pauschale.";
@@ -39,11 +40,28 @@ export default function ServiceAreaPage() {
           <Link className="split-hover-cta seo-page__cta" href="/#contact"><span>Termin anfragen <span aria-hidden="true">↗</span></span></Link>
         </section>
 
+        <section className="seo-page__section" aria-labelledby="locations-heading">
+          <h2 id="locations-heading">Unsere Standorte in Berlin</h2>
+          <p>Zu jedem dieser Bezirke gibt es eine eigene Seite mit Adresse, Kontakt und den Kiezen, die wir von dort aus anfahren:</p>
+          <ul className="seo-page__service-list">
+            {districtLocations.map((district) => (
+              <li key={district.slug}>
+                <Link href={districtPath(district)}>
+                  Haushaltsgeräte Reparatur Berlin {district.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section className="seo-page__section" aria-labelledby="area-heading">
           <h2 id="area-heading">Bezirke und Ortsteile</h2>
           <p>Wir sind im gesamten Stadtgebiet unterwegs. Diese Bezirke und Ortsteile fahren wir regelmäßig an:</p>
           <ul className="seo-page__service-list">
-            {districts.map((district) => <li key={district}>{district}</li>)}
+            {districts.map((district) => {
+              const href = districtPathByName.get(district);
+              return <li key={district}>{href ? <Link href={href}>{district}</Link> : district}</li>;
+            })}
           </ul>
           <p className="seo-page__note">Ihr Ortsteil ist nicht aufgeführt? Fragen Sie uns – wir fahren im gesamten Stadtgebiet.</p>
         </section>
