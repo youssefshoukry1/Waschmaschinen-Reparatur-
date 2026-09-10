@@ -664,6 +664,8 @@ a { color: inherit; text-decoration: none; }
 
 .service-card {
   min-width: 0;
+  display: block;
+  color: inherit;
   overflow: hidden;
   border: 1px solid rgba(14,17,9,.06);
   border-radius: 16px;
@@ -826,10 +828,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .service-card__content p { margin: 0; color: #4a5567; font-size: 15px; font-weight: 450; line-height: 1.68; }
-.service-card__content > a { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; color: var(--blue); font-size: 14px; font-weight: 750; letter-spacing: -.005em; }
-.service-card__content > a svg { width: 34px; height: 34px; padding: 8px; overflow: visible; border-radius: 50%; background: var(--lightest-blue); fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: background .25s ease, color .25s ease, transform .25s ease; }
-.service-card__content > a:hover svg { background: var(--accent); color: var(--primary); transform: translateX(3px); }
-.service-card__content > a:focus-visible, .care-fund a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 32px; }
+.service-card__cta { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; color: var(--blue); font-size: 14px; font-weight: 750; letter-spacing: -.005em; }
+.service-card__cta svg { width: 34px; height: 34px; padding: 8px; overflow: visible; border-radius: 50%; background: var(--lightest-blue); fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: background .25s ease, color .25s ease, transform .25s ease; }
+.service-card:hover .service-card__cta svg { background: var(--accent); color: var(--primary); transform: translateX(3px); }
+.care-fund a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 32px; }
+.service-card:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 
 .defects-section { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(310px, .92fr); gap: clamp(28px, 5vw, 72px); margin: clamp(48px, 6vw, 80px) 0; padding: clamp(40px, 5vw, 64px); overflow: hidden; border-radius: 24px; background: var(--primary); box-shadow: 0 22px 54px rgba(6,38,79,.18); }
 .defects-section::before { width: 420px; height: 420px; position: absolute; z-index: -1; top: -230px; right: -105px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; box-shadow: 0 0 0 55px rgba(255,255,255,.035), 0 0 0 110px rgba(255,255,255,.025); content: ""; }
@@ -2326,4 +2329,99 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
     position: static;
     align-self: stretch;
   }
+}
+
+/* ==========================================================================
+   Kontakt: roter Block mit Formular, Service-Mitarbeiterin und Kontaktkarte
+   ========================================================================== */
+.contact-callback { width: min(1264px, calc(100% - 48px)); margin: 96px auto 0; scroll-margin-top: 110px; }
+.contact-callback__card { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: clamp(24px, 3vw, 56px); overflow: hidden; padding: clamp(28px, 3.4vw, 56px); border-radius: clamp(24px, 2.6vw, 40px); background: linear-gradient(150deg, #cf2f22 0%, var(--blue) 62%, #a51f14 100%); box-shadow: 0 30px 80px rgba(140, 26, 18, .28); }
+.contact-callback__body { min-width: 0; }
+.contact-callback__badge { display: inline-flex; align-items: center; margin: 0 0 20px; padding: 9px 18px; border-radius: 999px; background: rgba(255, 255, 255, .18); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.contact-callback__body h2 { max-width: 640px; margin: 0; color: #fff; font-size: clamp(32px, 3.6vw, 52px); font-weight: 650; line-height: 1.06; letter-spacing: -.05em; text-wrap: balance; }
+.contact-callback__body h2 .hero-title__emphasis { color: var(--cta); }
+.contact-callback__lead { max-width: 520px; margin: 14px 0 30px; color: rgba(255, 255, 255, .82); font-size: 16px; line-height: 1.65; }
+
+/* Formularvariante auf rotem Grund: weisse Pillen-Felder, helle Beschriftungen. */
+.contact-form--callback { gap: 18px; }
+.contact-form--callback label > span { color: #fff; font-size: 13px; font-weight: 700; }
+.contact-form--callback input, .contact-form--callback select, .contact-form--callback textarea { border: 1px solid transparent; background: #fff; }
+.contact-form--callback input, .contact-form--callback select { height: 56px; padding: 0 22px; border-radius: 999px; }
+.contact-form--callback select { padding-right: 46px; background-position: calc(100% - 22px) calc(50% - 2px), calc(100% - 17px) calc(50% - 2px); }
+.contact-form--callback textarea { min-height: 150px; padding: 16px 22px; border-radius: 24px; }
+.contact-form--callback input:focus, .contact-form--callback select:focus, .contact-form--callback textarea:focus { border-color: transparent; background: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .38); }
+.contact-form--callback .contact-form__consent { color: rgba(255, 255, 255, .92); font-size: 13px; }
+.contact-form--callback .contact-form__consent a { color: #fff; }
+.contact-form--callback .contact-form__consent input { border-color: rgba(255, 255, 255, .75); background: rgba(255, 255, 255, .12); box-shadow: none; }
+.contact-form--callback .contact-form__consent input:checked { border-color: #fff; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3.1 8.2 2.9 2.8 6.9-6.5' fill='none' stroke='%23b42318' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.15'/%3E%3C/svg%3E"); }
+.contact-form--callback .contact-form__consent input:focus, .contact-form--callback .contact-form__consent input:focus-visible { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, .35); }
+.contact-form--callback .contact-form__footer { padding-top: 22px; border-top-color: rgba(255, 255, 255, .28); }
+.contact-form--callback .contact-form__status { color: rgba(255, 255, 255, .85); }
+.contact-form--callback .contact-form__status--error, .contact-form--callback .contact-form__status--error a { color: #ffe0dc; }
+.contact-form--callback .contact-form__success { border-color: rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .97); }
+
+/* Rechte Spalte: Mitarbeiterin unten buendig, Kontaktkarte darueber gelegt. */
+/* --callback-tail entspricht der Hoehe von Einwilligung + Trennlinie + Button.
+   Die Kontaktkarte wird darum angehoben und liegt so auf einer Linie mit dem
+   Nachrichtenfeld statt auf einer Linie mit dem Absende-Button. */
+.contact-callback__aside { --callback-tail: 0px; position: relative; display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; padding-bottom: var(--callback-tail); }
+.contact-callback__agent { width: min(100%, 380px); height: auto; margin: 0 0 -40px auto; object-fit: contain; }
+.contact-callback__info { position: relative; z-index: 1; margin: 0; padding: 0 22px; list-style: none; border-radius: 20px; background: #fff; box-shadow: 0 22px 55px rgba(80, 10, 6, .3); }
+.contact-callback__info li { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 16px 0; border-top: 1px solid #eef1f4; }
+.contact-callback__info li:first-child { border-top: 0; }
+.contact-callback__info li > div { display: grid; min-width: 0; gap: 2px; }
+.contact-callback__info strong { color: var(--primary); font-size: 14px; font-weight: 600; }
+.contact-callback__info span:not(.contact-callback__info-icon) { color: #667085; font-size: 13px; line-height: 1.4; }
+.contact-callback__info a { color: var(--blue); font-size: 14px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.contact-callback__info a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.contact-callback__info-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--lightest-blue); color: var(--blue); }
+.contact-callback__info-icon svg { width: 18px; height: 18px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-callback__info a { transition: opacity .2s ease; }
+}
+
+
+
+@media (max-width: 1024px) {
+  .contact-callback__card { grid-template-columns: 1fr; gap: 32px; }
+  .contact-callback__aside { flex-direction: column; align-items: stretch; }
+  .contact-callback__agent { width: min(58%, 300px); margin: 0 auto -36px; }
+}
+
+@media (max-width: 767px) {
+  .contact-callback { width: calc(100% - 32px); margin-top: 64px; }
+  .contact-callback__agent { display: none; }
+}
+
+@media (max-width: 575px) {
+  .contact-callback__card { padding: 24px 18px; border-radius: 20px; }
+  .contact-callback__lead { margin-bottom: 22px; font-size: 15px; }
+  .contact-form--callback .contact-form__row { grid-template-columns: 1fr; }
+  .contact-form--callback input, .contact-form--callback select { height: 50px; padding: 0 18px; }
+  .contact-form--callback select { padding-right: 42px; }
+  .contact-form--callback textarea { min-height: 128px; padding: 14px 18px; }
+  .contact-form--callback .contact-form__footer { align-items: stretch; flex-direction: column; }
+  .contact-callback__info { padding: 0 16px; }
+  .contact-callback__info li { padding: 14px 0; }
+}
+
+/* Der svh-Block oben verkleinert die Standardfelder - die Pillen-Variante
+   behaelt ihre feste Hoehe, damit der rote Block ruhig wirkt. */
+@media (min-width: 992px) {
+  .contact-callback__card { padding: clamp(28px, 3.2svh, 56px) clamp(28px, 3.4vw, 56px); }
+  .contact-callback__badge { margin-bottom: clamp(12px, 2svh, 20px); }
+  .contact-callback__body h2 { font-size: clamp(30px, 3.8svh, 52px); }
+  .contact-callback__lead { margin: clamp(10px, 1.4svh, 14px) 0 clamp(18px, 3svh, 30px); font-size: clamp(14px, 1.7svh, 16px); }
+  .contact-form--callback { gap: clamp(12px, 1.6svh, 18px); }
+  .contact-form--callback label > span { font-size: clamp(12px, 1.5svh, 13px); }
+  .contact-form--callback input, .contact-form--callback select { height: clamp(46px, 5.6svh, 56px); }
+  .contact-form--callback textarea { height: auto; min-height: clamp(96px, 13svh, 150px); }
+  .contact-form--callback .contact-form__footer { padding-top: clamp(14px, 2.2svh, 22px); }
+}
+
+/* Nur im zweispaltigen Layout: Kontaktkarte um Einwilligung + Button anheben,
+   damit sie auf Hoehe des Nachrichtenfelds sitzt. Skaliert mit der svh-Logik. */
+@media (min-width: 1025px) {
+  .contact-callback__aside { --callback-tail: calc(36px + 2 * clamp(12px, 1.6svh, 18px) + clamp(14px, 2.2svh, 22px) + clamp(44px, 5.6svh, 52px)); }
 }

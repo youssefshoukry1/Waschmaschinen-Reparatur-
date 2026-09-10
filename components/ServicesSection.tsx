@@ -170,9 +170,11 @@ function ServiceArtwork({ icon }: { icon: ServiceIcon }) {
 
 function ServiceCard({ service }: { service: Service }) {
   return (
-    <article
+    <Link
       className={`service-card${service.featured ? " service-card--featured" : ""}`}
       id={service.slug}
+      href={service.href}
+      aria-label={`${service.title} anfragen`}
     >
       <div
         className={`service-card__stage service-card__stage--${service.slug}${
@@ -197,14 +199,14 @@ function ServiceCard({ service }: { service: Service }) {
           <h3>{service.title}</h3>
           <p>{service.description}</p>
         </div>
-        <Link href={service.href} aria-label={`${service.title} anfragen`}>
+        <span className="service-card__cta">
           <span>Anfragen</span>
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <path d="M4 10h12M11 5l5 5-5 5" />
           </svg>
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 

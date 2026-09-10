@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import BrandRail from "@/components/BrandRail";
-import ContactForm from "@/components/ContactForm";
+import ContactSection from "@/components/ContactSection";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DeviceNav from "@/components/DeviceNav";
 import { AnimatedPageTitle, AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
-import { MapConsent } from "@/components/MapConsent";
 import Navbar from "@/components/Navbar";
 import RepairGuidesSection from "@/components/RepairGuidesSection";
 import SiteFooter from "@/components/SiteFooter";
@@ -187,35 +186,7 @@ export default function LeistungenPage() {
           </div>
         </div>
 
-        <section
-          className="contact-section"
-          id="contact"
-          aria-labelledby="leistungen-contact-heading"
-        >
-          <div className="contact-section__intro">
-            <div>
-              <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
-              <AnimatedSectionTitle
-                id="leistungen-contact-heading"
-                parts={[
-                  { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
-                ]}
-              />
-            </div>
-            <p>
-              Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur
-              gewünschten Zeit und nennen Ihnen den Festpreis.
-            </p>
-          </div>
-
-          <div className="contact-panel">
-            <div className="contact-form-wrap">
-              <ContactForm />
-            </div>
-
-            <MapConsent />
-          </div>
-        </section>
+        <ContactSection headingId="leistungen-contact-heading" />
 
         <section className="booking-banner" aria-labelledby="leistungen-banner-heading">
           <Image

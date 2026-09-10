@@ -7,7 +7,7 @@ import ServiceAreaSection from "@/components/ServiceAreaSection";
 import TrustSection from "@/components/TrustSection";
 import BrandsSection from "@/components/BrandsSection";
 import TroubleshootingSection from "@/components/TroubleshootingSection";
-import { MapConsent, MapConsentResetLink } from "@/components/MapConsent";
+import { MapConsentResetLink } from "@/components/MapConsent";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import FAQSection from "@/components/FAQSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -15,7 +15,7 @@ import HeroTitle from "@/components/HeroTitle";
 import { AnimatedSectionTitle } from "@/components/HeroTitle";
 import JsonLd from "@/components/JsonLd";
 import WhatsAppFab from "@/components/WhatsAppFab";
-import ContactForm from "@/components/ContactForm";
+import ContactSection from "@/components/ContactSection";
 import { BadgeCheck, Banknote, ShieldCheck, Star, Wrench } from "lucide-react";
 import { getTrustSettings } from "@/sanity-reference/lib/trustSettings";
 import { business, districts, publicServices, siteUrl } from "@/lib/business";
@@ -237,35 +237,7 @@ export default async function Home() {
 
         <FAQSection />
 
-        <section
-          className="contact-section"
-          id="contact"
-          aria-labelledby="contact-heading"
-        >
-          <div className="contact-section__intro">
-            <div>
-              <p className="contact-section__eyebrow">Rückruf zur Wunschzeit</p>
-              <AnimatedSectionTitle
-                id="contact-heading"
-                parts={[
-                  { text: "Sagen Sie uns, wann wir Sie zurückrufen dürfen." },
-                ]}
-              />
-            </div>
-            <p>
-              Beschreiben Sie kurz Gerät und Fehler. Wir melden uns zur
-              gewünschten Zeit und nennen Ihnen den Festpreis.
-            </p>
-          </div>
-
-          <div className="contact-panel">
-            <div className="contact-form-wrap">
-              <ContactForm />
-            </div>
-
-            <MapConsent />
-          </div>
-        </section>
+        <ContactSection headingId="contact-heading" />
 
         <section
           className="booking-banner"

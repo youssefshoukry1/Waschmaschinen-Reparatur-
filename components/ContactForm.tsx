@@ -10,7 +10,19 @@ const CONSENT_VERSION = process.env.NEXT_PUBLIC_RELAY_CONSENT_VERSION ?? "v1";
 
 type SubmissionState = "idle" | "sending" | "success" | "error";
 
-export default function ContactForm() {
+const DEVICE_OPTIONS = [
+  "Waschmaschine",
+  "Kühlschrank",
+  "Spülmaschine",
+  "Trockner",
+  "Herd oder Backofen",
+  "Kaffeemaschine",
+  "TV oder Elektronik",
+  "Anderes Gerät",
+];
+
+export default function ContactForm({ variant = "panel" }: { variant?: "panel" | "callback" }) {
+  const isCallback = variant === "callback";
   const renderedAt = useRef(0);
   const submitToken = useRef<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -93,7 +105,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
+    <form ref={formRef} className={`contact-form${isCallback ? " contact-form--callback" : ""}`} onSubmit={handleSubmit}>
       {status === "success" ? (
         <section className="contact-form__success" aria-labelledby="contact-success-heading">
           <span className="contact-form__success-icon" aria-hidden="true">✓</span>
@@ -103,25 +115,48 @@ export default function ContactForm() {
           <button className="contact-form__secondary-button" type="button" onClick={startAnotherRequest}>Weitere Anfrage senden</button>
         </section>
       ) : <>
-      <div className="contact-form__heading">
-        <span className="contact-form__step">Rückruf anfordern</span>
-        <p>Sagen Sie uns, wann wir Sie erreichen dürfen – wir rufen Sie zur gewünschten Zeit zurück.</p>
-      </div>
-      <div className="contact-form__row">
-        <label><span>Ihr Name</span><input type="text" name="name" placeholder="Vor- und Nachname" autoComplete="name" maxLength={120} required /></label>
-        <label><span>Telefon</span><input type="tel" name="phone" placeholder="Ihre Telefonnummer" autoComplete="tel" maxLength={30} /></label>
-      </div>
-      <div className="contact-form__row">
-        <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
-        <label><span>Wunschzeit für den Rückruf</span><input type="text" name="callbackTime" placeholder="z. B. 14 bis 16 Uhr" maxLength={120} /></label>
-      </div>
-      <label>
-        <span>Welches Gerät ist defekt?</span>
-        <select name="service" defaultValue="">
-          <option value="" disabled>Gerät auswählen</option>
-          <option>Waschmaschine</option><option>Kühlschrank</option><option>Spülmaschine</option><option>Trockner</option><option>Herd oder Backofen</option><option>Kaffeemaschine</option><option>TV oder Elektronik</option><option>Anderes Gerät</option>
-        </select>
-      </label>
+      {isCallback ? null : (
+        <div className="contact-form__heading">
+          <span className="contact-form__step">Rückruf anfordern</span>
+          <p>Sagen Sie uns, wann wir Sie erreichen dürfen – wir rufen Sie zur gewünschten Zeit zurück.</p>
+        </div>
+      )}
+      {isCallback ? (
+        <>
+        <div className="contact-form__row">
+          <label><span>Ihr Name</span><input type="text" name="name" placeholder="Vor- und Nachname" autoComplete="name" maxLength={120} required /></label>
+          <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
+        </div>
+        <div className="contact-form__row">
+          <label><span>Telefon</span><input type="tel" name="phone" placeholder="Ihre Telefonnummer" autoComplete="tel" maxLength={30} /></label>
+          <label>
+          <span>Welches Gerät ist defekt?</span>
+          <select name="service" defaultValue="">
+            <option value="" disabled>Gerät auswählen</option>
+            {DEVICE_OPTIONS.map((device) => <option key={device}>{device}</option>)}
+          </select>
+        </label>
+        </div>
+        </>
+      ) : (
+        <>
+        <div className="contact-form__row">
+          <label><span>Ihr Name</span><input type="text" name="name" placeholder="Vor- und Nachname" autoComplete="name" maxLength={120} required /></label>
+          <label><span>Telefon</span><input type="tel" name="phone" placeholder="Ihre Telefonnummer" autoComplete="tel" maxLength={30} /></label>
+        </div>
+        <div className="contact-form__row">
+          <label><span>E-Mail-Adresse</span><input type="email" name="email" placeholder="name@beispiel.de" autoComplete="email" required /></label>
+          <label><span>Wunschzeit für den Rückruf</span><input type="text" name="callbackTime" placeholder="z. B. 14 bis 16 Uhr" maxLength={120} /></label>
+        </div>
+        <label>
+          <span>Welches Gerät ist defekt?</span>
+          <select name="service" defaultValue="">
+            <option value="" disabled>Gerät auswählen</option>
+            {DEVICE_OPTIONS.map((device) => <option key={device}>{device}</option>)}
+          </select>
+        </label>
+        </>
+      )}
       <label><span>Ihre Nachricht</span><textarea name="message" rows={4} placeholder="Welcher Fehler tritt auf? Marke und Modell helfen uns weiter …" maxLength={5000} required /></label>
       <input className="contact-form__honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <label className="contact-form__consent"><input type="checkbox" name="consent" required /><span>Ich willige in die Verarbeitung meiner Daten zur Kontaktaufnahme ein. Details finden Sie in der <a href="/datenschutz">Datenschutzerklärung</a>.</span></label>
