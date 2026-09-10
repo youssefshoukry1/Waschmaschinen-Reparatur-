@@ -1981,13 +1981,45 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 }
 
 /* Chips mit eigener Bezirksseite: das Padding wandert auf den Link, damit die
-   ganze Pille klickbar ist und nicht nur die Schrift. */
-.district-chip:has(> a) { padding: 0; }
-.district-chip > a { display: block; padding: 8px 15px; border-radius: inherit; }
-.district-chip > a:hover { background: var(--blue); color: #fff; }
-.district-chip > a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+   ganze Pille klickbar ist und nicht nur die Schrift. Weisser Grund und Pfeil
+   unterscheiden sie von den Bezirken ohne eigene Seite. */
+.district-chip--linked { padding: 0; border-color: var(--blue); background: #fff; }
+.district-chip--linked > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: inherit;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.district-chip--linked > a > span { font-size: 12px; transition: transform .2s ease; }
+.district-chip--linked > a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .district-chip--linked > a:hover { background: var(--blue); color: #fff; }
+  .district-chip--linked > a:hover > span { transform: translateX(2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .district-chip--linked > a,
+  .district-chip--linked > a > span { transition: none; }
+  .district-chip--linked > a:hover > span { transform: none; }
+}
+
+/* Sammellink unter der Bezirkswolke auf die Uebersichtsseite. */
+.district-map__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  margin-top: 4px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+.district-map__all:hover { text-decoration: underline; }
+
 @media (max-width: 575px) {
-  .district-chip > a { padding: 7px 12px; }
+  .district-chip--linked > a { padding: 7px 12px; }
 }
 
 @media (max-width: 575px) {
