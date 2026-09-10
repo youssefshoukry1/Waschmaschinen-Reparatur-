@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     template: "%s | ALEX",
   },
   description: business.description,
-  alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   icons: { icon: "/images/logo.png" },
   openGraph: {
@@ -35,6 +34,15 @@ export const metadata: Metadata = {
     siteName: 'ALEX',
     title: "Waschmaschinen Reparatur Berlin – direkt bei Ihnen vor Ort",
     description: business.description,
+    // Fallback-Vorschaubild fuer jede Seite, die kein eigenes setzt. Ein
+    // eigenes Motiv im Format 1200x630 waere hier deutlich staerker.
+    images: [{ url: "/images/logo.png", width: 2172, height: 724, alt: business.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Waschmaschinen Reparatur Berlin – direkt bei Ihnen vor Ort",
+    description: business.description,
+    images: ["/images/logo.png"],
   },
 };
 

@@ -26,26 +26,26 @@ const heroImage = {
   alt: "Explosionszeichnung einer Mikrowelle: Garraum, Magnetron, Hochspannungstrafo, Drehteller, Türverriegelung und Steuerelektronik",
 };
 
-const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
-const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${microwaveFaqs.length} häufige Fragen und Antworten rund um die Mikrowelle.`;
+const title = "Mikrowellen Reparatur Berlin – Notdienst vor Ort";
+const description = `Mikrowellen-Reparatur in Berlin und Umland, rund um die Uhr. Anfahrt inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${microwaveFaqs.length} häufige Fragen und Antworten rund um die Mikrowelle.`;
 
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/leistungen" },
-  openGraph: { title, description, url: "/leistungen", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/Magnetron" },
+  openGraph: { title, description, url: "/Magnetron", locale: "de_DE", type: "website" },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/leistungen`;
+  const pageUrl = `${siteUrl}/Magnetron`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Waschmaschinen Reparatur Notdienst Berlin",
+    name: "Mikrowellen Reparatur Notdienst Berlin",
     description,
     url: pageUrl,
-    serviceType: "Waschmaschinen Reparatur",
+    serviceType: "Mikrowellen Reparatur",
     provider: {
       "@type": "LocalBusiness",
       name: business.name,
@@ -84,7 +84,7 @@ export default function LeistungenPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Startseite", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Leistungen", item: pageUrl },
+      { "@type": "ListItem", position: 2, name: "Mikrowellen Reparatur", item: pageUrl },
     ],
   };
 
@@ -166,9 +166,16 @@ export default function LeistungenPage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout device-faq-layout--with-why">
-          <BrandRail />
-          <ServiceRail />
+        <div className="device-faq-layout device-faq-layout--with-why device-faq-layout--rail-match">
+          {/* Markenleiste und Servicekarte stehen ab 1200px in einem eigenen
+              Subraster nebeneinander. Dadurch ist die Schleife exakt so hoch
+              wie die rote Karte. Unter 1200px loest sich der Wrapper per
+              `display: contents` wieder auf - am bisherigen Raster aendert
+              sich dort nichts. */}
+          <div className="device-faq-pair">
+            <BrandRail />
+            <ServiceRail />
+          </div>
 
           {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
               die vier Gruende darueber stehen koennen. Er ist ein schlichter

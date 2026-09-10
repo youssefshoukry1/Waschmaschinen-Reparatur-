@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import GravityCTA from "@/components/GravityCTA";
@@ -18,6 +19,12 @@ import ContactForm from "@/components/ContactForm";
 import { BadgeCheck, Banknote, ShieldCheck, Star, Wrench } from "lucide-react";
 import { getTrustSettings } from "@/sanity-reference/lib/trustSettings";
 import { business, districts, publicServices, siteUrl } from "@/lib/business";
+
+// Das Canonical der Startseite - frueher stand es im Root-Layout und wurde
+// dadurch an jede Unterseite ohne eigenes `alternates` weitervererbt.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
@@ -60,6 +67,9 @@ export default async function Home() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    // Feste @id: die elf Bezirksseiten haengen sich als parentOrganization
+    // hier ein, statt zwoelf konkurrierende Betriebe zu beschreiben.
+    "@id": `${siteUrl}/#organization`,
     name: business.name,
     legalName: business.legalName,
     url: siteUrl,
@@ -69,6 +79,13 @@ export default async function Home() {
     logo: `${siteUrl}/images/logo.png`,
     foundingDate: String(business.foundedYear),
     address: { "@type": "PostalAddress", ...business.address },
+    priceRange: "€€",
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
     areaServed: districts.map((name) => ({
       "@type": "AdministrativeArea",
       name,

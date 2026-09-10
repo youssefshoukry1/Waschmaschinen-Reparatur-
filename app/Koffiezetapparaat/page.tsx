@@ -26,7 +26,7 @@ const heroImage = {
   alt: "Explosionszeichnung eines Kaffeevollautomaten: Brühgruppe, Mahlwerk, Pumpe, Durchlauferhitzer, Wassertank und Steuerelektronik",
 };
 
-const title = "Kaffeemaschinen Reparatur Berlin – Kaffeevollautomaten Service & Notdienst";
+const title = "Kaffeemaschinen Reparatur Berlin – Vollautomaten Service";
 const description = `Reparatur, Wartung, Inspektion und Reinigung von Kaffeevollautomaten, Espresso- und Gastronomiemaschinen aller Marken in Berlin. Anfahrt, Fehleranalyse und Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen.`;
 
 export const metadata: Metadata = {
@@ -167,9 +167,16 @@ export default function KaffeemaschinePage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout device-faq-layout--with-why">
-          <BrandRail />
-          <ServiceRail />
+        <div className="device-faq-layout device-faq-layout--with-why device-faq-layout--rail-match">
+          {/* Markenleiste und Servicekarte stehen ab 1200px in einem eigenen
+              Subraster nebeneinander. Dadurch ist die Schleife exakt so hoch
+              wie die rote Karte. Unter 1200px loest sich der Wrapper per
+              `display: contents` wieder auf - am bisherigen Raster aendert
+              sich dort nichts. */}
+          <div className="device-faq-pair">
+            <BrandRail />
+            <ServiceRail />
+          </div>
 
           {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
               die vier Gruende darueber stehen koennen. Er ist ein schlichter

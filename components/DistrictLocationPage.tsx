@@ -35,7 +35,8 @@ export default function DistrictLocationPage({ district }: { district: DistrictL
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": pageUrl,
+    "@id": `${pageUrl}#localbusiness`,
+    parentOrganization: { "@id": `${siteUrl}/#organization` },
     name: `${business.name} – ${district.name}`,
     legalName: business.legalName,
     description: district.metaDescription,
@@ -68,6 +69,7 @@ export default function DistrictLocationPage({ district }: { district: DistrictL
         itemOffered: { "@type": "Service", name, areaServed: `Berlin ${district.name}` },
       })),
     },
+    priceRange: "€€",
     makesOffer: {
       "@type": "Offer",
       name: "Anfahrt inklusive Kostenvoranschlag",

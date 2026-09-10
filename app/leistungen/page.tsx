@@ -26,7 +26,7 @@ const heroImage = {
   alt: "Explosionszeichnung einer Waschmaschine: Trommel, Bottich, Motor, Laugenpumpe, Heizstab, Türmanschette und Steuerelektronik",
 };
 
-const title = "Leistungen – Waschmaschinen Notdienst & Hilfeanleitungen Berlin";
+const title = "Leistungen & Hilfeanleitungen – Haushaltsgeräte Berlin";
 const description = `24-Stunden-Waschmaschinen-Reparatur in Berlin und Umgebung. Technikerbesuch inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${repairGuides.length} Hilfeanleitungen zum Selbstprüfen.`;
 
 export const metadata: Metadata = {
@@ -165,9 +165,16 @@ export default function LeistungenPage() {
             Servicekarte mit der Notrufnummer, rechts die Anleitungen. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout device-faq-layout--with-why">
-          <BrandRail />
-          <ServiceRail />
+        <div className="device-faq-layout device-faq-layout--with-why device-faq-layout--rail-match">
+          {/* Markenleiste und Servicekarte stehen ab 1200px in einem eigenen
+              Subraster nebeneinander. Dadurch ist die Schleife exakt so hoch
+              wie die rote Karte. Unter 1200px loest sich der Wrapper per
+              `display: contents` wieder auf - am bisherigen Raster aendert
+              sich dort nichts. */}
+          <div className="device-faq-pair">
+            <BrandRail />
+            <ServiceRail />
+          </div>
 
           {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
               die vier Gruende darueber stehen koennen. Er ist ein schlichter

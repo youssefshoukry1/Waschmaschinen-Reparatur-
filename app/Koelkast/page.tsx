@@ -26,7 +26,7 @@ const heroImage = {
   alt: "Explosionszeichnung eines Kühlschranks: Innenraum, Verdampfer, Kompressor, Thermostat, Türdichtung und Steuerelektronik",
 };
 
-const title = "Kühlschrank Reparatur Berlin – 24-Stunden-Notdienst für Kühlgeräte";
+const title = "Kühlschrank Reparatur Berlin – Notdienst für Kühlgeräte";
 const description = `Kühlschrank- und Kühlgeräte-Reparatur in Berlin und Umland, rund um die Uhr. Anfahrt inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Ist eine Sofortreparatur nicht möglich, stellen wir kostenlos ein Leihgerät.`;
 
 export const metadata: Metadata = {
@@ -166,9 +166,16 @@ export default function KuehlschrankPage() {
             Servicekarte mit der Notrufnummer, rechts die Fragenliste. Alle drei
             laufen im normalen Fluss mit und scrollen gemeinsam vorbei. Unter
             1025px blenden die beiden Leisten aus und die Liste steht allein. */}
-        <div className="device-faq-layout device-faq-layout--with-why">
-          <BrandRail />
-          <ServiceRail />
+        <div className="device-faq-layout device-faq-layout--with-why device-faq-layout--rail-match">
+          {/* Markenleiste und Servicekarte stehen ab 1200px in einem eigenen
+              Subraster nebeneinander. Dadurch ist die Schleife exakt so hoch
+              wie die rote Karte. Unter 1200px loest sich der Wrapper per
+              `display: contents` wieder auf - am bisherigen Raster aendert
+              sich dort nichts. */}
+          <div className="device-faq-pair">
+            <BrandRail />
+            <ServiceRail />
+          </div>
 
           {/* Der Wrapper uebernimmt nur das Rasterfeld der Fragenliste, damit
               die vier Gruende darueber stehen koennen. Er ist ein schlichter
