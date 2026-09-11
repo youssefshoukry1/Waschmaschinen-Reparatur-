@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import SiteFooter from "@/components/SiteFooter";
 import GravityCTA from "@/components/GravityCTA";
 import ServicesSection from "@/components/ServicesSection";
 import ServiceAreaSection from "@/components/ServiceAreaSection";
 import TrustSection from "@/components/TrustSection";
 import BrandsSection from "@/components/BrandsSection";
 import TroubleshootingSection from "@/components/TroubleshootingSection";
-import { MapConsentResetLink } from "@/components/MapConsent";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import FAQSection from "@/components/FAQSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -294,109 +294,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <footer className="site-footer">
-          <Image
-            className="footer-shape footer-shape--left"
-            src="/images/qlinest/vector-4.svg"
-            alt=""
-            width={320}
-            height={405}
-          />
-          <Image
-            className="footer-shape footer-shape--right"
-            src="/images/qlinest/vector-5.svg"
-            alt=""
-            width={320}
-            height={405}
-          />
-
-          <div className="footer-container">
-            <section
-              className="footer-cta"
-              aria-labelledby="footer-cta-heading"
-            >
-              <div>
-                <p>Unverbindlich &amp; zum Festpreis</p>
-                <AnimatedSectionTitle
-                  id="footer-cta-heading"
-                  parts={[{ text: "Wann dürfen wir Ihr Gerät reparieren?" }]}
-                />
-              </div>
-              <a className="split-hover-cta" href="#contact">
-                <span>
-                  Termin vereinbaren <span aria-hidden="true">↗</span>
-                </span>
-              </a>
-            </section>
-
-            <div className="footer-main">
-              <div className="footer-brand">
-                <a
-                  href="#home"
-                 
-                >
-                  <Image
-                    src="/images/logo.png"
-                    alt=""
-                    width={2172}
-                    height={724}
-                    sizes="(max-width: 575px) 160px, 200px"
-                  />
-                </a>
-                <p>
-                  Waschmaschinen- und Haushaltsgeräte-Reparatur in ganz Berlin –
-                  direkt bei Ihnen vor Ort.
-                </p>
-                <span className="footer-trust">
-                  Mitgliedsbetrieb der {business.chamber.name}
-                </span>
-              </div>
-
-              <nav
-                className="footer-links"
-                aria-label="Navigation im Fußbereich"
-              >
-                <p>Entdecken</p>
-                <a href="#home">Startseite</a>
-                <a href="/leistungen">Leistungen</a>
-                <a href="#einsatzgebiet">Bezirke</a>
-                <a href="#faq">Häufige Fragen</a>
-              </nav>
-
-              <address className="footer-contact">
-                <p>Kontakt</p>
-                <span>
-                  {business.address.streetAddress}
-                  <br />
-                  {business.address.postalCode}{" "}
-                  {business.address.addressLocality}
-                </span>
-                <a href={`tel:${business.telephone}`}>
-                  {business.telephoneDisplay}
-                </a>
-                <a href={`mailto:${business.email}`}>{business.email}</a>
-                <a
-                  href={`https://wa.me/${business.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Nachricht über WhatsApp
-                </a>
-                <span>Inhaber: {business.owner}</span>
-              </address>
-            </div>
-
-            <div className="footer-bottom">
-              <p>&copy; {new Date().getFullYear()} </p>{" "}
-              <nav aria-label="Rechtliche Informationen">
-                <a href="/agb">AGB</a>
-                <a href="/impressum">Impressum</a>
-                <a href="/datenschutz">Datenschutz</a>
-                <MapConsentResetLink />
-              </nav>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
       </main>
 
       <WhatsAppFab />

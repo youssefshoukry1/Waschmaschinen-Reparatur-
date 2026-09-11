@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <><Navbar variant="dark" /><main className={styles.page}>
+    <><Navbar /><main className={styles.page}>
       <article className={styles.content}>
         <p className={styles.eyebrow}>Ihre Daten</p>
         <h1>Datenschutzerklärung</h1>

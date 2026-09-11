@@ -9,13 +9,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/leistungen`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/waschmaschinen-reparatur-berlin`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/einsatzgebiet-berlin`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    // Die sechs Geraeteseiten - jede mit eigenem Canonical und eigenem Service-Schema.
+    // Die Geraeteseiten - jede mit eigenem Canonical und eigenem Service-Schema.
     { url: `${siteUrl}/Afwasmachine`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/Koelkast`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/Magnetron`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/Koffiezetapparaat`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/TV`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/Sprekerstudio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/satellitenanlage`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/gastronomiegeraete`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/trockner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     // Die elf Bezirksseiten kommen aus derselben Liste wie die Seiten selbst.
     ...districtLocations.map((district) => ({
       url: `${siteUrl}${districtPath(district)}`,

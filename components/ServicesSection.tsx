@@ -60,7 +60,7 @@ const services: Service[] = [
   },
   {
     slug: "trockner-reparatur",
-    href: "/leistungen",
+    href: "/trockner",
     title: "Trockner Reparatur",
     description:
       "Wäsche bleibt feucht oder das Gerät bleibt stehen? Wir bringen den Trockner wieder in Gang.",

@@ -77,7 +77,8 @@ export function AnimatedPageTitle({ id, parts }: { id: string; parts: TitlePart[
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setIsVisible(true);
+    const frame = window.requestAnimationFrame(() => setIsVisible(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return (

@@ -18,6 +18,8 @@ const DEVICE_OPTIONS = [
   "Herd oder Backofen",
   "Kaffeemaschine",
   "TV oder Elektronik",
+  "Satellitenanlage",
+  "Gastronomiegeräte",
   "Anderes Gerät",
 ];
 

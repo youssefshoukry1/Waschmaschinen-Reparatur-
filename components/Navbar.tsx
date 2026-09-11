@@ -9,10 +9,13 @@ type ServiceIcon =
   | "washer"
   | "dishwasher"
   | "fridge"
+  | "dryer"
   | "microwave"
   | "coffee"
   | "tv"
-  | "speaker";
+  | "speaker"
+  | "satellite"
+  | "gastronomy";
 
 type ServiceLink = {
   href: string;
@@ -25,7 +28,7 @@ type NavItem =
   | { kind: "link"; href: string; label: string }
   | { kind: "menu"; label: string; items: ServiceLink[] };
 
-/** Die sieben Geraeteseiten - gleiche Reihenfolge wie in der DeviceNav. */
+/** Alle Geraeteseiten - gleiche Reihenfolge wie in der DeviceNav. */
 const serviceLinks: ServiceLink[] = [
   {
     href: "/leistungen",
@@ -47,7 +50,7 @@ const serviceLinks: ServiceLink[] = [
   },
   {
     href: "/Magnetron",
-    label: "Mikrowelle",
+    label: "Herd",
     description: "Magnetron, Türkontakt & Drehteller",
     icon: "microwave",
   },
@@ -65,9 +68,27 @@ const serviceLinks: ServiceLink[] = [
   },
   {
     href: "/Sprekerstudio",
-    label: "Lautsprecher",
+    label: "HiFi",
     description: "Verstärker, Chassis & Verkabelung",
     icon: "speaker",
+  },
+  {
+    href: "/satellitenanlage",
+    label: "Satellitenanlage",
+    description: "Ausrichtung, LNB & Signalprüfung",
+    icon: "satellite",
+  },
+  {
+    href: "/gastronomiegeraete",
+    label: "Gastronomiegeräte",
+    description: "Küche, Theke & Gewerbetechnik",
+    icon: "gastronomy",
+  },
+  {
+    href: "/trockner",
+    label: "Trockner",
+    description: "Heizung, Luftstrom & Sensoren",
+    icon: "dryer",
   },
 ];
 
@@ -115,6 +136,14 @@ function ServiceGlyph({ icon }: { icon: ServiceIcon }) {
           <path d="M5 9.5h14M8 5.75v2M8 12.25v3" />
         </svg>
       );
+    case "dryer":
+      return (
+        <svg {...common}>
+          <rect x="4" y="2.75" width="16" height="18.5" rx="3" />
+          <circle cx="12" cy="14" r="4.75" />
+          <path d="M8 6.25h2M14.5 6.25h1.5M9 14c1.25-1.45 2.75 1.45 4 0s2.25 0 2.25 0" />
+        </svg>
+      );
     case "microwave":
       return (
         <svg {...common}>
@@ -144,6 +173,20 @@ function ServiceGlyph({ icon }: { icon: ServiceIcon }) {
           <rect x="5.5" y="2.75" width="13" height="18.5" rx="2.8" />
           <circle cx="12" cy="15" r="3.4" />
           <circle cx="12" cy="7" r="1.4" />
+        </svg>
+      );
+    case "satellite":
+      return (
+        <svg {...common}>
+          <path d="M5 4.5c5.7 0 10.5 4.8 10.5 10.5A10.5 10.5 0 0 1 5 4.5Z" />
+          <path d="m12.5 12.5 5-5M15 5l4 4M9.5 16.5 7 21M5 21h7" />
+        </svg>
+      );
+    case "gastronomy":
+      return (
+        <svg {...common}>
+          <path d="M6 3v7M3.75 3v4.5A2.25 2.25 0 0 0 6 9.75 2.25 2.25 0 0 0 8.25 7.5V3M6 10v11" />
+          <path d="M15.5 3c-2 2.25-2.5 5.2-1.5 8h3.5V3h-2ZM17.5 11v10" />
         </svg>
       );
   }
@@ -238,9 +281,12 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
 
   /** Beim Seitenwechsel faellt jedes offene Menue zu. */
   useEffect(() => {
-    setMenuOpen(false);
-    setServicesOpen(false);
-    setMobileServicesOpen(false);
+    const frame = window.requestAnimationFrame(() => {
+      setMenuOpen(false);
+      setServicesOpen(false);
+      setMobileServicesOpen(false);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   const servicesActive = serviceLinks.some((service) => service.href === pathname);

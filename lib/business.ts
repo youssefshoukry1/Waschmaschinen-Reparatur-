@@ -78,6 +78,8 @@ export const publicServices = [
   "Herd- & Backofen Reparatur",
   "Kaffeemaschinen Reparatur",
   "TV & Elektronik Reparatur",
+  "Satellitenanlagen Reparatur",
+  "Gastronomiegeräte Reparatur",
 ] as const;
 
 /** Typische Defekte, die vor Ort behoben werden. */

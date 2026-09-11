@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-/** Die sieben Geraeteseiten in der Reihenfolge, in der sie im Hero stehen. */
+/** Alle Geraeteseiten in der Reihenfolge, in der sie im Hero stehen. */
 const devices = [
   ["/leistungen", "Waschmaschine"],
   ["/Afwasmachine", "Spülmaschine"],
@@ -12,12 +12,15 @@ const devices = [
   ["/Koffiezetapparaat", "Kaffeemaschine"],
   ["/TV", "Fernseher"],
   ["/Sprekerstudio", "Lautsprecher"],
+  ["/satellitenanlage", "Satellitenanlage"],
+  ["/gastronomiegeraete", "Gastronomiegeräte"],
+  ["/trockner", "Trockner"],
 ] as const;
 
 /**
  * Kleine Pillen-Navigation unter dem Hero-CTA. Die aktive Seite kommt aus dem
  * Pfad, deshalb braucht die Komponente auf keiner Seite eigene Props. Die
- * Liste laeuft ueber flex-wrap - alle sieben Eintraege bleiben damit auf jeder
+ * Liste laeuft ueber flex-wrap - alle Eintraege bleiben damit auf jeder
  * Breite sichtbar, ohne horizontales Scrollen.
  */
 export default function DeviceNav() {

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function AgbPage() {
   return (
-    <><Navbar variant="dark" /><main className={styles.page}>
+    <><Navbar /><main className={styles.page}>
       <article className={styles.content}>
         <p className={styles.eyebrow}>Rechtliche Informationen</p>
         <h1>Allgemeine Geschäftsbedingungen</h1>

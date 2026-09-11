@@ -2078,7 +2078,7 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 /* ==========================================================================
    Navigation: „Leistungen“-Flyout (Desktop) und Akkordeon (Mobil)
    „Leistungen“ ist kein Link mehr, sondern ein Button - er oeffnet nur noch
-   das Untermenue mit den sieben Geraeteseiten.
+   das Untermenue mit den Geraeteseiten.
    ========================================================================== */
 
 /* Der Trigger erbt die Optik von .navbar__link, muss aber den Button-Reset
@@ -2172,9 +2172,6 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
   padding: 0;
   list-style: none;
 }
-/* Sieben Eintraege auf zwei Spalten: der letzte fuellt die Zeile aus. */
-.navbar__mega-list > li:last-child { grid-column: 1 / -1; }
-
 .navbar__mega-link,
 .navbar__sublink {
   position: relative;
