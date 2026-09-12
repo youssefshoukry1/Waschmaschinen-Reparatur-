@@ -6,15 +6,15 @@ import { usePathname } from "next/navigation";
 /** Alle Geraeteseiten in der Reihenfolge, in der sie im Hero stehen. */
 const devices = [
   ["/leistungen", "Waschmaschine"],
-  ["/Afwasmachine", "Spülmaschine"],
-  ["/Koelkast", "Kühlschrank"],
-  ["/Magnetron", "Herd"],
-  ["/Koffiezetapparaat", "Kaffeemaschine"],
-  ["/TV", "Fernseher"],
-  ["/Sprekerstudio", "Hifi"],
-  ["/satellitenanlage", "Satellitenanlage"],
-  ["/gastronomiegeraete", "Gastronomiegeräte"],
-  ["/trockner", "Trockner"],
+  ["/spuelmaschinen-reparatur-berlin", "Spülmaschine"],
+  ["/kuehlschrank-reparatur-berlin", "Kühlschrank"],
+  ["/herd-backofen-reparatur-berlin", "Herd"],
+  ["/kaffeemaschinen-reparatur-berlin", "Kaffeemaschine"],
+  ["/fernseher-reparatur-berlin", "Fernseher"],
+  ["/hifi-reparatur-berlin", "Hifi"],
+  ["/satellitenanlagen-service-berlin", "Satellitenanlage"],
+  ["/gastronomiegeraete-reparatur-berlin", "Gastronomiegeräte"],
+  ["/waeschetrockner-reparatur-berlin", "Trockner"],
 ] as const;
 
 /**

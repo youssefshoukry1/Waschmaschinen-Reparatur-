@@ -24,11 +24,11 @@ export const business = {
     "Waschmaschinen Reparatur in Berlin – direkt bei Ihnen vor Ort. Kostenvoranschlag vor Ort, 36 Monate Garantie auf die Reparatur.",
   email: "kontakt@waschmaschinen-reparaturdienst-berlin.de",
   /** E.164 für tel:-Links. */
-  telephone: "+493049854326",
+  telephone: "010000000",
   /** Menschenlesbare Schreibweise für die Anzeige. */
-  telephoneDisplay: "030 49854326",
+  telephoneDisplay: "010000000",
   /** Nur Ziffern, ohne +, für wa.me-Links. */
-  whatsapp: "493049854326",
+  whatsapp: "010000000",
   address: {
     streetAddress: "TODO Straße 1",
     postalCode: "10115",

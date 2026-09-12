@@ -1,5 +1,5 @@
 /**
- * Inhalte der Trockner-FAQ auf /trockner.
+ * Inhalte der Trockner-FAQ auf /waeschetrockner-reparatur-berlin.
  *
  * Zuerst die geraetespezifischen Fragen, danach der geraeteuebergreifende
  * Block aus lib/globalFaq.ts.

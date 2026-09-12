@@ -1,5 +1,5 @@
 /**
- * Inhalte der HiFi-FAQ auf /Sprekerstudio.
+ * Inhalte der HiFi-FAQ auf /hifi-reparatur-berlin.
  *
  * Zuerst die geraetespezifischen Fragen, danach der geraeteuebergreifende
  * Block aus lib/globalFaq.ts.

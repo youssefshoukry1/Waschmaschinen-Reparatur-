@@ -37,7 +37,7 @@ export default function ServiceRail() {
       <div className="service-rail__block">
         <p className="service-rail__label">Unsere Notrufnummer:</p>
         <a className="service-rail__phone" href={`tel:${business.telephone}`}>
-          030-4985 43 26
+          {business.telephoneDisplay}
         </a>
         <p>
           Bei Ihnen streikt die Waschmaschine, Trockner, Kühlschrank,

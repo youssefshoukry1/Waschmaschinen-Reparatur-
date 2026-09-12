@@ -33,6 +33,9 @@ a { color: inherit; text-decoration: none; }
 .split-hover-cta:hover::before, .split-hover-cta:hover::after { transform: scale(1, 1); }
 .split-hover-cta:hover { background: var(--cta-hover); color: var(--cta-hover-text); transform: translateY(-2px); }
 
+/* Services hero CTA: black split reveal with white text on hover. */
+.services-hero-cta { --cta-hover: #000; --cta-hover-text: #fff; }
+
 .whatsapp-fab {
   position: fixed;
   z-index: 70;
@@ -250,7 +253,7 @@ a { color: inherit; text-decoration: none; }
 .navbar__wordmark { font-size: 26px; font-weight: 850; line-height: 1; letter-spacing: .08em; text-transform: uppercase; transition: font-size 500ms var(--navbar-ease); }
 .navbar__wordmark-x { color: var(--navbar-accent); }
 .site-header.is-scrolled .navbar__wordmark, .site-header.is-menu-open .navbar__wordmark { font-size: 22px; }
-.navbar__desktop-links { display: none; align-items: center; gap: 20px; }
+.navbar__desktop-links { position: relative; display: none; align-items: center; gap: 20px; }
 .navbar__link { color: var(--navbar-text); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; transition: color 180ms ease; }
 .navbar__link:hover, .navbar__link:focus-visible { color: var(--navbar-accent); }
 .navbar__toggle { position: relative; display: flex; width: 44px; height: 44px; flex: 0 0 auto; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.18); border-radius: 6px; background: transparent; color: white; cursor: pointer; transition: border-color 180ms ease, color 180ms ease; }
@@ -2109,30 +2112,36 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 .navbar__link--trigger[aria-expanded="true"] .navbar__chevron { transform: rotate(180deg); opacity: 1; }
 
 /* --- Desktop-Flyout ------------------------------------------------------ */
-.navbar__dropdown { position: relative; display: none; align-items: center; }
+.navbar__dropdown { position: static; display: none; align-items: center; }
 
 .navbar__flyout {
   position: absolute;
   top: 100%;
-  left: 50%;
+  right: 0;
   z-index: 30;
+  width: min(600px, calc(100vw - 64px));
+  max-height: calc(100svh - 96px);
   /* Die Polsterung ist zugleich die Hover-Bruecke zwischen Trigger und Panel. */
   padding-top: 20px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translate(-50%, 10px);
+  transform: translateY(10px);
   transition: opacity 240ms var(--navbar-ease), transform 240ms var(--navbar-ease), visibility 240ms linear;
 }
 .site-header.is-services-open .navbar__flyout {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .navbar__mega {
-  width: min(90vw, 640px);
+  position: relative;
+  width: 100%;
+  max-height: calc(100svh - 116px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 18px;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 20px;
@@ -2144,8 +2153,8 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
 /* Kleiner Pfeil zum Trigger hoch. */
 .navbar__mega::before {
   position: absolute;
-  top: 13px;
-  left: 50%;
+  top: -7px;
+  right: clamp(190px, 24vw, 238px);
   width: 14px;
   height: 14px;
   border-top: 1px solid rgba(255,255,255,.12);
@@ -2265,6 +2274,23 @@ body:has(.cookie-banner) .whatsapp-fab { bottom: 196px; }
      Animation mit overflow:hidden greift ohnehin nur unter 768px. */
   .navbar { overflow: visible; }
   .navbar__dropdown { display: inline-flex; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navbar__flyout { width: min(540px, calc(100vw - 48px)); }
+  .navbar__mega { padding: 14px; }
+  .navbar__mega-link { gap: 9px; padding: 8px; }
+  .navbar__mega-icon { width: 34px; height: 34px; }
+  .navbar__mega-desc { font-size: 10px; }
+}
+
+@media (max-width: 767px) {
+  .site-header.is-menu-open .navbar__mobile-menu {
+    max-height: calc(100svh - 112px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

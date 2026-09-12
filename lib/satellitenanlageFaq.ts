@@ -1,5 +1,5 @@
 /**
- * Inhalte der Satellitenanlagen-FAQ auf /satellitenanlage.
+ * Inhalte der Satellitenanlagen-FAQ auf /satellitenanlagen-service-berlin.
  *
  * Zuerst die geraetespezifischen Fragen, danach der geraeteuebergreifende
  * Block aus lib/globalFaq.ts.

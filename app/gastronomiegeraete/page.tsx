@@ -31,12 +31,12 @@ const description = `Reparatur von Gastronomiegeräten in Berlin und Umland, run
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/gastronomiegeraete" },
-  openGraph: { title, description, url: "/gastronomiegeraete", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/gastronomiegeraete-reparatur-berlin" },
+  openGraph: { title, description, url: "/gastronomiegeraete-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/gastronomiegeraete`;
+  const pageUrl = `${siteUrl}/gastronomiegeraete-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -141,7 +141,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

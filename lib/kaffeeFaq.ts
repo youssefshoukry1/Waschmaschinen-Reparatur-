@@ -1,5 +1,5 @@
 /**
- * Inhalte der Kaffeemaschinen-FAQ auf /Koffiezetapparaat.
+ * Inhalte der Kaffeemaschinen-FAQ auf /kaffeemaschinen-reparatur-berlin.
  *
  * Reine Daten – die Darstellung übernimmt components/DeviceFaqSection.tsx.
  * Aus derselben Liste wird auch das FAQPage-Schema der Seite erzeugt.

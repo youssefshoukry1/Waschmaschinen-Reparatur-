@@ -1,5 +1,5 @@
 /**
- * Inhalte der Fernseher-FAQ auf /TV.
+ * Inhalte der Fernseher-FAQ auf /fernseher-reparatur-berlin.
  *
  * Reine Daten – die Darstellung übernimmt components/DeviceFaqSection.tsx.
  * Aus derselben Liste wird auch das FAQPage-Schema der Seite erzeugt.

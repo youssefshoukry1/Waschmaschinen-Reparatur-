@@ -1,5 +1,5 @@
 /**
- * Inhalte der Kühlschrank-FAQ auf /Koelkast.
+ * Inhalte der Kühlschrank-FAQ auf /kuehlschrank-reparatur-berlin.
  *
  * Reine Daten – die Darstellung übernimmt components/DeviceFaqSection.tsx.
  * Aus derselben Liste wird auch das FAQPage-Schema der Seite erzeugt.

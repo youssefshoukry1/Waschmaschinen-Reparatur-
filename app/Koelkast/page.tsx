@@ -31,12 +31,12 @@ const description = `Kühlschrank- und Kühlgeräte-Reparatur in Berlin und Umla
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/Koelkast" },
-  openGraph: { title, description, url: "/Koelkast", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/kuehlschrank-reparatur-berlin" },
+  openGraph: { title, description, url: "/kuehlschrank-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function KuehlschrankPage() {
-  const pageUrl = `${siteUrl}/Koelkast`;
+  const pageUrl = `${siteUrl}/kuehlschrank-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -141,7 +141,7 @@ export default function KuehlschrankPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

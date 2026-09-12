@@ -31,12 +31,12 @@ const description = `Trockner-Reparatur in Berlin und Umland, rund um die Uhr. A
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/trockner" },
-  openGraph: { title, description, url: "/trockner", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/waeschetrockner-reparatur-berlin" },
+  openGraph: { title, description, url: "/waeschetrockner-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/trockner`;
+  const pageUrl = `${siteUrl}/waeschetrockner-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -141,7 +141,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

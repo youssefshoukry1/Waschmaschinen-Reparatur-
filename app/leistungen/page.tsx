@@ -140,7 +140,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

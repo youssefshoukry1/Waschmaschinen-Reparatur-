@@ -31,12 +31,12 @@ const description = `Geschirrspüler- und Spülmaschinen-Reparatur in Berlin und
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/Afwasmachine" },
-  openGraph: { title, description, url: "/Afwasmachine", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/spuelmaschinen-reparatur-berlin" },
+  openGraph: { title, description, url: "/spuelmaschinen-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/Afwasmachine`;
+  const pageUrl = `${siteUrl}/spuelmaschinen-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -140,7 +140,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

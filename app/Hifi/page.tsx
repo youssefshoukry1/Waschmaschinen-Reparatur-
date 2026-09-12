@@ -14,37 +14,37 @@ import ServiceRail from "@/components/ServiceRail";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import WhyChooseInline from "@/components/WhyChooseSection";
 import { business, siteUrl } from "@/lib/business";
-import { microwaveFaqs } from "@/lib/mikrowelleFaq";
+import { speakerFaqs } from "@/lib/lautsprecherFaq";
 
 const ctaPatternLeft = "/images/qlinest/vector-4.svg";
 const ctaPatternRight = "/images/qlinest/vector-5.svg";
 
 /** Die Explosionszeichnung des Geraets. Sie steht auf jeder Breite im Hero. */
 const heroImage = {
-  src: "/images/microwave.png",
-  alt: "Explosionszeichnung einer Mikrowelle: Garraum, Magnetron, Hochspannungstrafo, Drehteller, Türverriegelung und Steuerelektronik",
+  src: "/images/img16.png",
+  alt: "Explosionszeichnung eines Lautsprechers: Hochtöner, Tiefmitteltöner, Frequenzweiche, Bassreflexrohr und Gehäuse",
 };
 
-const title = "Mikrowellen Reparatur Berlin – Notdienst vor Ort";
-const description = `Mikrowellen-Reparatur in Berlin und Umland, rund um die Uhr. Anfahrt inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${microwaveFaqs.length} häufige Fragen und Antworten rund um die Mikrowelle.`;
+const title = "Lautsprecher Reparatur Berlin – HiFi & Boxen Service";
+const description = `Lautsprecher-, Boxen- und HiFi-Reparatur in Berlin und Umland. Anfahrt inklusive Kostenvoranschlag für nur ${business.calloutFee} € – ohne Zuschlag an Wochenenden und Feiertagen. Dazu ${speakerFaqs.length} häufige Fragen und Antworten rund um Lautsprecher und Boxen.`;
 
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/Magnetron" },
-  openGraph: { title, description, url: "/Magnetron", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/hifi-reparatur-berlin" },
+  openGraph: { title, description, url: "/hifi-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/Magnetron`;
+  const pageUrl = `${siteUrl}/hifi-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Mikrowellen Reparatur Notdienst Berlin",
+    name: "Lautsprecher Reparatur Notdienst Berlin",
     description,
     url: pageUrl,
-    serviceType: "Mikrowellen Reparatur",
+    serviceType: "Lautsprecher Reparatur",
     provider: {
       "@type": "LocalBusiness",
       name: business.name,
@@ -71,7 +71,7 @@ export default function LeistungenPage() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: microwaveFaqs.map((faq) => ({
+    mainEntity: speakerFaqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -83,7 +83,7 @@ export default function LeistungenPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Startseite", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Mikrowellen Reparatur", item: pageUrl },
+      { "@type": "ListItem", position: 2, name: "Lautsprecher Reparatur", item: pageUrl },
     ],
   };
 
@@ -94,7 +94,7 @@ export default function LeistungenPage() {
       <JsonLd data={breadcrumbs} />
       <Navbar />
       <main className="page-shell">
-        <section className="hero hero--diagram" id="notdienst" aria-labelledby="mikrowelle-heading">
+        <section className="hero hero--diagram" id="notdienst" aria-labelledby="lautsprecher-heading">
           <svg
             className="hero-pattern"
             aria-hidden="true"
@@ -114,18 +114,18 @@ export default function LeistungenPage() {
 
           <div className="hero-inner">
             <div className="hero-content">
-              <p className="hero-kicker">Mikrowellen-Reparatur · Berlin &amp; Umland</p>
+              <p className="hero-kicker">Lautsprecher &amp; HiFi · Berlin &amp; Umland</p>
               <AnimatedPageTitle
-                id="mikrowelle-heading"
+                id="lautsprecher-heading"
                 parts={[
-                  { text: "Mikrowellen Reparatur " },
-                  { text: "rund um die Uhr", emphasized: true },
+                  { text: "Lautsprecher & HiFi " },
+                  { text: "Reparatur", emphasized: true },
                 ]}
               />
               <p className="hero-description">
-                Gerät wird nicht mehr warm, der Drehteller steht still oder es funkt im Garraum?
-                Magnetron, Hochspannungskondensator und Türschalter gehören in Fachhände – wir prüfen
-                und reparieren sicher.
+                Kratzen, Brummen oder ein stummer Kanal? Wir erneuern defekte Chassis und Sicken und
+                prüfen Frequenzweiche, Endstufe und Netzteil – bei Regal- und Standlautsprechern,
+                Studiomonitoren und Soundbars.
               </p>
 
               <div className="hero-callout">
@@ -141,7 +141,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>
@@ -181,18 +181,18 @@ export default function LeistungenPage() {
               Block ohne eigene Groessen - an der Fragenliste aendert sich
               dadurch nichts. */}
           <div className="device-faq-column">
-            <WhyChooseInline idPrefix="magnetron" />
+            <WhyChooseInline idPrefix="sprekerstudio" />
 
             <DeviceFaqSection
               id="haeufige-fragen"
-              heading="Häufige Fragen zu Ihrer Mikrowelle."
-              lead="Kein Betrieb oder Speisen, die nicht mehr richtig warm werden – die wichtigsten Antworten auf einen Blick."
-              items={microwaveFaqs}
+              heading="Häufige Fragen zu Ihren Lautsprechern."
+              lead="Typische Störungen und die Reparaturleistungen für Lautsprecher und Boxen auf einen Blick."
+              items={speakerFaqs}
             />
           </div>
         </div>
 
-        <ContactSection headingId="mikrowelle-contact-heading" />
+        <ContactSection headingId="lautsprecher-contact-heading" />
 
         <section className="booking-banner" aria-labelledby="leistungen-banner-heading">
           <Image

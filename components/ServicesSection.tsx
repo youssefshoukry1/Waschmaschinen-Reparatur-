@@ -29,7 +29,7 @@ type Service = {
 const services: Service[] = [
   {
     slug: "waschmaschinen-reparatur",
-    href: "/leistungen",
+    href: "/waschmaschinen-reparatur-berlin",
     title: "Waschmaschinen Reparatur",
     description:
       "Pumpe, Trommel, Heizung oder Elektronik – wir reparieren vor Ort in ganz Berlin.",
@@ -40,7 +40,7 @@ const services: Service[] = [
   },
   {
     slug: "kuehlschrank-reparatur",
-    href: "/Koelkast",
+    href: "/kuehlschrank-reparatur-berlin",
     title: "Kühlschrank Reparatur",
     description:
       "Gerät kühlt nicht mehr oder vereist? Wir prüfen Kompressor, Thermostat und Dichtung.",
@@ -50,7 +50,7 @@ const services: Service[] = [
   },
   {
     slug: "spuelmaschinen-reparatur",
-    href: "/Afwasmachine",
+    href: "/spuelmaschinen-reparatur-berlin",
     title: "Spülmaschinen Reparatur",
     description:
       "Kein Wasserzulauf, schlechtes Spülergebnis oder Fehlercode – schnell behoben.",
@@ -60,17 +60,37 @@ const services: Service[] = [
   },
   {
     slug: "trockner-reparatur",
-    href: "/trockner",
+    href: "/waeschetrockner-reparatur-berlin",
     title: "Trockner Reparatur",
     description:
       "Wäsche bleibt feucht oder das Gerät bleibt stehen? Wir bringen den Trockner wieder in Gang.",
     icon: "dryer",
-    image: "/images/repair/img1.png",
+    image: "/images/repair/img25.png",
     imageAlt: "Wäschetrockner wird repariert",
   },
   {
+    slug: "gastronomiegeraete-reparatur",
+    href: "/gastronomiegeraete-reparatur-berlin",
+    title: "Gastronomiegeräte Reparatur",
+    description:
+      "Kühlung, Spültechnik oder Küchengerät defekt? Wir reparieren Gastronomiegeräte direkt in Ihrem Betrieb.",
+    icon: "oven",
+    image: "/images/repair/img26.png",
+    imageAlt: "Gastronomiegerät wird repariert",
+  },
+  {
+    slug: "satellitenanlage-reparatur",
+    href: "/satellitenanlagen-service-berlin",
+    title: "Satellitenanlagen Reparatur",
+    description:
+      "Kein Signal oder schlechter Empfang? Wir reparieren, richten aus und richten Ihre Satellitenanlage ein.",
+    icon: "tv",
+    image: "/images/repair/img24.png",
+    imageAlt: "Satellitenanlage wird repariert und ausgerichtet",
+  },
+  {
     slug: "herd-backofen-reparatur",
-    href: "/Magnetron",
+    href: "/herd-backofen-reparatur-berlin",
     title: "Herd & Backofen Reparatur",
     description:
       "Cerankochfeld, Heizspirale oder Thermostat – Reparatur mit Original-Ersatzteilen.",
@@ -80,7 +100,7 @@ const services: Service[] = [
   },
   {
     slug: "kaffeemaschinen-reparatur",
-    href: "/Koffiezetapparaat",
+    href: "/kaffeemaschinen-reparatur-berlin",
     title: "Kaffeemaschinen Reparatur",
     description:
       "Vollautomat entkalken, Brühgruppe tauschen oder Pumpe erneuern – schnell erledigt.",
@@ -90,7 +110,7 @@ const services: Service[] = [
   },
   {
     slug: "tv-elektronik-reparatur",
-    href: "/TV",
+    href: "/fernseher-reparatur-berlin",
     title: "TV & Elektronik Reparatur",
     description:
       "Kein Bild, kein Ton oder Streifen im Display? Wir prüfen Netzteil, Panel und Platine.",

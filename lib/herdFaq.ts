@@ -1,5 +1,5 @@
 /**
- * Inhalte der Herd- und Backofen-FAQ auf /Magnetron.
+ * Inhalte der Herd- und Backofen-FAQ auf /herd-backofen-reparatur-berlin.
  *
  * Zuerst die geraetespezifischen Fragen, danach der geraeteuebergreifende
  * Block aus lib/globalFaq.ts.

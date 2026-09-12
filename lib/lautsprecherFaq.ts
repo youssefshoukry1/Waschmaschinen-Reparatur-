@@ -1,5 +1,5 @@
 /**
- * Inhalte der Lautsprecher-FAQ auf /Sprekerstudio.
+ * Inhalte der Lautsprecher-FAQ auf /hifi-reparatur-berlin.
  *
  * Reine Daten – die Darstellung übernimmt components/DeviceFaqSection.tsx.
  * Aus derselben Liste wird auch das FAQPage-Schema der Seite erzeugt.

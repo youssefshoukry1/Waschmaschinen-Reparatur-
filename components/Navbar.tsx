@@ -31,61 +31,61 @@ type NavItem =
 /** Alle Geraeteseiten - gleiche Reihenfolge wie in der DeviceNav. */
 const serviceLinks: ServiceLink[] = [
   {
-    href: "/leistungen",
+    href: "/waschmaschinen-reparatur-berlin",
     label: "Waschmaschine",
     description: "Pumpe, Trommel, Heizung & Elektronik",
     icon: "washer",
   },
   {
-    href: "/Afwasmachine",
+    href: "/spuelmaschinen-reparatur-berlin",
     label: "Spülmaschine",
     description: "Zulauf, Spülergebnis & Fehlercodes",
     icon: "dishwasher",
   },
   {
-    href: "/Koelkast",
+    href: "/kuehlschrank-reparatur-berlin",
     label: "Kühlschrank",
     description: "Kompressor, Thermostat & Dichtung",
     icon: "fridge",
   },
   {
-    href: "/Magnetron",
+    href: "/herd-backofen-reparatur-berlin",
     label: "Herd",
     description: "Magnetron, Türkontakt & Drehteller",
     icon: "microwave",
   },
   {
-    href: "/Koffiezetapparaat",
+    href: "/kaffeemaschinen-reparatur-berlin",
     label: "Kaffeemaschine",
     description: "Brühgruppe, Pumpe & Entkalkung",
     icon: "coffee",
   },
   {
-    href: "/TV",
+    href: "/fernseher-reparatur-berlin",
     label: "Fernseher",
     description: "Netzteil, Panel & Platine",
     icon: "tv",
   },
   {
-    href: "/Sprekerstudio",
+    href: "/hifi-reparatur-berlin",
     label: "HiFi",
     description: "Verstärker, Chassis & Verkabelung",
     icon: "speaker",
   },
   {
-    href: "/satellitenanlage",
+    href: "/satellitenanlagen-service-berlin",
     label: "Satellitenanlage",
     description: "Ausrichtung, LNB & Signalprüfung",
     icon: "satellite",
   },
   {
-    href: "/gastronomiegeraete",
+    href: "/gastronomiegeraete-reparatur-berlin",
     label: "Gastronomiegeräte",
     description: "Küche, Theke & Gewerbetechnik",
     icon: "gastronomy",
   },
   {
-    href: "/trockner",
+    href: "/waeschetrockner-reparatur-berlin",
     label: "Trockner",
     description: "Heizung, Luftstrom & Sensoren",
     icon: "dryer",
@@ -309,7 +309,7 @@ export default function Navbar({ variant = "default" }: { variant?: "default" | 
       <nav className="navbar" aria-label="Hauptnavigation">
         <div className="navbar__row">
           <Link className="navbar__brand" href="/#home">
-            <Image className="navbar__logo" src="/images/logo.png" alt={'ALEX_LOGO'} width={2172} height={724} sizes="(max-width: 767px) 160px, 220px" priority />
+            <Image className="navbar__logo" src="/images/logo2.png" alt={'ALEX_LOGO'} width={2172} height={724} sizes="(max-width: 767px) 160px, 220px" priority />
 
           </Link>
 

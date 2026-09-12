@@ -1,5 +1,5 @@
 /**
- * Inhalte der Gastronomiegeraete-FAQ auf /gastronomiegeraete.
+ * Inhalte der Gastronomiegeräte-FAQ auf /gastronomiegeraete-reparatur-berlin.
  *
  * Zuerst die geraetespezifischen Fragen, danach der geraeteuebergreifende
  * Block aus lib/globalFaq.ts.

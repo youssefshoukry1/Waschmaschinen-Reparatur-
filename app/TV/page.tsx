@@ -34,18 +34,18 @@ const description = `TV- und Fernseher-Reparatur in Berlin und Umland, rund um d
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/TV" },
+  alternates: { canonical: "/fernseher-reparatur-berlin" },
   openGraph: {
     title,
     description,
-    url: "/TV",
+    url: "/fernseher-reparatur-berlin",
     locale: "de_DE",
     type: "website",
   },
 };
 
 export default function LeistungenPage() {
-  const pageUrl = `${siteUrl}/TV`;
+  const pageUrl = `${siteUrl}/fernseher-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -172,7 +172,7 @@ export default function LeistungenPage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>

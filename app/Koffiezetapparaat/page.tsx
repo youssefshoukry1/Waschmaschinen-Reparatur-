@@ -31,12 +31,12 @@ const description = `Reparatur, Wartung, Inspektion und Reinigung von Kaffeevoll
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/Koffiezetapparaat" },
-  openGraph: { title, description, url: "/Koffiezetapparaat", locale: "de_DE", type: "website" },
+  alternates: { canonical: "/kaffeemaschinen-reparatur-berlin" },
+  openGraph: { title, description, url: "/kaffeemaschinen-reparatur-berlin", locale: "de_DE", type: "website" },
 };
 
 export default function KaffeemaschinePage() {
-  const pageUrl = `${siteUrl}/Koffiezetapparaat`;
+  const pageUrl = `${siteUrl}/kaffeemaschinen-reparatur-berlin`;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -142,7 +142,7 @@ export default function KaffeemaschinePage() {
 
               <div className="hero-actions">
                 <div className="hero-cta-buttons">
-                  <a className="primary-cta split-hover-cta" href="#contact">
+                  <a className="primary-cta split-hover-cta services-hero-cta" href="#contact">
                     <span>Rückruf anfragen</span>
                   </a>
                 </div>
